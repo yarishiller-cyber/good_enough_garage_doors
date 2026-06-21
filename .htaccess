@@ -1,0 +1,61 @@
+# Good Enough Garage Doors — Hostinger (Apache). HTTPS + canonical host, gzip,
+# smart caching (HTML uncached, assets long+versioned), and protect internals.
+
+# ---- Force HTTPS ----
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ---- Canonical host: non-www -> root domain ----
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# ---- Pretty: allow /page to serve /page.html (optional clean URLs) ----
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^.]+)$ $1.html [L]
+
+# ---- Protect internal / brain files ----
+RedirectMatch 404 ^/_shared/
+RedirectMatch 404 ^/_build/
+RedirectMatch 404 ^/\.leads\.log
+<FilesMatch "\.(md|mjs|sh|gitmodules|log)$">
+  Require all denied
+</FilesMatch>
+# Block JSON except the public web manifest + site-config is not served anyway
+<FilesMatch "\.json$">
+  Require all denied
+</FilesMatch>
+<Files "site.webmanifest">
+  Require all granted
+</Files>
+
+# ---- Gzip ----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json application/x-php
+</IfModule>
+
+# ---- Caching: HTML must revalidate; static assets long + immutable (we version with ?v=) ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp        "access plus 1 year"
+  ExpiresByType image/jpeg        "access plus 1 year"
+  ExpiresByType image/png         "access plus 1 year"
+  ExpiresByType image/svg+xml     "access plus 1 year"
+  ExpiresByType text/css          "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/html         "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpg|jpeg|png|svg|css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+ErrorDocument 404 /404.html

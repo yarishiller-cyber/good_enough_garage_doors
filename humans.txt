@@ -1,0 +1,10 @@
+/* TEAM */
+  Good Enough Garage Doors — a genuinely good company with a humble name.
+  Serving all of Greater Vancouver, BC.
+  Contact: info@goodenoughgaragedoors.ca
+
+/* SITE */
+  Standards: HTML5, CSS3, vanilla JS
+  Stack: static HTML/CSS/JS, no build step, Motion (motion.dev) for animation
+  Imagery: generated locally for Metro Vancouver
+  "Good enough" is an understatement.

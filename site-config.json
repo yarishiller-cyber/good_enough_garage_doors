@@ -1,0 +1,87 @@
+{
+  "_comment": "Good Enough Garage Doors — source of truth for the static site generator (_build/build.mjs). Keep DISTINCT from sibling fleet sites. See _shared/playbooks/SITE-REQUIREMENTS.md.",
+
+  "brandName": "Good Enough Garage Doors",
+  "brandShort": "Good Enough",
+  "domain": "goodenoughgaragedoors.ca",
+  "siteUrl": "https://goodenoughgaragedoors.ca",
+  "repo": "good_enough_garage_doors",
+
+  "coverage": "gva-wide",
+  "serviceFocus": null,
+  "town": "Greater Vancouver",
+  "region": "BC",
+  "coverageTowns": ["Vancouver", "Burnaby", "Surrey", "Richmond", "Coquitlam"],
+  "allAreasServed": ["Vancouver", "Burnaby", "Surrey", "Richmond", "Coquitlam", "Port Coquitlam", "Port Moody", "New Westminster", "North Vancouver", "West Vancouver", "Delta", "Langley", "Maple Ridge", "Pitt Meadows", "White Rock"],
+  "geo": { "lat": 49.2488, "lng": -122.9805 },
+
+  "email": "info@goodenoughgaragedoors.ca",
+  "phone": "778-800-0769",
+  "phoneIntl": "+17788000769",
+  "phoneDisplay": "(778) 800-0769",
+  "hours": "Mo-Su 07:00-21:00",
+  "hoursDisplay": "7 days a week, 7am–9pm. After-hours? We text you back.",
+  "priceRange": "$$",
+
+  "emphasis": "residential",
+  "primaryKeyword": "garage door repair Greater Vancouver",
+
+  "voice": "humble over-deliverer — under-promise, over-deliver, value-forward; 'Good enough' is an understatement",
+  "signatureHook": "'Good enough' is an understatement.",
+
+  "design": {
+    "layoutVariant": "layout-b",
+    "tokens": {
+      "--brand": "#6b3fa0",
+      "--brand-dark": "#4f2d7a",
+      "--brand-darker": "#34204f",
+      "--brand-light": "#f1ebf8",
+      "--accent": "#e0a82e",
+      "--accent-dark": "#a9781a",
+      "--accent-rgb": "224,168,46",
+      "--brand-rgb": "107,63,160"
+    },
+    "fonts": {
+      "head": "\"Bricolage Grotesque\", system-ui, sans-serif",
+      "body": "\"Inter\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+      "googleHref": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
+    },
+    "motionPersonality": "warm + measured — soft slower reveals, gentle stagger, a calm parallax; nothing flashy (matches the humble voice)"
+  },
+
+  "imagery": {
+    "styleBlock": "photorealistic documentary photography, shot on 35mm, natural Pacific-Northwest daylight, soft bright overcast, realistic skin texture and worn materials, candid, true-to-life ordinary working people, slight film grain, no studio lighting, no retouching, no glamour",
+    "brandBlock": "the crew wears deep plum-purple work jackets with a small warm-sand chest logo and plum ball caps; the service van is a recent Ford Transit cleanly wrapped in deep plum purple with a warm sand/gold stripe, brand name 'GOOD ENOUGH GARAGE DOORS' on the side and 'info@goodenoughgaragedoors.ca' below it, BC licence plate; brand colours are plum purple (#6b3fa0) and warm sand gold (#e0a82e)",
+    "vanRef": "assets/brand/van-ref.png",
+    "rules": "real average blue-collar Metro-Vancouver people (not models), Lower-Mainland homes & streets, EMAIL on the wrap only — NEVER a phone number, minimal wrap text"
+  },
+
+  "springPricing": {
+    "currency": "CAD",
+    "serviceCall": "39",
+    "tiers": [
+      { "id": "single", "label": "Single spring replacement", "price": "189", "sub": "One broken torsion spring, replaced with a new pro-grade spring.", "includes": ["Free safety inspection", "Workmanship warranty"], "featured": false },
+      { "id": "pair", "label": "Two springs + new cables", "price": "329", "sub": "Both springs replaced in a balanced pair — the honest fix that lasts.", "includes": ["New cables — free", "Free safety inspection", "Workmanship warranty"], "featured": true },
+      { "id": "highcycle", "label": "Two high-cycle springs", "price": "419", "sub": "Premium longer-life springs (roughly double the cycles) for busy doors.", "includes": ["New cables — free", "Free safety inspection", "Longer-life springs", "Workmanship warranty"], "featured": false }
+    ],
+    "freeWithEveryJob": ["Free cables on both 2-spring tiers", "Free safety inspection on every spring job"]
+  },
+
+  "openerPricing": {
+    "_note": "Value-forward, installed prices. Distinct from sibling sites.",
+    "2220L": "499", "6580L": "649", "98022L": "749",
+    "2420L": "549", "4690": "429", "6690L": "699", "98032L": "799"
+  },
+
+  "partnerProgram": {
+    "enabled": true,
+    "headline": "We get more calls than we can take. Let's share the overflow.",
+    "fields": ["name", "company", "trade", "serviceArea", "phone", "email", "notes"]
+  },
+
+  "trust": {
+    "ratingNote": "We send a Google review request after every job — and reply to every review.",
+    "licence": "Licensed (business licence), insured & WorkSafeBC-covered",
+    "yearsNote": "Locally owned. Canadian-owned. Real people who answer the phone."
+  }
+}
