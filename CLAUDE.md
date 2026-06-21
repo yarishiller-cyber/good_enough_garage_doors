@@ -20,9 +20,18 @@ is the site-specific layer. Source of truth for content/tokens/pricing is `site-
   - `node _build/build.mjs` → regenerates all `*.html` + `sitemap.xml` from `site-config.json`.
   - `GEMINI_API_KEY=$GEMINI_API_KEY node _build/gen-images.mjs` → idempotent Nano Banana image
     batch (van-ref anchor + every page hero, plum van/sand uniform consistent via `--ref`).
-  - `node _build/shoot.mjs` / `shoot2.mjs` → puppeteer QA screenshots (needs `npm i puppeteer`).
+  - `node _build/gen-avif.mjs` → AVIF siblings for every hero webp (LCP win) + raster logo (`sharp`).
+  - `node _build/fonts.mjs` → re-download self-hosted latin woff2 (Inter + Bricolage, in `assets/fonts/`).
+  - `node _build/shoot.mjs` / `shoot2.mjs` / `audit.mjs` → puppeteer QA (needs `npm i puppeteer`).
 - Edit copy/pricing/areas in `site-config.json` or `_build/build.mjs`, then re-run `build.mjs`.
 - **Bump `ASSET_V` in `build.mjs`** whenever CSS/JS changes (cache-busting `?v=`).
+- **Performance baked in:** AVIF→WebP `<picture>` on every hero (incl. interior `.pagehead`), hero
+  preloaded + `fetchpriority=high`, self-hosted variable fonts (no Google CDN) preloaded, lazy +
+  `decoding=async` below the fold, `robots max-image-preview:large`, `.htaccess` Brotli + 1yr immutable.
+- **Schema:** business `@graph` has logo, image[], hasOfferCatalog, geo, areaServed, hours; service +
+  city pages add `WebPage` with `dateModified` + a visible "Updated <month>" byline (freshness for AI).
+- **A11y:** footer price toggle + FAQ are native `<details>` (work with JS off); plum focus ring (AA);
+  scroll-padding for sticky header; form `autocomplete`/`inputmode`; AA-safe `--accent-dark` for text.
 
 ## Features wired (per `_shared/playbooks/SITE-REQUIREMENTS.md`)
 - Floating call+text sticky bar (mobile) on every page; sticky topbar call/text on desktop.
