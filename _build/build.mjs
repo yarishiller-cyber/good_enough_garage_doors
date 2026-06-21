@@ -8,7 +8,9 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260621";
+const ASSET_V = "20260621b";
+const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
+const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
 const TEL = C.phoneIntl;
 const SMS_BODY = encodeURIComponent("Hi Good Enough Garage Doors — I need help with my garage door. My name is ");
@@ -295,6 +297,15 @@ const reviews = [
 const navServices = services.map((s) => `<a href="/${s.slug}.html">${s.nav}</a>`).join("");
 const navAreas = cities.map((c) => `<a href="/service-areas/${c.slug}.html">${c.name}</a>`).join("");
 
+// Interior page-hero background as <picture> (AVIF→WebP), eager + high priority (it's the LCP).
+function pageheadBg(name) {
+  return `<picture>
+      <source type="image/avif" srcset="/assets/img/${name}-1200.avif">
+      <source type="image/webp" srcset="/assets/img/${name}-1200.webp">
+      <img class="pagehead__bg" src="/assets/img/${name}-1200.webp" alt="" aria-hidden="true" width="1200" height="480" fetchpriority="high" decoding="async">
+    </picture>`;
+}
+
 function head(o) {
   const canon = BASE + o.path;
   const ogImg = `${BASE}/assets/img/${o.ogImg || "hero-desktop"}.webp`;
@@ -306,19 +317,24 @@ function head(o) {
 <title>${esc(o.title)}</title>
 <meta name="description" content="${esc(o.desc)}">
 <link rel="canonical" href="${canon}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="theme-color" content="#4f2d7a">
+<meta name="color-scheme" content="light">
+<meta name="author" content="${esc(C.brandName)}">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_CA">
 <meta property="og:site_name" content="${esc(C.brandName)}">
 <meta property="og:title" content="${esc(o.title)}">
 <meta property="og:description" content="${esc(o.desc)}">
 <meta property="og:url" content="${canon}">
 <meta property="og:image" content="${ogImg}">
+<meta property="og:image:alt" content="${esc(o.ogAlt || C.brandName + " — garage door service across Greater Vancouver")}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="${C.design.fonts.googleHref}">
-${o.preload ? `<link rel="preload" as="image" href="${o.preload}" fetchpriority="high">` : ""}
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bricolage-grotesque.woff2" crossorigin>
+${o.preload ? `<link rel="preload" as="image" type="image/avif" href="${o.preload}" fetchpriority="high">` : ""}
 <link rel="stylesheet" href="/styles.css?v=${ASSET_V}">
 ${o.jsonld ? `<script type="application/ld+json">${JSON.stringify(o.jsonld)}</script>` : ""}
 </head>
@@ -367,12 +383,11 @@ function stickyCta() {
 
 function priceReveal() {
   const rows = C.springPricing.tiers.map((t) => `<tr><td>${esc(t.label)}</td><td>$${t.price}</td></tr>`).join("");
+  // Native <details>: opens with zero JS, accessible by default (fixes the no-JS hidden-panel bug).
   return `
-<div class="price-reveal">
-  <button class="price-reveal__btn" id="priceToggle" aria-expanded="false" aria-controls="pricePanel">
-    ${I.dollar} See our spring prices
-  </button>
-  <div class="price-reveal__panel" id="pricePanel" hidden>
+<details class="price-reveal" id="priceReveal">
+  <summary id="priceToggle">${I.dollar} See our spring prices</summary>
+  <div class="price-reveal__panel" id="pricePanel">
     <p style="margin:.6rem 0 .8rem;color:rgba(255,255,255,.8);font-size:.9rem">Honest, published spring-repair pricing — the number we quote is the number you pay. Free cables on both pairs, free safety inspection on every job.</p>
     <table class="price-table">
       <thead><tr><th>Service</th><th style="text-align:right">From</th></tr></thead>
@@ -380,7 +395,7 @@ function priceReveal() {
     </table>
     <p style="margin-top:.8rem"><a href="/garage-door-spring-repair.html" style="color:var(--accent);font-weight:700">See full spring pricing &amp; tiers →</a></p>
   </div>
-</div>`;
+</details>`;
 }
 
 function footer() {
@@ -561,17 +576,26 @@ const businessNode = {
   "@type": "HomeAndConstructionBusiness",
   "@id": `${BASE}/#business`,
   name: C.brandName,
-  image: `${BASE}/assets/img/hero-desktop.webp`,
+  legalName: C.brandName,
+  slogan: C.signatureHook,
+  image: [`${BASE}/assets/img/hero-desktop.webp`, `${BASE}/assets/img/about.webp`, `${BASE}/assets/img/new-door.webp`],
+  logo: `${BASE}/assets/img/logo-512.png`,
   url: `${BASE}/`,
   telephone: TEL,
   email: C.email,
   priceRange: C.priceRange,
-  description: "Garage door repair and installation across Greater Vancouver — springs, openers, cables, off-track doors and new doors. Honest upfront pricing.",
+  currenciesAccepted: "CAD",
+  paymentAccepted: "Cash, Credit Card, Debit, e-Transfer",
+  description: "Garage door repair and installation across Greater Vancouver — springs, openers, cables, off-track doors and new doors. Honest upfront pricing, licensed (business licence), insured & WorkSafeBC-covered.",
   address: { "@type": "PostalAddress", addressLocality: "Coquitlam", addressRegion: "BC", addressCountry: "CA" },
   geo: { "@type": "GeoCoordinates", latitude: C.geo.lat, longitude: C.geo.lng },
   areaServed: C.allAreasServed.map((n) => ({ "@type": "City", name: n })),
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "07:00", closes: "21:00" }],
   knowsAbout: ["garage door spring repair", "garage door opener installation", "garage door cable repair", "off-track garage door repair", "new garage door installation"],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog", name: "Garage door services",
+    itemListElement: services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s.title, url: `${BASE}/${s.slug}.html` } })),
+  },
 };
 function breadcrumb(items) {
   return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it[0], item: BASE + it[1] })) };
@@ -631,9 +655,11 @@ function page(path, html) { PAGES.push([path, html]); }
     <div class="hero__media" data-reveal="left" data-reveal-delay="0.1">
       <div class="hero__frame">
         <picture>
-          <source media="(max-width:760px)" srcset="/assets/img/hero-mobile-960.webp 960w, /assets/img/hero-mobile-480.webp 480w" sizes="100vw">
-          <source media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.webp 1600w, /assets/img/hero-desktop-960.webp 960w" sizes="(min-width:761px) 50vw, 100vw">
-          <img src="/assets/img/hero-desktop-960.webp" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high">
+          <source type="image/avif" media="(max-width:760px)" srcset="/assets/img/hero-mobile-960.avif 960w, /assets/img/hero-mobile-480.avif 480w" sizes="100vw">
+          <source type="image/webp" media="(max-width:760px)" srcset="/assets/img/hero-mobile-960.webp 960w, /assets/img/hero-mobile-480.webp 480w" sizes="100vw">
+          <source type="image/avif" media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.avif 1600w, /assets/img/hero-desktop-960.avif 960w" sizes="(min-width:761px) 50vw, 100vw">
+          <source type="image/webp" media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.webp 1600w, /assets/img/hero-desktop-960.webp 960w" sizes="(min-width:761px) 50vw, 100vw">
+          <img src="/assets/img/hero-desktop-960.webp" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero__stars"><span class="s">${stars(5)}</span> Reviewed on Google</div>
@@ -660,7 +686,7 @@ function page(path, html) { PAGES.push([path, html]); }
         </div>
       </div>
       <div data-reveal="left">
-        <div class="figframe zoom-frame"><img src="/assets/img/about.webp" loading="lazy" width="1200" height="750" alt="Two Good Enough Garage Doors technicians beside the plum service van in Greater Vancouver"></div>
+        <div class="figframe zoom-frame"><img src="/assets/img/about.webp" loading="lazy" decoding="async" width="1200" height="750" alt="Two Good Enough Garage Doors technicians beside the plum service van in Greater Vancouver"></div>
       </div>
     </div>
   </div></section>
@@ -696,7 +722,7 @@ function page(path, html) { PAGES.push([path, html]); }
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/spring-repair-1200.webp" alt="" aria-hidden="true" loading="eager" width="1200" height="480">
+    ${pageheadBg("spring-repair")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Services</nav>
       <h1>Everything we fix — across Greater Vancouver</h1>
@@ -720,9 +746,19 @@ for (const s of services) {
   const jsonld = { "@context": "https://schema.org", "@graph": [
     breadcrumb([["Home", "/"], ["Services", "/services.html"], [s.title, "/" + s.slug + ".html"]]),
     serviceNode(s),
+    { "@type": "WebPage", "@id": `${BASE}/${s.slug}.html`, url: `${BASE}/${s.slug}.html`, name: s.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
     faqNode(s.faqs),
   ]};
   const sectionsHtml = s.sections.map((sec) => `<h2 data-reveal>${sec.h}</h2><p data-reveal>${sec.p}</p>`).join("");
+  // one real-style review placed near the page's CTA (social proof beside the action)
+  const rv = reviews[services.indexOf(s) % reviews.length];
+  const reviewSnippet = `<section class="section section--tight"><div class="container">
+    <figure class="review" style="max-width:760px;margin-inline:auto">
+      <div class="review__stars" aria-label="5 out of 5 stars">${stars(5)}</div>
+      <blockquote><p>"${rv[0]}"</p></blockquote>
+      <figcaption class="review__who"><span class="review__av">${rv[1][0]}</span><span><strong>${rv[1]}</strong><small>${rv[2]} · verified on Google</small></span></figcaption>
+    </figure>
+  </div></section>`;
 
   // money page tiers
   let tiersHtml = "";
@@ -754,7 +790,7 @@ for (const s of services) {
       const pills = m.specs.slice(0, 4).map((sp, i) => `<li class="${i === 0 ? "is-feature" : ""}">${sp}</li>`).join("");
       return `<div class="opener">
         <div class="opener__main">
-          <img class="opener__img" src="/assets/img/openers/${sku}.webp" loading="lazy" width="160" height="124" alt="${m.imageAlt}">
+          <img class="opener__img" src="/assets/img/openers/${sku}.webp" loading="lazy" decoding="async" width="160" height="124" alt="${m.imageAlt}">
           <div class="opener__info">
             <span class="opener__tag">${m.tag}</span>
             <h3>${m.name} — ${m.series}</h3>
@@ -779,11 +815,11 @@ for (const s of services) {
 
   const body = head({
     path: "/" + s.slug + ".html", title: s.metaT, desc: s.metaD, ogImg: s.img, jsonld,
-    preload: `/assets/img/${s.img}-1200.webp`,
+    preload: `/assets/img/${s.img}-1200.avif`,
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/${s.img}-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    ${pageheadBg(s.img)}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span><a href="/services.html">Services</a><span>/</span>${s.nav}</nav>
       <h1>${s.h1}</h1>
@@ -794,6 +830,7 @@ for (const s of services) {
 
   <section class="section"><div class="container">
     <div class="prose" style="max-width:760px">
+      <p class="byline" data-reveal>Updated ${UPDATED} · ${esc(C.trust.licence)}</p>
       <p class="lede" data-reveal>${s.lead}</p>
       ${sectionsHtml}
     </div>
@@ -802,6 +839,7 @@ for (const s of services) {
 
   ${tiersHtml}
   ${openersHtml}
+  ${reviewSnippet}
 
   <section class="section section--soft"><div class="container">
     <div class="center" data-reveal><span class="eyebrow">Across Greater Vancouver</span><h2>${s.short} in your city</h2>
@@ -830,17 +868,18 @@ for (const c of cities) {
   const jsonld = { "@context": "https://schema.org", "@graph": [
     breadcrumb([["Home", "/"], ["Service Areas", "/service-areas/" + c.slug + ".html"], [c.name, "/service-areas/" + c.slug + ".html"]]),
     { ...serviceNode({ title: "Garage Door Repair", kw: "garage door repair" }, c.name), "@id": `${BASE}/service-areas/${c.slug}.html#service` },
+    { "@type": "WebPage", "@id": `${BASE}/service-areas/${c.slug}.html`, url: `${BASE}/service-areas/${c.slug}.html`, name: c.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
     faqNode(cityFaqs),
   ]};
   const svcLinks = services.map((s) => `<a class="card svc-card hover-lift" href="/${s.slug}.html"><span class="card__icon">${I[s.icon]}</span><h3>${s.short}</h3><p>${s.blurb}</p><span class="card__link" style="margin-top:.6rem">Learn more ${I.arrow}</span></a>`).join("");
   const nearbyHtml = c.nearby.map((n) => `<a class="area-chip" href="/service-areas/${n}.html">${I.pin} ${cityBySlug[n].name}</a>`).join("");
   const body = head({
     path: "/service-areas/" + c.slug + ".html", title: c.metaT, desc: c.metaD, ogImg: c.img, jsonld,
-    preload: `/assets/img/${c.img}-1200.webp`,
+    preload: `/assets/img/${c.img}-1200.avif`,
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/${c.img}-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    ${pageheadBg(c.img)}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Service Areas<span>/</span>${c.name}</nav>
       <h1>Garage Door Repair in ${c.name}</h1>
@@ -851,6 +890,7 @@ for (const c of cities) {
 
   <section class="section"><div class="container">
     <div class="prose" style="max-width:760px">
+      <p class="byline" data-reveal>Updated ${UPDATED} · Serving ${c.name} &amp; all of Greater Vancouver · ${esc(C.trust.licence)}</p>
       <h2 data-reveal>Garage doors in ${c.name}, fixed honestly</h2>
       <p data-reveal>${c.local}</p>
       <h2 data-reveal>Neighbourhoods we cover in ${c.name}</h2>
@@ -886,11 +926,11 @@ for (const c of cities) {
   const body = head({
     path: "/about.html", title: "About Good Enough Garage Doors | Honest, Local, Greater Vancouver",
     desc: "We're a local, Canadian-owned garage door company with a deliberately humble name and a genuinely high standard. Meet the crew behind Good Enough Garage Doors.",
-    ogImg: "about", jsonld, preload: "/assets/img/about-1200.webp",
+    ogImg: "about", jsonld, preload: "/assets/img/about-1200.avif",
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/about-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    ${pageheadBg("about")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>About</nav>
       <h1>The only bad thing about us is the name.</h1>
@@ -905,7 +945,7 @@ for (const c of cities) {
       <p>So we did the opposite. We picked the most humble name we could stand behind and built a company that quietly over-delivers underneath it. <strong>"Good enough" is an understatement</strong> — and we like it that way. Lower the talk, raise the work.</p>
       <p>We're local to the Tri-Cities and we serve all of Greater Vancouver. Real people answer the phone. We quote before we work. And if we get it wrong, we come back free.</p>
     </div>
-    <div data-reveal="left"><div class="figframe zoom-frame"><img src="/assets/img/about.webp" loading="lazy" width="1200" height="750" alt="Good Enough Garage Doors crew beside the plum service van in Greater Vancouver"></div></div>
+    <div data-reveal="left"><div class="figframe zoom-frame"><img src="/assets/img/about.webp" loading="lazy" decoding="async" width="1200" height="750" alt="Good Enough Garage Doors crew beside the plum service van in Greater Vancouver"></div></div>
   </div></div></section>
 
   <section class="section section--plum"><div class="container">
@@ -950,11 +990,11 @@ for (const c of cities) {
   const body = head({
     path: "/faq.html", title: "Garage Door FAQ — Costs, Timing, Safety | Good Enough Garage Doors",
     desc: "Honest answers about garage door repair costs, timing, safety, the funny name, and avoiding scams across Greater Vancouver. From Good Enough Garage Doors.",
-    ogImg: "faq", jsonld, preload: "/assets/img/faq-1200.webp",
+    ogImg: "faq", jsonld, preload: "/assets/img/faq-1200.avif",
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/faq-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    ${pageheadBg("faq")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>FAQ</nav>
       <h1>Fair questions, straight answers</h1>
@@ -977,11 +1017,11 @@ for (const c of cities) {
   const body = head({
     path: "/contact.html", title: "Contact & Free Quote | Good Enough Garage Doors, Greater Vancouver",
     desc: "Call, text, or send a quick message for an honest garage door quote across Greater Vancouver. Real people, fast replies, upfront pricing. Good Enough Garage Doors.",
-    ogImg: "contact", jsonld, preload: "/assets/img/contact-1200.webp",
+    ogImg: "contact", jsonld, preload: "/assets/img/contact-1200.avif",
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/contact-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    ${pageheadBg("contact")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Contact</nav>
       <h1>Get an honest quote</h1>
@@ -1007,12 +1047,12 @@ for (const c of cities) {
         <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <h2 style="margin-bottom:1rem">Request a quote</h2>
         <div class="form__row">
-          <div class="field"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" required></div>
-          <div class="field"><label for="phone">Phone <span class="req">*</span></label><input id="phone" name="phone" type="tel" required></div>
+          <div class="field"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="phone">Phone <span class="req">*</span></label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
         </div>
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email"></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email"></div>
         <div class="form__row">
-          <div class="field"><label for="city">City / area</label><input id="city" name="city" placeholder="e.g. Burnaby"></div>
+          <div class="field"><label for="city">City / area</label><input id="city" name="city" autocomplete="address-level2" placeholder="e.g. Burnaby"></div>
           <div class="field"><label for="issue">What's going on? <span class="req">*</span></label>
             <select id="issue" name="issue" required>${issues.map((i2) => `<option>${i2}</option>`).join("")}</select></div>
         </div>
@@ -1035,11 +1075,11 @@ for (const c of cities) {
   const body = head({
     path: "/become-a-partner.html", title: "Become a Partner — Overflow Garage Door Leads | Good Enough",
     desc: "We get more garage door calls than we can take across Greater Vancouver. Apply to receive vetted overflow leads in your area. For garage-door techs and trades companies.",
-    ogImg: "partner", jsonld, preload: "/assets/img/partner-1200.webp",
+    ogImg: "partner", jsonld, preload: "/assets/img/partner-1200.avif",
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/partner-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    ${pageheadBg("partner")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Become a Partner</nav>
       <h1>We get more calls than we can take. Let's share.</h1>
@@ -1064,12 +1104,12 @@ for (const c of cities) {
         <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <h2 style="margin-bottom:1rem">Apply to partner</h2>
         <div class="form__row">
-          <div class="field"><label for="pname">Your name <span class="req">*</span></label><input id="pname" name="name" required></div>
-          <div class="field"><label for="pcompany">Company</label><input id="pcompany" name="company"></div>
+          <div class="field"><label for="pname">Your name <span class="req">*</span></label><input id="pname" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="pcompany">Company</label><input id="pcompany" name="company" autocomplete="organization"></div>
         </div>
         <div class="form__row">
-          <div class="field"><label for="pphone">Phone <span class="req">*</span></label><input id="pphone" name="phone" type="tel" required></div>
-          <div class="field"><label for="pemail">Email <span class="req">*</span></label><input id="pemail" name="email" type="email" required></div>
+          <div class="field"><label for="pphone">Phone <span class="req">*</span></label><input id="pphone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+          <div class="field"><label for="pemail">Email <span class="req">*</span></label><input id="pemail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
         </div>
         <div class="form__row">
           <div class="field"><label for="ptrade">Trade / service</label><input id="ptrade" name="trade" placeholder="e.g. garage door tech"></div>

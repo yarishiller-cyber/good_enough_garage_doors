@@ -6,20 +6,25 @@
 <title>Become a Partner — Overflow Garage Door Leads | Good Enough</title>
 <meta name="description" content="We get more garage door calls than we can take across Greater Vancouver. Apply to receive vetted overflow leads in your area. For garage-door techs and trades companies.">
 <link rel="canonical" href="https://goodenoughgaragedoors.ca/become-a-partner.html">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="theme-color" content="#4f2d7a">
+<meta name="color-scheme" content="light">
+<meta name="author" content="Good Enough Garage Doors">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_CA">
 <meta property="og:site_name" content="Good Enough Garage Doors">
 <meta property="og:title" content="Become a Partner — Overflow Garage Door Leads | Good Enough">
 <meta property="og:description" content="We get more garage door calls than we can take across Greater Vancouver. Apply to receive vetted overflow leads in your area. For garage-door techs and trades companies.">
 <meta property="og:url" content="https://goodenoughgaragedoors.ca/become-a-partner.html">
 <meta property="og:image" content="https://goodenoughgaragedoors.ca/assets/img/partner.webp">
+<meta property="og:image:alt" content="Good Enough Garage Doors — garage door service across Greater Vancouver">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="preload" as="image" href="/assets/img/partner-1200.webp" fetchpriority="high">
-<link rel="stylesheet" href="/styles.css?v=20260621">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bricolage-grotesque.woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" href="/assets/img/partner-1200.avif" fetchpriority="high">
+<link rel="stylesheet" href="/styles.css?v=20260621b">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://goodenoughgaragedoors.ca/"},{"@type":"ListItem","position":2,"name":"Become a Partner","item":"https://goodenoughgaragedoors.ca/become-a-partner.html"}]}]}</script>
 </head>
 <body class="layout-b">
@@ -53,7 +58,11 @@
 </header>
 <main id="main">
   <section class="pagehead pagehead--img">
-    <img class="pagehead__bg" src="/assets/img/partner-1200.webp" alt="" aria-hidden="true" width="1200" height="480">
+    <picture>
+      <source type="image/avif" srcset="/assets/img/partner-1200.avif">
+      <source type="image/webp" srcset="/assets/img/partner-1200.webp">
+      <img class="pagehead__bg" src="/assets/img/partner-1200.webp" alt="" aria-hidden="true" width="1200" height="480" fetchpriority="high" decoding="async">
+    </picture>
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Become a Partner</nav>
       <h1>We get more calls than we can take. Let's share.</h1>
@@ -78,12 +87,12 @@
         <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <h2 style="margin-bottom:1rem">Apply to partner</h2>
         <div class="form__row">
-          <div class="field"><label for="pname">Your name <span class="req">*</span></label><input id="pname" name="name" required></div>
-          <div class="field"><label for="pcompany">Company</label><input id="pcompany" name="company"></div>
+          <div class="field"><label for="pname">Your name <span class="req">*</span></label><input id="pname" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="pcompany">Company</label><input id="pcompany" name="company" autocomplete="organization"></div>
         </div>
         <div class="form__row">
-          <div class="field"><label for="pphone">Phone <span class="req">*</span></label><input id="pphone" name="phone" type="tel" required></div>
-          <div class="field"><label for="pemail">Email <span class="req">*</span></label><input id="pemail" name="email" type="email" required></div>
+          <div class="field"><label for="pphone">Phone <span class="req">*</span></label><input id="pphone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+          <div class="field"><label for="pemail">Email <span class="req">*</span></label><input id="pemail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
         </div>
         <div class="form__row">
           <div class="field"><label for="ptrade">Trade / service</label><input id="ptrade" name="trade" placeholder="e.g. garage door tech"></div>
@@ -104,11 +113,9 @@
 <footer class="site-footer">
   <div class="container">
     
-<div class="price-reveal">
-  <button class="price-reveal__btn" id="priceToggle" aria-expanded="false" aria-controls="pricePanel">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> See our spring prices
-  </button>
-  <div class="price-reveal__panel" id="pricePanel" hidden>
+<details class="price-reveal" id="priceReveal">
+  <summary id="priceToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> See our spring prices</summary>
+  <div class="price-reveal__panel" id="pricePanel">
     <p style="margin:.6rem 0 .8rem;color:rgba(255,255,255,.8);font-size:.9rem">Honest, published spring-repair pricing — the number we quote is the number you pay. Free cables on both pairs, free safety inspection on every job.</p>
     <table class="price-table">
       <thead><tr><th>Service</th><th style="text-align:right">From</th></tr></thead>
@@ -116,7 +123,7 @@
     </table>
     <p style="margin-top:.8rem"><a href="/garage-door-spring-repair.html" style="color:var(--accent);font-weight:700">See full spring pricing &amp; tiers →</a></p>
   </div>
-</div>
+</details>
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="brand" href="/"><span class="brand__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 8h18M3 13h18M3 18h18"/></svg></span><span class="brand__txt">Good Enough<small>Garage Doors</small></span></a>
@@ -144,7 +151,7 @@
     </div>
   </div>
 </footer>
-<script src="/script.js?v=20260621" defer></script>
+<script src="/script.js?v=20260621b" defer></script>
 <script type="module">
   import { animate, inView, scroll, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
   window.__motion = { animate, inView, scroll, stagger };

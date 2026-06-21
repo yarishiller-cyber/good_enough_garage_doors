@@ -21,19 +21,7 @@
     });
   }
 
-  // ---- footer price reveal (accessible, degrades to visible w/o JS) ----
-  var pBtn = document.getElementById("priceToggle");
-  var pPanel = document.getElementById("pricePanel");
-  if (pBtn && pPanel) {
-    pBtn.addEventListener("click", function () {
-      var open = pPanel.hasAttribute("hidden");
-      if (open) { pPanel.removeAttribute("hidden"); } else { pPanel.setAttribute("hidden", ""); }
-      pBtn.setAttribute("aria-expanded", open ? "true" : "false");
-      pBtn.lastChild && (pBtn.childNodes[pBtn.childNodes.length - 1].nodeType === 3
-        ? (pBtn.childNodes[pBtn.childNodes.length - 1].nodeValue = open ? " Hide spring prices" : " See our spring prices")
-        : null);
-    });
-  }
+  // Footer price reveal is now a native <details> — no JS needed (works with JS off).
 
   // ---- hide sticky CTA when the footer is in view (avoid covering footer CTAs) ----
   var sticky = document.querySelector(".sticky-cta");
