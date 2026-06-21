@@ -1,0 +1,9 @@
+# build tooling / QA artifacts — not shipped
+node_modules/
+package.json
+package-lock.json
+_build/shot-*.png
+_build/*.output
+.leads.log
+*.DS_Store
+# keep generators (_build/*.mjs) and brand reference (assets/brand) in the repo

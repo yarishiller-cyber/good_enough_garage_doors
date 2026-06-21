@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Good Enough Garage Doors">
+  <rect width="64" height="64" rx="14" fill="#4f2d7a"/>
+  <g fill="none" stroke="#e0a82e" stroke-width="3.4" stroke-linecap="round">
+    <rect x="14" y="16" width="36" height="34" rx="2"/>
+    <path d="M14 26h36M14 34h36M14 42h36"/>
+  </g>
+</svg>

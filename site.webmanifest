@@ -1,0 +1,12 @@
+{
+  "name": "Good Enough Garage Doors",
+  "short_name": "Good Enough",
+  "description": "Honest garage door repair across Greater Vancouver.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#4f2d7a",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
