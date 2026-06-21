@@ -2,7 +2,7 @@
 node_modules/
 package.json
 package-lock.json
-_build/shot-*.png
+_build/*.png
 _build/*.output
 .leads.log
 *.DS_Store
