@@ -148,9 +148,16 @@ if (FORCE.has("og") || !existsSync(ogOut)) {
   const heroSrc = ["assets/img/hero-desktop-1600.webp", "assets/img/hero-desktop-960.webp", "assets/img/hero-desktop.webp"].find(existsSync);
   if (heroSrc) {
     try {
-      await sharp(heroSrc).resize(1200, 630, { fit: "cover", position: "attention" }).webp({ quality: 84 }).toFile(ogOut);
-      await sharp(heroSrc).resize(1200, 630, { fit: "cover", position: "attention" }).jpeg({ quality: 84, mozjpeg: true }).toFile(ogJpg);
-      console.log("OG: ✓ og/home.webp + og/home.jpg (1200×630 from hero)");
+      const meta = await sharp(heroSrc).metadata();
+      // The hero is square (1600x1600) with the van+tech+door in the lower-middle. Extract a
+      // horizontal band that keeps the subject centred, then resize to the 1.905:1 OG ratio.
+      const bandH = Math.round(meta.width * (630 / 1200));      // band height for 1200x630
+      const top = Math.min(meta.height - bandH, Math.round(meta.height * 0.30)); // bias slightly down
+      const band = sharp(heroSrc).extract({ left: 0, top: Math.max(0, top), width: meta.width, height: bandH });
+      const buf = await band.toBuffer();
+      await sharp(buf).resize(1200, 630).webp({ quality: 84 }).toFile(ogOut);
+      await sharp(buf).resize(1200, 630).jpeg({ quality: 84, mozjpeg: true }).toFile(ogJpg);
+      console.log("OG: ✓ og/home.webp + og/home.jpg (1200×630 band from hero)");
     } catch (e) { console.log("OG: ✗ " + e.message); }
   } else { console.log("OG: ✗ no hero source found"); }
 } else { console.log("OG: skipped (exists)"); }
