@@ -105,7 +105,7 @@ const services = [
     title: "Garage Door Opener Installation", kw: "garage door opener installation",
     h1: "New Garage Door Opener Installation — LiftMaster, Installed Right",
     metaT: "Garage Door Opener Installation Greater Vancouver | Good Enough",
-    metaD: "New LiftMaster opener supplied & installed across Greater Vancouver. Belt, chain & wall-mount with battery backup and myQ. Honest installed prices — pick the right one below.",
+    metaD: "New LiftMaster opener supplied & installed across Greater Vancouver — belt, chain & wall-mount with battery backup and myQ. Honest installed prices, no surprises.",
     blurb: "A new opener should be quiet, secure, and just work. We fit LiftMaster units and tune the whole door while we're there.",
     lead: "A good opener install isn't just bolting a motor to the ceiling — it's balancing the door, setting the travel and force limits properly, and aligning the safety sensors so it's smooth and safe for years. We supply and install the LiftMaster line-up across Greater Vancouver at honest, all-in prices. Here's the range, so you can pick the one that actually fits your home — not the most expensive one.",
     sections: [
@@ -673,8 +673,8 @@ function page(path, html) { PAGES.push([path, html]); }
     faqNode(homeFaqs),
   ]};
   const body = head({
-    path: "/", title: "Good Enough Garage Doors | Honest Garage Door Repair Across Greater Vancouver",
-    desc: "Good Enough Garage Doors — honest, same-day garage door repair across Greater Vancouver. Springs, openers, cables & new doors. Upfront pricing, no surprises. The only bad thing about us is the name.",
+    path: "/", title: "Good Enough Garage Doors | Honest Repair, Greater Vancouver",
+    desc: "Honest, same-day garage door repair across Greater Vancouver — springs, openers, cables & new doors. Upfront pricing, no surprises. The only bad thing about us is the name.",
     preload: "/assets/img/hero-desktop-960.avif", jsonld,
   }) + header() + `
 <main id="main">
@@ -759,7 +759,7 @@ function page(path, html) { PAGES.push([path, html]); }
     </a>`).join("");
   const body = head({
     path: "/services.html", title: "Garage Door Services in Greater Vancouver | Good Enough",
-    desc: "Every garage door service we offer across Greater Vancouver — spring repair, opener repair & installation, cable repair, off-track doors, new doors, tune-ups and emergencies. Honest pricing.",
+    desc: "Garage door services across Greater Vancouver — spring repair, opener repair & install, cable repair, off-track doors, new doors, tune-ups & emergencies. Honest pricing.",
     ogImg: "spring-repair", jsonld,
   }) + header() + `
 <main id="main">
