@@ -361,18 +361,22 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 .footer__bottom { border-top:1px solid rgba(255,255,255,.14); padding-top:var(--s-5); display:flex; flex-wrap:wrap; justify-content:space-between; gap:var(--s-3); font-size:var(--t-xs); color:rgba(255,255,255,.6); }
 .footer__bottom a { color:rgba(255,255,255,.75); }
 
-/* price reveal toggle (footer) — native <details>: works with zero JS, accessible by default */
+/* price reveal (footer) — FLEET-STANDARDS §2: prices hidden by default, one button reveals all [data-px] in place */
 .price-reveal { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:var(--r-lg); padding:var(--s-5); margin-bottom:var(--s-6); }
-.price-reveal > summary { display:inline-flex; align-items:center; gap:.5rem; background:var(--accent); color:var(--brand-darker); border:none; font-family:var(--font-head); font-weight:700; padding:.7rem 1.3rem; border-radius:var(--r-pill); cursor:pointer; font-size:var(--t-base); list-style:none; width:max-content; }
-.price-reveal > summary::-webkit-details-marker { display:none; }
-.price-reveal > summary::after { content:"+"; font-size:1.2rem; line-height:1; }
-.price-reveal[open] > summary::after { content:"–"; }
-.price-reveal > summary:hover { background:#eab73f; }
+.price-reveal__head { display:flex; align-items:center; justify-content:space-between; gap:var(--s-5); flex-wrap:wrap; }
+.price-reveal__head p { margin:0; flex:1 1 280px; color:rgba(255,255,255,.8); font-size:.9rem; }
+#pricing-toggle { display:inline-flex; align-items:center; gap:.5rem; background:var(--accent); color:var(--brand-darker); border:none; font-family:var(--font-head); font-weight:700; padding:.7rem 1.3rem; border-radius:var(--r-pill); cursor:pointer; font-size:var(--t-base); white-space:nowrap; flex:none; }
+#pricing-toggle:hover { background:#eab73f; }
+#pricing-toggle[aria-pressed="true"] { background:#fff; color:var(--brand-dark); box-shadow:0 0 0 3px rgba(var(--accent-rgb),.45); }
+#pricing-toggle svg { width:1.05rem; height:1.05rem; }
 .price-reveal__panel { margin-top:var(--s-5); }
+/* hidden-by-default price tags: generic label normally, the price after the toggle */
+.price-tag { font-style:normal; }
+.show-pricing .price-tag { color:inherit; }
 .price-table { width:100%; border-collapse:collapse; font-size:var(--t-sm); color:rgba(255,255,255,.9); }
 .price-table th,.price-table td { text-align:left; padding:.6rem .5rem; border-bottom:1px solid rgba(255,255,255,.12); }
 .price-table th { color:#fff; font-family:var(--font-head); }
-.price-table td:last-child { text-align:right; font-family:var(--font-head); font-weight:700; color:var(--accent); white-space:nowrap; }
+.price-table .num { text-align:right; font-family:var(--font-head); font-weight:700; color:var(--accent); white-space:nowrap; }
 
 /* ---- floating sticky call/text (mobile) ---- */
 .sticky-cta { position:fixed; left:0; right:0; bottom:0; z-index:80; display:none; gap:.6rem; padding:.6rem .7rem calc(.6rem + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); backdrop-filter:blur(8px); border-top:1px solid var(--line); box-shadow:0 -6px 20px rgba(34,26,46,.1); }

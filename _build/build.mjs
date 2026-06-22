@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260622b";
+const ASSET_V = "20260622c";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -21,6 +21,11 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 // Format a bare price number with thousands separators for DISPLAY only (schema/config stay bare).
 const money = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const stars = (n = 5) => "★".repeat(n);
+// FLEET-STANDARDS §2 — hidden-by-default price display (Steveston data-px mechanism).
+// Shows a generic label; the footer "Pricing" toggle swaps in the price version in place.
+// `cls` lets callers keep their existing styling class on the element.
+const px = (generic, price, cls = "") =>
+  `<span class="price-tag${cls ? " " + cls : ""}" data-px="${esc(price)}">${generic}</span>`;
 
 /* ---------------- inline icons (stroke, currentColor) ---------------- */
 const I = {
@@ -70,7 +75,7 @@ const services = [
       ["Why did my spring break in winter?", "Cold snaps are hard on tired springs — the metal contracts and brittle springs let go. Lower Mainland damp and salt air also rust springs and cables over time. A spring that was 'fine' in October often gives out in the first cold week."],
       ["Do you include new cables?", "On both two-spring tiers, yes — new lift cables are included free, because cables and springs age together and it's silly to reuse worn cables on a fresh spring. Every spring job also includes a free safety inspection of the whole door."],
     ],
-    priceHint: `From $${money(C.springPricing.tiers[0].price)}`,
+    priceHint: px(`Upfront flat-rate`, `From $${money(C.springPricing.tiers[0].price)}`),
   },
   {
     slug: "garage-door-opener-repair", nav: "Opener Repair", short: "Opener Repair",
@@ -114,7 +119,7 @@ const services = [
       ["How long does a new opener take to install?", "A straightforward swap is usually 1.5–2 hours. A wall-mount conversion or a job that needs new mounting takes a little longer; we'll tell you upfront."],
       ["Do you install openers I bought myself?", "We can, but we'll be honest: big-box openers are often a lower-grade model than the LiftMaster units we fit, and the warranty is yours to manage. We'll quote install-only if you'd still like us to."],
     ],
-    priceHint: `From $${money(C.openerPricing["2220L"])} installed`,
+    priceHint: px(`Installed, all-in`, `From $${money(C.openerPricing["2220L"])} installed`),
   },
   {
     slug: "garage-door-cable-repair", nav: "Cable Repair", short: "Cable Repair",
@@ -180,7 +185,7 @@ const services = [
       ["Do you remove my old door?", "Yes — removal, haul-away and recycling of the old door and hardware is included in every install quote."],
       ["What brands do you install?", "We fit quality North-American-made doors and pair them with LiftMaster openers. We'll match the door to your home and budget rather than pushing one premium line."],
     ],
-    priceHint: "From $3,647 installed",
+    priceHint: px(`Supplied &amp; installed`, `From $3,647 installed`),
   },
   {
     slug: "garage-door-maintenance", nav: "Maintenance", short: "Tune-Ups",
@@ -376,21 +381,28 @@ function stickyCta() {
 </div>`;
 }
 
+// FLEET-STANDARDS §2 — single footer "Pricing" toggle that reveals all [data-px] in place.
+// Big-item prices (springs / openers / new doors) are hidden behind generic labels by default
+// (works with JS off — you simply see the generic labels). The footer published table's price
+// cells also carry data-px, so the one button reveals everything consistently.
 function priceReveal() {
-  const rows = C.springPricing.tiers.map((t) => `<tr><td>${esc(t.label)}</td><td>$${money(t.price)}</td></tr>`).join("");
-  // Native <details>: opens with zero JS, accessible by default (fixes the no-JS hidden-panel bug).
+  const rows = C.springPricing.tiers
+    .map((t) => `<tr><td>${esc(t.label)}</td><td class="num">${px(`flat rate`, `$${money(t.price)}`)}</td></tr>`)
+    .join("");
   return `
-<details class="price-reveal" id="priceReveal">
-  <summary id="priceToggle">${I.dollar} See our spring prices</summary>
-  <div class="price-reveal__panel" id="pricePanel">
-    <p style="margin:.6rem 0 .8rem;color:rgba(255,255,255,.8);font-size:.9rem">Honest, published spring-repair pricing — the number we quote is the number you pay. Free cables on both pairs, free safety inspection on every job.</p>
-    <table class="price-table">
-      <thead><tr><th>Service</th><th style="text-align:right">From</th></tr></thead>
-      <tbody>${rows}<tr><td>Service / diagnostic call <small>(waived if work proceeds)</small></td><td>$${C.springPricing.serviceCall}</td></tr></tbody>
-    </table>
-    <p style="margin-top:.8rem"><a href="/garage-door-spring-repair.html" style="color:var(--accent);font-weight:700">See full spring pricing &amp; tiers →</a></p>
+<div class="price-reveal" id="priceReveal">
+  <div class="price-reveal__head">
+    <p>Honest, published pricing — the number we quote is the number you pay. Free cables on both spring pairs, free safety inspection on every job. Prices are hidden by default to keep things calm; tap to see them.</p>
+    <button type="button" id="pricing-toggle" aria-pressed="false">${I.dollar} Pricing</button>
   </div>
-</details>`;
+  <div class="price-reveal__panel">
+    <table class="price-table">
+      <thead><tr><th>Spring repair</th><th class="num">From</th></tr></thead>
+      <tbody>${rows}<tr><td>Service / diagnostic call <small>(waived if work proceeds)</small></td><td class="num">${px(`waived with repair`, `$${C.springPricing.serviceCall}`)}</td></tr></tbody>
+    </table>
+    <p style="margin-top:.8rem"><a href="/garage-door-spring-repair.html" style="color:var(--accent);font-weight:700">See full spring &amp; opener pricing →</a></p>
+  </div>
+</div>`;
 }
 
 function footer() {
@@ -426,6 +438,13 @@ ${stickyCta()}
     </div>
   </div>
 </footer>
+<script>(function(){var btn=document.getElementById('pricing-toggle');if(!btn)return;
+var els=[].slice.call(document.querySelectorAll('[data-px]'));var saved=new Array(els.length);var on=false;
+btn.addEventListener('click',function(){on=!on;els.forEach(function(el,i){
+if(on){if(saved[i]==null)saved[i]=el.innerHTML;el.innerHTML=el.getAttribute('data-px');}
+else{if(saved[i]!=null)el.innerHTML=saved[i];}});
+document.body.classList.toggle('show-pricing',on);
+btn.innerHTML=on?'Hide pricing':'${I.dollar} Pricing';btn.setAttribute('aria-pressed',on?'true':'false');});})();</script>
 <script src="/script.js?v=${ASSET_V}" defer></script>
 <script type="module">
   import { animate, inView, scroll, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
@@ -513,9 +532,9 @@ function priceTransparency() {
       </div>
       <div class="ptrust__card" data-reveal="left">
         <span class="eyebrow">Spring repair from</span>
-        <p class="big">$${money(C.springPricing.tiers[0].price)}<span style="font-size:1rem;font-weight:600;opacity:.85"> · single spring</span></p>
-        <p>Two springs + new cables from <strong style="color:#fff">$${money(C.springPricing.tiers[1].price)}</strong>. Free cables on pairs, free safety inspection on every spring job.</p>
-        <p style="font-size:.85rem;opacity:.85;margin-bottom:0">Most Lower Mainland spring jobs land between $${money(C.springPricing.tiers[0].price)} and $${money(C.springPricing.tiers[2].price)}. We'll tell you exactly which before we start.</p>
+        <p class="big">${px(`Upfront`, `$${money(C.springPricing.tiers[0].price)}`)}<span style="font-size:1rem;font-weight:600;opacity:.85"> · single spring</span></p>
+        <p>Two springs + new cables from <strong style="color:#fff">${px(`upfront flat-rate`, `$${money(C.springPricing.tiers[1].price)}`)}</strong>. Free cables on pairs, free safety inspection on every spring job.</p>
+        <p style="font-size:.85rem;opacity:.85;margin-bottom:0">${px(`Most Lower Mainland spring jobs are a clear flat rate`, `Most Lower Mainland spring jobs land between $${money(C.springPricing.tiers[0].price)} and $${money(C.springPricing.tiers[2].price)}`)}. We'll tell you exactly which before we start.</p>
       </div>
     </div>
   </div></section>`;
@@ -631,7 +650,7 @@ function page(path, html) { PAGES.push([path, html]); }
 {
   const homeFaqs = [
     ["Is the name a joke?", "The name is. The work isn't. 'Good Enough Garage Doors' is a deliberately humble name for a company that quietly over-delivers — licensed, insured, WorkSafeBC-covered, with upfront pricing and a real workmanship warranty. We figured a self-deprecating name was more honest than another 'Elite Premier Pro' that overpromises."],
-    ["How much does a garage door repair cost in Greater Vancouver?", `It depends on the part. Spring replacements run from $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We give you the exact number before we start — no surprise fees. Tap "See our spring prices" in the footer for published figures.`],
+    ["How much does a garage door repair cost in Greater Vancouver?", `It depends on the part. Spring replacements run from $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We give you the exact number before we start — no surprise fees. Tap the "Pricing" button in the footer to reveal our published figures.`],
     ["Can you come the same day?", "Most days, for most of Metro Vancouver, yes — especially for broken springs and security issues. We'll give you an honest arrival window rather than promise a time we can't keep."],
     ["What areas do you serve?", "All of Greater Vancouver — Vancouver, Burnaby, Surrey, Richmond, Coquitlam and the rest of the Lower Mainland from the North Shore to Langley. We have deep-dive pages for our core cities and serve everywhere in between."],
     ["Are you actually licensed and insured?", "Yes. We're business-licensed, carry commercial liability insurance, and are WorkSafeBC-covered. Note that garage-door work is an unregulated trade in BC — there's no provincial trade licence for it — so we describe ourselves precisely and never imply a certificate that doesn't exist."],
@@ -779,7 +798,7 @@ for (const s of services) {
       <div class="tier ${tier.featured ? "tier--feat" : ""}">
         ${tier.featured ? `<span class="tier__flag">Most popular — best value</span>` : ""}
         <h3>${tier.label}</h3>
-        <div class="tier__price">$${money(tier.price)}<small> +tax</small></div>
+        <div class="tier__price">${px(`Flat rate`, `$${money(tier.price)}`)}<small> +tax</small></div>
         <p class="tier__sub">${tier.sub}</p>
         <ul class="tier__inc">${tier.includes.map((i2) => `<li><span class="ck">${I.check}</span> ${i2}</li>`).join("")}</ul>
         <a class="btn ${tier.featured ? "btn--primary" : "btn--ghost"}" href="tel:${TEL}">${I.phone} Call to book</a>
@@ -807,7 +826,7 @@ for (const s of services) {
             <span class="opener__tag">${m.tag}</span>
             <h3>${m.name} — ${m.series}</h3>
             <p class="opener__spec">${m.tagline}. ${m.drive}, ${m.hp}.</p>
-            <p class="opener__price">$${money(price)}<small> installed, all-in</small></p>
+            <p class="opener__price">${px(`Installed, all-in`, `$${money(price)}`)}<small> installed, all-in</small></p>
             <ul class="opener__pills">${pills}</ul>
           </div>
         </div>
@@ -986,7 +1005,7 @@ for (const c of cities) {
     ["Is the name a joke?", "The name is. The work isn't. We chose a deliberately humble name to stand apart from every company shouting 'elite' and 'premier.' Underneath it is a fully licensed, insured, WorkSafeBC-covered crew with upfront pricing and a real warranty. Lower the talk, raise the work."],
     ["What areas do you serve?", "All of Greater Vancouver — Vancouver, Burnaby, Surrey, Richmond, Coquitlam, plus the North Shore, Tri-Cities, Langley, Delta, New West, the Ridge Meadows area and White Rock. We have deep-dive pages for our core cities and serve everywhere in between."],
     ["Can you really come the same day?", "Most days, for most of the Lower Mainland, yes — especially for broken springs and security problems. We give you an honest arrival window instead of a promise we can't keep. We're a local crew, not a national dispatch centre."],
-    ["How much will my repair cost?", `Spring replacements start at $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We quote the exact figure before we start — no surprise call-out fee. Published spring pricing is on the spring-repair page and via the footer "See our prices" toggle.`],
+    ["How much will my repair cost?", `Spring replacements start at $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We quote the exact figure before we start — no surprise call-out fee. Published spring pricing is on the spring-repair page and via the footer "Pricing" toggle.`],
     ["Do you charge a call-out or diagnostic fee?", `A service/diagnostic call is $${C.springPricing.serviceCall}, and it's waived when you go ahead with the work. We tell you upfront — never a surprise on the invoice.`],
     ["Are you available 24/7?", "We're honest about this: we're a local crew, not a 24-hour call centre. We answer fast during the day (7am–9pm, 7 days), reply quickly to after-hours texts and messages, and prioritise genuine emergencies. If a company promises a tech at any hour, ask how — it often hides a big surcharge."],
     ["Why do springs need replacing in pairs?", "Your two torsion springs wear at the same rate, so when one breaks the other is usually close behind. Replacing both saves a second call-out and trip charge. If you genuinely have a single-spring door, we'll fit one and charge for one."],
