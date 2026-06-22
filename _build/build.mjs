@@ -346,13 +346,6 @@ ${o.jsonld ? `<script type="application/ld+json">${JSON.stringify(o.jsonld)}</sc
 
 function header() {
   return `
-<div class="topbar"><div class="container topbar__in">
-  <span class="topbar__msg"><span class="dot"></span> Real people answer • 7 days, 7am–9pm<span class="topbar__more"> · after-hours, we text you back</span></span>
-  <span class="topbar__links">
-    <a href="tel:${TEL}">${I.phone} ${PHONE_D}</a>
-    <a href="sms:${TEL}?&body=${SMS_BODY}">${I.msg} Text us</a>
-  </span>
-</div></div>
 <header class="site-header" id="siteHeader">
   <div class="container nav">
     <a class="brand" href="/">
