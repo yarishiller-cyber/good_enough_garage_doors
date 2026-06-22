@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260621b";
+const ASSET_V = "20260621c";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -345,7 +345,7 @@ ${o.jsonld ? `<script type="application/ld+json">${JSON.stringify(o.jsonld)}</sc
 function header() {
   return `
 <div class="topbar"><div class="container topbar__in">
-  <span class="topbar__msg"><span class="dot"></span> Real people answer • ${esc(C.hoursDisplay)}</span>
+  <span class="topbar__msg"><span class="dot"></span> Real people answer • 7 days, 7am–9pm<span class="topbar__more"> · after-hours, we text you back</span></span>
   <span class="topbar__links">
     <a href="tel:${TEL}">${I.phone} ${PHONE_D}</a>
     <a href="sms:${TEL}?&body=${SMS_BODY}">${I.msg} Text us</a>
@@ -482,6 +482,22 @@ function servicesGrid(heading = "What we fix (and fix right)") {
     <div class="center" data-reveal><span class="eyebrow">Our services</span><h2>${heading}</h2>
       <p class="lede measure-c">From a snapped spring at 7am to a brand-new door — across all of Greater Vancouver, with the same honest pricing every time.</p></div>
     <div class="grid grid--4" data-stagger style="margin-top:2.5rem">${cards}</div>
+  </div></section>`;
+}
+
+function howItWorks() {
+  const steps = [
+    [I.phone, "1", "Call or text us", "You reach a real local person, 7 days a week — not a call centre or a voicemail maze. Tell us what the door's doing."],
+    [I.dollar, "2", "Get an honest quote", "We give you a real price up front — often over the phone. No $19.99 bait, no surprise call-out fee added later."],
+    [I.wrench, "3", "We fix it right", "Usually same-day. We carry the common parts, repair before we replace, and leave the door running quietly and safely."],
+    [I.shield, "4", "Backed in writing", "Workmanship warranty on every job. If it isn't right, we come back free. That part's genuinely not a joke."],
+  ];
+  return `<section class="section section--soft" id="how"><div class="container">
+    <div class="center" data-reveal><span class="eyebrow">How it works</span><h2>Four steps. No surprises.</h2>
+      <p class="lede measure-c">Calling a garage-door company shouldn't feel like a gamble. Here's exactly how a Good Enough job goes — start to finish.</p></div>
+    <ol class="steps" data-stagger style="margin-top:2.5rem">
+      ${steps.map(([ic, n, t, d]) => `<li class="step"><span class="step__n">${n}</span><span class="step__ic">${ic}</span><h3>${t}</h3><p>${d}</p></li>`).join("")}
+    </ol>
   </div></section>`;
 }
 
@@ -670,6 +686,7 @@ function page(path, html) { PAGES.push([path, html]); }
   ${reassureStrip()}
   ${servicesGrid()}
   ${priceTransparency()}
+  ${howItWorks()}
 
   <section class="section section--plum"><div class="container">
     <div class="split">
@@ -1147,13 +1164,16 @@ for (const c of cities) {
 /* ========== LEGAL ========== */
 function legalPage(slug, title, metaT, intro, blocks) {
   const jsonld = { "@context": "https://schema.org", "@graph": [breadcrumb([["Home", "/"], [title, "/" + slug + ".html"]])] };
-  const body = head({ path: "/" + slug + ".html", title: metaT, desc: intro.slice(0, 155), jsonld })
+  const body = head({ path: "/" + slug + ".html", title: metaT, desc: intro.slice(0, 155), jsonld, ogImg: "about", preload: "/assets/img/about-1200.avif" })
     + header() + `
 <main id="main">
-  <section class="pagehead"><div class="container">
-    <nav class="crumbs"><a href="/">Home</a><span>/</span>${title}</nav>
-    <h1>${title}</h1>
-  </div></section>
+  <section class="pagehead pagehead--img">
+    ${pageheadBg("about")}
+    <div class="container">
+      <nav class="crumbs"><a href="/">Home</a><span>/</span>${title}</nav>
+      <h1>${title}</h1>
+    </div>
+  </section>
   <section class="section"><div class="container"><div class="prose">
     <p class="lede">${intro}</p>
     ${blocks.map((b) => `<h2>${b[0]}</h2><p>${b[1]}</p>`).join("")}
