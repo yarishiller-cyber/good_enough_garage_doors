@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260622d";
+const ASSET_V = "20260622e";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -26,6 +26,15 @@ const stars = (n = 5) => "★".repeat(n);
 // `cls` lets callers keep their existing styling class on the element.
 const px = (generic, price, cls = "") =>
   `<span class="price-tag${cls ? " " + cls : ""}" data-px="${esc(price)}">${generic}</span>`;
+// For JSON-LD: collapse any px() spans to their PRICE form and strip remaining tags, so the
+// machine-readable schema text keeps the figures while the VISIBLE prose hides them by default.
+const unesc = (s) => String(s).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+const schemaText = (s) =>
+  unesc(
+    String(s)
+      .replace(/<span[^>]*\bdata-px="([^"]*)"[^>]*>.*?<\/span>/g, (_, p) => p)
+      .replace(/<[^>]+>/g, "")
+  );
 
 /* ---------------- inline icons (stroke, currentColor) ---------------- */
 const I = {
@@ -67,7 +76,7 @@ const services = [
     sections: [
       { h: "Why we replace springs in pairs (and tell you when you don't need to)", p: "Most doors run on two torsion springs that wear at the same rate. When one snaps, the other is usually close behind — so replacing both at once saves you a second service call and a second trip charge. That said, if you genuinely have a single-spring setup, we'll fit a single spring and charge you for one. We won't upsell you a pair you don't need. That's the whole 'good enough is an understatement' thing in one sentence." },
       { h: "Torsion vs extension springs", p: "Torsion springs sit on a steel shaft above the door and last roughly 15,000–20,000 cycles. Older extension springs run alongside the tracks and last closer to 10,000. We work on both, but on the wet North Shore and across the Fraser Valley we often recommend upgrading tired extension setups to a safer, longer-lived torsion system." },
-      { h: "How much does spring replacement cost in Metro Vancouver?", p: `Most spring replacements in the Lower Mainland land between $${money(C.springPricing.tiers[0].price)} and $${money(C.springPricing.tiers[2].price)} depending on whether you need one spring, a pair with new cables, or premium high-cycle springs. We give you the exact number before we touch anything — no $19.99 bait, no surprise call-out fee tacked on after. See the three tiers below.` },
+      { h: "How much does spring replacement cost in Metro Vancouver?", p: `Spring replacements in the Lower Mainland are a clear flat rate ${px(`— tap "Pricing" in the footer for the figures`, `— between $${money(C.springPricing.tiers[0].price)} and $${money(C.springPricing.tiers[2].price)}`)} depending on whether you need one spring, a pair with new cables, or premium high-cycle springs. We give you the exact number before we touch anything — no $19.99 bait, no surprise call-out fee tacked on after. See the three tiers below.` },
     ],
     faqs: [
       ["Can you fix my garage door spring today?", "Most days, yes. Spring breaks are our priority calls because your car is usually trapped. Call or text and we'll give you an honest arrival window for your part of Greater Vancouver — we won't promise a time we can't keep."],
@@ -180,7 +189,7 @@ const services = [
       { h: "What a proper install includes", p: "Removal and recycling of the old door, new tracks and weatherseal, springs sized to the new door's weight, and a full balance and safety check. A door is only as good as its install — a premium door on lazy hardware still rattles and sags." },
     ],
     faqs: [
-      ["How much does a new garage door cost in Vancouver?", "Supplied and installed, our doors start from $3,647, with mid-range options around $4,558 and premium glass or carriage builds up to about $7,268 depending on size, insulation, glass and design. We give a firm written quote after a free measure — no surprises."],
+      [`How much does a new garage door cost in Vancouver?`, `Supplied and installed, a new door is a single all-in number, ${px(`with budget, mid-range and premium builds — tap "Pricing" in the footer to see the figures`, `starting from $3,647, with mid-range options around $4,558 and premium glass or carriage builds up to about $7,268`)} depending on size, insulation, glass and design. We give a firm written quote after a free measure — no surprises.`],
       ["How long until it's installed?", "Stock steel doors can often be installed within a week or two; custom colours, glass and carriage styles take longer to order. We'll give you a realistic date, not an optimistic one."],
       ["Do you remove my old door?", "Yes — removal, haul-away and recycling of the old door and hardware is included in every install quote."],
       ["What brands do you install?", "We fit quality North-American-made doors and pair them with LiftMaster openers. We'll match the door to your home and budget rather than pushing one premium line."],
@@ -650,7 +659,7 @@ function serviceNode(s, areaName) {
   };
 }
 function faqNode(faqs) {
-  return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) };
+  return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: schemaText(a) } })) };
 }
 
 /* ---------------- page assembly ---------------- */
@@ -661,7 +670,7 @@ function page(path, html) { PAGES.push([path, html]); }
 {
   const homeFaqs = [
     ["Is the name a joke?", "The name is. The work isn't. 'Good Enough Garage Doors' is a deliberately humble name for a company that quietly over-delivers — licensed, insured, WorkSafeBC-covered, with upfront pricing and a real workmanship warranty. We figured a self-deprecating name was more honest than another 'Elite Premier Pro' that overpromises."],
-    ["How much does a garage door repair cost in Greater Vancouver?", `It depends on the part. Spring replacements run from $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We give you the exact number before we start — no surprise fees. Tap the "Pricing" button in the footer to reveal our published figures.`],
+    [`How much does a garage door repair cost in Greater Vancouver?`, `It depends on the part. Spring replacements are a flat rate ${px(`(tap "Pricing" in the footer for the figure)`, `(from $${money(C.springPricing.tiers[0].price)})`)}; most repairs land in the low-to-mid hundreds. We give you the exact number before we start — no surprise fees. Tap the "Pricing" button in the footer to reveal our published figures.`],
     ["Can you come the same day?", "Most days, for most of Metro Vancouver, yes — especially for broken springs and security issues. We'll give you an honest arrival window rather than promise a time we can't keep."],
     ["What areas do you serve?", "All of Greater Vancouver — Vancouver, Burnaby, Surrey, Richmond, Coquitlam and the rest of the Lower Mainland from the North Shore to Langley. We have deep-dive pages for our core cities and serve everywhere in between."],
     ["Are you actually licensed and insured?", "Yes. We're business-licensed, carry commercial liability insurance, and are WorkSafeBC-covered. Note that garage-door work is an unregulated trade in BC — there's no provincial trade licence for it — so we describe ourselves precisely and never imply a certificate that doesn't exist."],
@@ -903,7 +912,7 @@ for (const s of services) {
 for (const c of cities) {
   const cityFaqs = [
     [`How fast can you reach ${c.name}?`, `We serve ${c.name} most days with same-day or next-day appointments, and we'll always give you an honest arrival window rather than an empty promise. Broken springs and security issues jump the queue.`],
-    [`How much does garage door repair cost in ${c.name}?`, `Spring replacements start at $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We quote the exact number before we start — no surprise call-out fees added in ${c.name} or anywhere else.`],
+    [`How much does garage door repair cost in ${c.name}?`, `Spring replacements are an upfront flat rate ${px(`(tap "Pricing" in the footer for the figure)`, `(from $${money(C.springPricing.tiers[0].price)})`)}; most repairs land in the low-to-mid hundreds. We quote the exact number before we start — no surprise call-out fees added in ${c.name} or anywhere else.`],
     [`Do you cover all of ${c.name}?`, `Yes — every neighbourhood, including ${c.nbhd.slice(0, 3).join(", ")} and beyond. If you're in or near ${c.name}, just call and we'll confirm your window.`],
     [`Are you licensed and insured to work in ${c.name}?`, `${C.trust.licence}. Garage-door work is an unregulated trade in BC, so we describe ourselves precisely and never imply a trade certificate that doesn't exist — that precision is part of how we earn trust.`],
   ];
@@ -1016,7 +1025,7 @@ for (const c of cities) {
     ["Is the name a joke?", "The name is. The work isn't. We chose a deliberately humble name to stand apart from every company shouting 'elite' and 'premier.' Underneath it is a fully licensed, insured, WorkSafeBC-covered crew with upfront pricing and a real warranty. Lower the talk, raise the work."],
     ["What areas do you serve?", "All of Greater Vancouver — Vancouver, Burnaby, Surrey, Richmond, Coquitlam, plus the North Shore, Tri-Cities, Langley, Delta, New West, the Ridge Meadows area and White Rock. We have deep-dive pages for our core cities and serve everywhere in between."],
     ["Can you really come the same day?", "Most days, for most of the Lower Mainland, yes — especially for broken springs and security problems. We give you an honest arrival window instead of a promise we can't keep. We're a local crew, not a national dispatch centre."],
-    ["How much will my repair cost?", `Spring replacements start at $${C.springPricing.tiers[0].price}; most repairs land in the low-to-mid hundreds. We quote the exact figure before we start — no surprise call-out fee. Published spring pricing is on the spring-repair page and via the footer "Pricing" toggle.`],
+    [`How much will my repair cost?`, `Spring replacements are an upfront flat rate ${px(`(tap "Pricing" in the footer for the figure)`, `(from $${money(C.springPricing.tiers[0].price)})`)}; most repairs land in the low-to-mid hundreds. We quote the exact figure before we start — no surprise call-out fee. Published spring pricing is on the spring-repair page and via the footer "Pricing" toggle.`],
     ["Do you charge a call-out or diagnostic fee?", `A service/diagnostic call is $${C.springPricing.serviceCall}, and it's waived when you go ahead with the work. We tell you upfront — never a surprise on the invoice.`],
     ["Are you available 24/7?", "We're honest about this: we're a local crew, not a 24-hour call centre. We answer fast during the day (7am–9pm, 7 days), reply quickly to after-hours texts and messages, and prioritise genuine emergencies. If a company promises a tech at any hour, ask how — it often hides a big surcharge."],
     ["Why do springs need replacing in pairs?", "Your two torsion springs wear at the same rate, so when one breaks the other is usually close behind. Replacing both saves a second call-out and trip charge. If you genuinely have a single-spring door, we'll fit one and charge for one."],
