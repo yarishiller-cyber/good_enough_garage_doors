@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260621c";
+const ASSET_V = "20260622a";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -18,6 +18,8 @@ const PHONE_D = C.phoneDisplay;
 
 /* ---------------- tiny helpers ---------------- */
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// Format a bare price number with thousands separators for DISPLAY only (schema/config stay bare).
+const money = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const stars = (n = 5) => "★".repeat(n);
 
 /* ---------------- inline icons (stroke, currentColor) ---------------- */
@@ -60,7 +62,7 @@ const services = [
     sections: [
       { h: "Why we replace springs in pairs (and tell you when you don't need to)", p: "Most doors run on two torsion springs that wear at the same rate. When one snaps, the other is usually close behind — so replacing both at once saves you a second service call and a second trip charge. That said, if you genuinely have a single-spring setup, we'll fit a single spring and charge you for one. We won't upsell you a pair you don't need. That's the whole 'good enough is an understatement' thing in one sentence." },
       { h: "Torsion vs extension springs", p: "Torsion springs sit on a steel shaft above the door and last roughly 15,000–20,000 cycles. Older extension springs run alongside the tracks and last closer to 10,000. We work on both, but on the wet North Shore and across the Fraser Valley we often recommend upgrading tired extension setups to a safer, longer-lived torsion system." },
-      { h: "How much does spring replacement cost in Metro Vancouver?", p: `Most spring replacements in the Lower Mainland land between $${C.springPricing.tiers[0].price} and $${C.springPricing.tiers[2].price} depending on whether you need one spring, a pair with new cables, or premium high-cycle springs. We give you the exact number before we touch anything — no $19.99 bait, no surprise call-out fee tacked on after. See the three tiers below.` },
+      { h: "How much does spring replacement cost in Metro Vancouver?", p: `Most spring replacements in the Lower Mainland land between $${money(C.springPricing.tiers[0].price)} and $${money(C.springPricing.tiers[2].price)} depending on whether you need one spring, a pair with new cables, or premium high-cycle springs. We give you the exact number before we touch anything — no $19.99 bait, no surprise call-out fee tacked on after. See the three tiers below.` },
     ],
     faqs: [
       ["Can you fix my garage door spring today?", "Most days, yes. Spring breaks are our priority calls because your car is usually trapped. Call or text and we'll give you an honest arrival window for your part of Greater Vancouver — we won't promise a time we can't keep."],
@@ -68,7 +70,7 @@ const services = [
       ["Why did my spring break in winter?", "Cold snaps are hard on tired springs — the metal contracts and brittle springs let go. Lower Mainland damp and salt air also rust springs and cables over time. A spring that was 'fine' in October often gives out in the first cold week."],
       ["Do you include new cables?", "On both two-spring tiers, yes — new lift cables are included free, because cables and springs age together and it's silly to reuse worn cables on a fresh spring. Every spring job also includes a free safety inspection of the whole door."],
     ],
-    priceHint: `From $${C.springPricing.tiers[0].price}`,
+    priceHint: `From $${money(C.springPricing.tiers[0].price)}`,
   },
   {
     slug: "garage-door-opener-repair", nav: "Opener Repair", short: "Opener Repair",
@@ -112,7 +114,7 @@ const services = [
       ["How long does a new opener take to install?", "A straightforward swap is usually 1.5–2 hours. A wall-mount conversion or a job that needs new mounting takes a little longer; we'll tell you upfront."],
       ["Do you install openers I bought myself?", "We can, but we'll be honest: big-box openers are often a lower-grade model than the LiftMaster units we fit, and the warranty is yours to manage. We'll quote install-only if you'd still like us to."],
     ],
-    priceHint: `From $${C.openerPricing["4690"]} installed`,
+    priceHint: `From $${money(C.openerPricing["2220L"])} installed`,
   },
   {
     slug: "garage-door-cable-repair", nav: "Cable Repair", short: "Cable Repair",
@@ -173,12 +175,12 @@ const services = [
       { h: "What a proper install includes", p: "Removal and recycling of the old door, new tracks and weatherseal, springs sized to the new door's weight, and a full balance and safety check. A door is only as good as its install — a premium door on lazy hardware still rattles and sags." },
     ],
     faqs: [
-      ["How much does a new garage door cost in Vancouver?", "A standard insulated single door installed typically starts in the four figures and rises with size, insulation, glass and design. We give a firm written quote after a free measure — no vague 'starting from' games."],
+      ["How much does a new garage door cost in Vancouver?", "Supplied and installed, our doors start from $3,647, with mid-range options around $4,558 and premium glass or carriage builds up to about $7,268 depending on size, insulation, glass and design. We give a firm written quote after a free measure — no surprises."],
       ["How long until it's installed?", "Stock steel doors can often be installed within a week or two; custom colours, glass and carriage styles take longer to order. We'll give you a realistic date, not an optimistic one."],
       ["Do you remove my old door?", "Yes — removal, haul-away and recycling of the old door and hardware is included in every install quote."],
       ["What brands do you install?", "We fit quality North-American-made doors and pair them with LiftMaster openers. We'll match the door to your home and budget rather than pushing one premium line."],
     ],
-    priceHint: "Free measure & written quote",
+    priceHint: "From $3,647 installed",
   },
   {
     slug: "garage-door-maintenance", nav: "Maintenance", short: "Tune-Ups",
@@ -382,7 +384,7 @@ function stickyCta() {
 }
 
 function priceReveal() {
-  const rows = C.springPricing.tiers.map((t) => `<tr><td>${esc(t.label)}</td><td>$${t.price}</td></tr>`).join("");
+  const rows = C.springPricing.tiers.map((t) => `<tr><td>${esc(t.label)}</td><td>$${money(t.price)}</td></tr>`).join("");
   // Native <details>: opens with zero JS, accessible by default (fixes the no-JS hidden-panel bug).
   return `
 <details class="price-reveal" id="priceReveal">
@@ -518,9 +520,9 @@ function priceTransparency() {
       </div>
       <div class="ptrust__card" data-reveal="left">
         <span class="eyebrow">Spring repair from</span>
-        <p class="big">$${C.springPricing.tiers[0].price}<span style="font-size:1rem;font-weight:600;opacity:.85"> · single spring</span></p>
-        <p>Two springs + new cables from <strong style="color:#fff">$${C.springPricing.tiers[1].price}</strong>. Free cables on pairs, free safety inspection on every spring job.</p>
-        <p style="font-size:.85rem;opacity:.85;margin-bottom:0">Most Lower Mainland spring jobs land between $${C.springPricing.tiers[0].price} and $${C.springPricing.tiers[2].price}. We'll tell you exactly which before we start.</p>
+        <p class="big">$${money(C.springPricing.tiers[0].price)}<span style="font-size:1rem;font-weight:600;opacity:.85"> · single spring</span></p>
+        <p>Two springs + new cables from <strong style="color:#fff">$${money(C.springPricing.tiers[1].price)}</strong>. Free cables on pairs, free safety inspection on every spring job.</p>
+        <p style="font-size:.85rem;opacity:.85;margin-bottom:0">Most Lower Mainland spring jobs land between $${money(C.springPricing.tiers[0].price)} and $${money(C.springPricing.tiers[2].price)}. We'll tell you exactly which before we start.</p>
       </div>
     </div>
   </div></section>`;
@@ -784,7 +786,7 @@ for (const s of services) {
       <div class="tier ${tier.featured ? "tier--feat" : ""}">
         ${tier.featured ? `<span class="tier__flag">Most popular — best value</span>` : ""}
         <h3>${tier.label}</h3>
-        <div class="tier__price">$${tier.price}<small> +tax</small></div>
+        <div class="tier__price">$${money(tier.price)}<small> +tax</small></div>
         <p class="tier__sub">${tier.sub}</p>
         <ul class="tier__inc">${tier.includes.map((i2) => `<li><span class="ck">${I.check}</span> ${i2}</li>`).join("")}</ul>
         <a class="btn ${tier.featured ? "btn--primary" : "btn--ghost"}" href="tel:${TEL}">${I.phone} Call to book</a>
@@ -812,7 +814,7 @@ for (const s of services) {
             <span class="opener__tag">${m.tag}</span>
             <h3>${m.name} — ${m.series}</h3>
             <p class="opener__spec">${m.tagline}. ${m.drive}, ${m.hp}.</p>
-            <p class="opener__price">$${price}<small> installed, all-in</small></p>
+            <p class="opener__price">$${money(price)}<small> installed, all-in</small></p>
             <ul class="opener__pills">${pills}</ul>
           </div>
         </div>

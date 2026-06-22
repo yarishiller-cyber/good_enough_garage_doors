@@ -60,17 +60,17 @@
     "currency": "CAD",
     "serviceCall": "39",
     "tiers": [
-      { "id": "single", "label": "Single spring replacement", "price": "189", "sub": "One broken torsion spring, replaced with a new pro-grade spring.", "includes": ["Free safety inspection", "Workmanship warranty"], "featured": false },
-      { "id": "pair", "label": "Two springs + new cables", "price": "329", "sub": "Both springs replaced in a balanced pair — the honest fix that lasts.", "includes": ["New cables — free", "Free safety inspection", "Workmanship warranty"], "featured": true },
-      { "id": "highcycle", "label": "Two high-cycle springs", "price": "419", "sub": "Premium longer-life springs (roughly double the cycles) for busy doors.", "includes": ["New cables — free", "Free safety inspection", "Longer-life springs", "Workmanship warranty"], "featured": false }
+      { "id": "single", "label": "Single spring replacement", "price": "739", "sub": "One broken torsion spring, replaced with a new pro-grade spring.", "includes": ["Free safety inspection", "Workmanship warranty"], "featured": false },
+      { "id": "pair", "label": "Two springs + new cables", "price": "851", "sub": "Both springs replaced in a balanced pair — the honest fix that lasts.", "includes": ["New cables — free", "Free safety inspection", "Workmanship warranty"], "featured": true },
+      { "id": "highcycle", "label": "Two high-cycle springs", "price": "1274", "sub": "Premium longer-life springs (roughly double the cycles) for busy doors.", "includes": ["New cables — free", "Free safety inspection", "Longer-life springs", "Workmanship warranty"], "featured": false }
     ],
     "freeWithEveryJob": ["Free cables on both 2-spring tiers", "Free safety inspection on every spring job"]
   },
 
   "openerPricing": {
     "_note": "Value-forward, installed prices. Distinct from sibling sites.",
-    "2220L": "499", "6580L": "649", "98022L": "749",
-    "2420L": "549", "4690": "429", "6690L": "699", "98032L": "799"
+    "2220L": "1311", "6580L": "1448", "98022L": "1939",
+    "2420L": "1311", "4690": "1448", "6690L": "1448", "98032": "1939"
   },
 
   "partnerProgram": {
