@@ -315,7 +315,8 @@ function pageheadBg(name) {
 
 function head(o) {
   const canon = BASE + o.path;
-  const ogImg = `${BASE}/assets/img/${o.ogImg || "hero-desktop"}.webp`;
+  // Real 1200×630 social image cropped from the home hero (van + technician + garage door).
+  const ogImg = o.ogImg ? `${BASE}/assets/img/${o.ogImg}.webp` : `${BASE}/og/home.jpg`;
   return `<!doctype html>
 <html lang="en-CA">
 <head>
@@ -335,8 +336,13 @@ function head(o) {
 <meta property="og:description" content="${esc(o.desc)}">
 <meta property="og:url" content="${canon}">
 <meta property="og:image" content="${ogImg}">
+${o.ogImg ? `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="480">` : `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`}
 <meta property="og:image:alt" content="${esc(o.ogAlt || C.brandName + " — garage door service across Greater Vancouver")}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(o.title)}">
+<meta name="twitter:description" content="${esc(o.desc)}">
+<meta name="twitter:image" content="${ogImg}">
+<meta name="twitter:image:alt" content="${esc(o.ogAlt || C.brandName + " — garage door service across Greater Vancouver")}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter.woff2" crossorigin>
@@ -608,7 +614,7 @@ const businessNode = {
   name: C.brandName,
   legalName: C.brandName,
   slogan: C.signatureHook,
-  image: [`${BASE}/assets/img/hero-desktop.webp`, `${BASE}/assets/img/about.webp`, `${BASE}/assets/img/new-door.webp`],
+  image: [`${BASE}/og/home.jpg`, `${BASE}/assets/img/hero-desktop.webp`, `${BASE}/assets/img/about.webp`, `${BASE}/assets/img/new-door.webp`],
   logo: `${BASE}/assets/img/logo-512.png`,
   url: `${BASE}/`,
   telephone: TEL,
@@ -664,7 +670,7 @@ function page(path, html) { PAGES.push([path, html]); }
   const body = head({
     path: "/", title: "Good Enough Garage Doors | Honest Garage Door Repair Across Greater Vancouver",
     desc: "Good Enough Garage Doors — honest, same-day garage door repair across Greater Vancouver. Springs, openers, cables & new doors. Upfront pricing, no surprises. The only bad thing about us is the name.",
-    preload: "/assets/img/hero-desktop-960.webp", jsonld,
+    preload: "/assets/img/hero-desktop-960.avif", jsonld,
   }) + header() + `
 <main id="main">
   <section class="hero"><div class="container"><div class="hero__grid">
