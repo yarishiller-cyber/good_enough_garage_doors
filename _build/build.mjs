@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260622a";
+const ASSET_V = "20260622b";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -287,12 +287,12 @@ const cityBySlug = Object.fromEntries(cities.map((c) => [c.slug, c]));
 
 /* ---------------- reviews (real-style, NOT schema'd) ---------------- */
 const reviews = [
-  ["My spring went at 7am with the car stuck inside. They texted back fast, gave me a price over the phone that didn't change, and had me out the door by lunch. The name's a joke; the service isn't.", "Priya S.", "Burnaby"],
-  ["Quoted me a repair when two other companies tried to sell me a whole new opener. Fixed the sensor in twenty minutes. Honestly the most refreshingly un-pushy trades experience I've had.", "Dave M.", "Coquitlam"],
-  ["Booked a tune-up expecting an upsell and instead got told my door was fine and to call in a year. Who does that? They've got my business for life.", "Karen L.", "Surrey"],
-  ["New insulated door on our Richmond place. Clear written quote, showed up when they said, cleaned up after. No surprises on the invoice — exactly what they promised.", "Anthony W.", "Richmond"],
-  ["Cable snapped and the door was hanging sideways. They came same day, fixed it, and walked me through what to watch for. Friendly, fair, fast.", "Megan T.", "Vancouver"],
-  ["Replaced both springs and threw in the cables free like they said. Price was lower than the big-name company's call-out fee alone. Genuinely good value.", "Hassan R.", "Surrey"],
+  ["My spring went at 7am with the car stuck inside. They texted back fast, gave me a price over the phone that didn't change, and had me out the door by lunch. The name's a joke; the service isn't.", "Priya S.", "Burnaby", "rev-priya"],
+  ["Quoted me a repair when two other companies tried to sell me a whole new opener. Fixed the sensor in twenty minutes. Honestly the most refreshingly un-pushy trades experience I've had.", "Dave M.", "Coquitlam", "rev-dave"],
+  ["Booked a tune-up expecting an upsell and instead got told my door was fine and to call in a year. Who does that? They've got my business for life.", "Karen L.", "Surrey", "rev-karen"],
+  ["New insulated door on our Richmond place. Clear written quote, showed up when they said, cleaned up after. No surprises on the invoice — exactly what they promised.", "Anthony W.", "Richmond", "rev-anthony"],
+  ["Cable snapped and the door was hanging sideways. They came same day, fixed it, and walked me through what to watch for. Friendly, fair, fast.", "Megan T.", "Vancouver", "rev-megan"],
+  ["Replaced both springs and threw in the cables free like they said. Price was lower than the big-name company's call-out fee alone. Genuinely good value.", "Hassan R.", "Surrey", "rev-hassan"],
 ];
 
 /* ---------------- shared layout ---------------- */
@@ -522,11 +522,11 @@ function priceTransparency() {
 }
 
 function reviewsSection() {
-  const cards = reviews.map(([q, who, where]) => `
+  const cards = reviews.map(([q, who, where, photo]) => `
     <figure class="review">
       <div class="review__stars" aria-label="5 out of 5 stars">${stars(5)}</div>
       <blockquote><p>"${q}"</p></blockquote>
-      <figcaption class="review__who"><span class="review__av">${who[0]}</span><span><strong>${who}</strong><small>${where}</small></span></figcaption>
+      <figcaption class="review__who"><img class="review__av" src="/assets/img/${photo}.webp" width="44" height="44" loading="lazy" decoding="async" alt="${esc(who)}, ${esc(where)}"><span><strong>${who}</strong><small>${where}</small></span></figcaption>
     </figure>`).join("");
   return `<section class="section section--soft" id="reviews"><div class="container">
     <div class="center" data-reveal><span class="eyebrow">What neighbours say</span>
@@ -768,7 +768,7 @@ for (const s of services) {
     <figure class="review" style="max-width:760px;margin-inline:auto">
       <div class="review__stars" aria-label="5 out of 5 stars">${stars(5)}</div>
       <blockquote><p>"${rv[0]}"</p></blockquote>
-      <figcaption class="review__who"><span class="review__av">${rv[1][0]}</span><span><strong>${rv[1]}</strong><small>${rv[2]} · verified on Google</small></span></figcaption>
+      <figcaption class="review__who"><img class="review__av" src="/assets/img/${rv[3]}.webp" width="44" height="44" loading="lazy" decoding="async" alt="${esc(rv[1])}, ${esc(rv[2])}"><span><strong>${rv[1]}</strong><small>${rv[2]} · verified on Google</small></span></figcaption>
     </figure>
   </div></section>`;
 
