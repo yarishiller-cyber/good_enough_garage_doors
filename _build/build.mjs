@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260622c";
+const ASSET_V = "20260622d";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -344,11 +344,16 @@ ${o.ogImg ? `<meta property="og:image:width" content="1200"><meta property="og:i
 <meta name="twitter:image" content="${ogImg}">
 <meta name="twitter:image:alt" content="${esc(o.ogAlt || C.brandName + " — garage door service across Greater Vancouver")}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bricolage-grotesque.woff2" crossorigin>
 ${o.preload ? `<link rel="preload" as="image" type="image/avif" href="${o.preload}" fetchpriority="high">` : ""}
 <link rel="stylesheet" href="/styles.css?v=${ASSET_V}">
+<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", "@id": `${BASE}/#organization`, name: C.brandName, url: `${BASE}/`, logo: { "@type": "ImageObject", url: `${BASE}/assets/img/logo-512.png`, width: 512, height: 512 }, image: `${BASE}/og/home.jpg` })}</script>
 ${o.jsonld ? `<script type="application/ld+json">${JSON.stringify(o.jsonld)}</script>` : ""}
 </head>
 <body class="layout-b">
