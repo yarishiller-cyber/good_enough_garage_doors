@@ -27,7 +27,7 @@ const VAN_REF = "assets/brand/van-ref.png";
 const jobs = [
   // hero — desktop landscape + mobile portrait (the only true dual-orientation hero)
   ["hero-desktop", "wide landscape shot: a friendly average-looking middle-aged male garage-door technician standing beside a deep-plum wrapped Ford Transit service van in the driveway of a typical Greater Vancouver craftsman home with an open double garage door, soft overcast morning, evergreen trees and mountains faint in the background, " + BRAND + "; " + STYLE, [1600, 960], VAN_REF],
-  ["hero-mobile", "vertical portrait shot: a friendly average-looking female garage-door technician in plum uniform smiling slightly while carrying a torsion spring, the deep-plum wrapped service van behind her in a Metro Vancouver suburban driveway, open garage door, soft overcast light, " + BRAND + "; " + STYLE, [960, 480], VAN_REF],
+  ["hero-mobile", "vertical portrait composition: a friendly average-looking female garage-door technician in plum uniform standing in a Metro Vancouver suburban driveway, holding a tool, with BOTH a clearly visible large OPEN double sectional garage door behind her AND the deep-plum wrapped service van parked beside it, the open garage door must be prominent and fully in frame, soft overcast morning light, " + BRAND + "; " + STYLE, [960, 480], VAN_REF],
   // service heroes
   ["spring-repair", "close realistic shot of weathered gloved hands winding a new torsion spring onto the steel shaft above a residential garage door, real garage interior, work light, " + BRAND + "; " + STYLE, [1200, 480], VAN_REF],
   ["opener-repair", "a technician on a small ladder reaching up to a ceiling-mounted garage door opener motor unit inside a real suburban garage, troubleshooting, natural light from open door, " + BRAND + "; " + STYLE, [1200, 480], VAN_REF],
@@ -48,6 +48,19 @@ const jobs = [
   ["partner", "two working tradespeople shaking hands beside the plum wrapped service van, genuine blue-collar, overcast Metro Vancouver driveway, " + BRAND + "; " + STYLE, [1200, 480], VAN_REF],
   ["contact", "friendly female dispatcher-technician in a plum jacket holding a phone and clipboard beside the plum wrapped van, candid, " + BRAND + "; " + STYLE, [1200, 480], VAN_REF],
   ["faq", "a technician explaining something to a homeowner in a driveway, pointing at the garage door, both relaxed, plum van nearby, " + BRAND + "; " + STYLE, [1200, 480], VAN_REF],
+];
+
+// Reviewer headshots (§6 reviewer recipe). Match ethnicity + sex to the name origin.
+// Output square ~256px webp, displayed circular. NOT models — ordinary Metro-Van people.
+const PORTRAIT = "candid amateur smartphone headshot, ordinary everyday person (not a model), at home, natural window light, shot on a phone, slightly imperfect framing, true-to-life skin texture with visible pores and imperfections, slight grain, natural depth of field";
+const PORTRAIT_NEG = "no plastic or waxy skin, no over-smoothing, no CGI or 3D render look, no cartoon, no warped hands or extra fingers, no unnatural symmetry, no text or watermark, no over-saturation, no HDR glow, not a stock photo, not a studio portrait";
+const reviewers = [
+  ["rev-priya", "a warm South-Asian (Indian-Canadian) woman in her late 30s, ordinary middle-class homeowner, slight friendly smile; " + PORTRAIT + "; " + PORTRAIT_NEG],
+  ["rev-dave", "a friendly white Canadian man in his mid 40s, short greying hair, casual shirt, slight smile; " + PORTRAIT + "; " + PORTRAIT_NEG],
+  ["rev-karen", "a friendly white Canadian woman in her early 50s, shoulder-length hair, casual sweater, gentle smile; " + PORTRAIT + "; " + PORTRAIT_NEG],
+  ["rev-anthony", "a friendly white Canadian man in his late 30s, short dark hair, casual jacket, slight smile; " + PORTRAIT + "; " + PORTRAIT_NEG],
+  ["rev-megan", "a friendly white Canadian woman in her early 30s, light brown hair, casual top, natural smile; " + PORTRAIT + "; " + PORTRAIT_NEG],
+  ["rev-hassan", "a friendly Middle-Eastern (Iranian/Lebanese-Canadian) man in his early 40s, short dark hair and trimmed beard, casual shirt, slight smile; " + PORTRAIT + "; " + PORTRAIT_NEG],
 ];
 
 async function gen(prompt, outPng, ref) {
@@ -72,6 +85,11 @@ async function gen(prompt, outPng, ref) {
 function webp(png, out, w) {
   execSync(`cwebp -q 82 -resize ${w} 0 "${png}" -o "${out}"`, { stdio: "ignore" });
 }
+// Center-crop to a square (or any w×h) and write webp — for reviewer avatars + OG.
+import sharp from "sharp";
+async function webpCrop(png, out, w, h = w) {
+  await sharp(png).resize(w, h, { fit: "cover", position: "attention" }).webp({ quality: 82 }).toFile(out);
+}
 
 // 1) Van reference first (establishes the brand) — generated WITHOUT a ref.
 if (!existsSync(VAN_REF)) {
@@ -82,10 +100,13 @@ if (!existsSync(VAN_REF)) {
   } catch (e) { console.error("  ✗ van-ref:", e.message); }
 }
 
+// Names listed here are regenerated even if a .webp already exists (set GEN_FORCE="a,b").
+const FORCE = new Set((process.env.GEN_FORCE || "").split(",").map((s) => s.trim()).filter(Boolean));
+
 let ok = 0, skip = 0, failn = 0;
 for (const [base, prompt, widths, ref] of jobs) {
   const finalFull = `${OUT}/${base}.webp`;
-  if (existsSync(finalFull)) { skip++; continue; }
+  if (existsSync(finalFull) && !FORCE.has(base)) { skip++; continue; }
   const png = `${OUT}/${base}.png`;
   process.stdout.write(`→ ${base} ... `);
   try {
@@ -101,4 +122,35 @@ for (const [base, prompt, widths, ref] of jobs) {
     failn++;
   }
 }
-console.log(`\nDone. generated=${ok} skipped=${skip} failed=${failn}`);
+console.log(`\nHeroes/sections: generated=${ok} skipped=${skip} failed=${failn}`);
+
+// 2) Reviewer avatars — square 256px webp, displayed circular.
+let rok = 0, rskip = 0, rfail = 0;
+for (const [base, prompt] of reviewers) {
+  const out = `${OUT}/${base}.webp`;
+  if (existsSync(out) && !FORCE.has(base)) { rskip++; continue; }
+  const png = `${OUT}/${base}.png`;
+  process.stdout.write(`→ ${base} ... `);
+  try {
+    await gen(prompt, png, null); // no van ref — these are people, not branded scenes
+    await webpCrop(png, out, 256);
+    unlinkSync(png);
+    console.log("✓"); rok++;
+  } catch (e) { console.log("✗ " + e.message); rfail++; }
+}
+console.log(`Reviewers: generated=${rok} skipped=${rskip} failed=${rfail}`);
+
+// 3) Real OG image (1200×630) cropped from the desktop hero source.
+mkdirSync("og", { recursive: true });
+const ogOut = "og/home.webp", ogJpg = "og/home.jpg";
+if (FORCE.has("og") || !existsSync(ogOut)) {
+  // Prefer the largest hero webp as the source for the OG crop.
+  const heroSrc = ["assets/img/hero-desktop-1600.webp", "assets/img/hero-desktop-960.webp", "assets/img/hero-desktop.webp"].find(existsSync);
+  if (heroSrc) {
+    try {
+      await sharp(heroSrc).resize(1200, 630, { fit: "cover", position: "attention" }).webp({ quality: 84 }).toFile(ogOut);
+      await sharp(heroSrc).resize(1200, 630, { fit: "cover", position: "attention" }).jpeg({ quality: 84, mozjpeg: true }).toFile(ogJpg);
+      console.log("OG: ✓ og/home.webp + og/home.jpg (1200×630 from hero)");
+    } catch (e) { console.log("OG: ✗ " + e.message); }
+  } else { console.log("OG: ✗ no hero source found"); }
+} else { console.log("OG: skipped (exists)"); }
