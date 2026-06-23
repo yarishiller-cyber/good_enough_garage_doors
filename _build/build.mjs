@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260622e";
+const ASSET_V = "20260623a";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -318,7 +318,7 @@ function pageheadBg(name) {
   return `<picture>
       <source type="image/avif" srcset="/assets/img/${name}-1200.avif">
       <source type="image/webp" srcset="/assets/img/${name}-1200.webp">
-      <img class="pagehead__bg" src="/assets/img/${name}-1200.webp" alt="" aria-hidden="true" width="1200" height="480" fetchpriority="high" decoding="async">
+      <img class="pagehead__bg" src="/assets/img/${name}-1200.webp" alt="" aria-hidden="true" width="1200" height="480" fetchpriority="high" decoding="async" data-parallax="0.12">
     </picture>`;
 }
 
@@ -709,7 +709,7 @@ function page(path, html) { PAGES.push([path, html]); }
           <source type="image/webp" media="(max-width:760px)" srcset="/assets/img/hero-mobile-960.webp 960w, /assets/img/hero-mobile-480.webp 480w" sizes="100vw">
           <source type="image/avif" media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.avif 1600w, /assets/img/hero-desktop-960.avif 960w" sizes="(min-width:761px) 50vw, 100vw">
           <source type="image/webp" media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.webp 1600w, /assets/img/hero-desktop-960.webp 960w" sizes="(min-width:761px) 50vw, 100vw">
-          <img src="/assets/img/hero-desktop-960.webp" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
+          <img src="/assets/img/hero-desktop-960.webp" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async" data-parallax="0.12">
         </picture>
       </div>
       <div class="hero__stars"><span class="s">${stars(5)}</span> Reviewed on Google</div>
