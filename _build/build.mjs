@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260623a";
+const ASSET_V = "20260623b";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
@@ -817,6 +817,7 @@ for (const s of services) {
     const t = C.springPricing.tiers.map((tier) => `
       <div class="tier ${tier.featured ? "tier--feat" : ""}">
         ${tier.featured ? `<span class="tier__flag">Most popular — best value</span>` : ""}
+        <div class="tier__media"><picture><source type="image/avif" srcset="/assets/img/spring-repair-480.avif"><source type="image/webp" srcset="/assets/img/spring-repair-480.webp"><img src="/assets/img/spring-repair-480.webp" loading="lazy" decoding="async" width="480" height="192" alt="Garage door torsion spring replacement by Good Enough Garage Doors"></picture></div>
         <h3>${tier.label}</h3>
         <div class="tier__price">${px(`Flat rate`, `$${money(tier.price)}`)}<small> +tax</small></div>
         <p class="tier__sub">${tier.sub}</p>
@@ -827,6 +828,13 @@ for (const s of services) {
       <div class="center" data-reveal><span class="eyebrow">Honest spring pricing</span><h2>Three clear tiers. Free cables. Free inspection.</h2>
         <p class="lede measure-c">Real published prices — the number we quote is the number you pay. Both two-spring tiers include new cables free, and every spring job includes a free safety inspection of the whole door.</p></div>
       <div class="tiers" data-stagger style="margin-top:2.5rem">${t}</div>
+      <div class="trust-row" data-stagger>
+        <div class="trust-row__item"><strong>$0</strong><span>Service-call fee with completed work</span></div>
+        <div class="trust-row__item"><strong>$0</strong><span>After-hours surcharge</span></div>
+        <div class="trust-row__item"><strong>$0</strong><span>Weekend / holiday markup</span></div>
+        <div class="trust-row__item"><strong>$0</strong><span>Upsell pressure on the truck</span></div>
+      </div>
+      <p class="promise center measure-c" data-reveal>The flat-rate price we quote is the price you pay. We don't upsell on the truck — if we genuinely find something else (a worn cable, a broken roller), we tell you and you decide. We never start work without your OK.</p>
       <div class="notice" style="margin-top:2rem">${I.tag}<p><strong>Why pairs?</strong> Your two springs wear together — replacing both at once saves a second call-out when the other goes. Got a true single-spring door? We'll fit one and charge for one. Service/diagnostic call is $${C.springPricing.serviceCall}, waived when the work proceeds.</p></div>
     </div></section>`;
   }
@@ -841,7 +849,7 @@ for (const s of services) {
       const pills = m.specs.slice(0, 4).map((sp, i) => `<li class="${i === 0 ? "is-feature" : ""}">${sp}</li>`).join("");
       return `<div class="opener">
         <div class="opener__main">
-          <img class="opener__img" src="/assets/img/openers/${sku}.webp" loading="lazy" decoding="async" width="160" height="124" alt="${m.imageAlt}">
+          <img class="opener__img" src="/assets/img/openers/${sku}.webp" loading="lazy" decoding="async" width="210" height="200" alt="${m.imageAlt}">
           <div class="opener__info">
             <span class="opener__tag">${m.tag}</span>
             <h3>${m.name} — ${m.series}</h3>
