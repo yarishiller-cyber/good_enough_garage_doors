@@ -8,10 +8,16 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260623b";
+const ASSET_V = "20260626a";
 const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-06-21";
 const BASE = C.siteUrl;
+// Clean extensionless directory-style URLs: /page.html -> /page/ ; /index.html (or /) -> /
+// Pages stay flat *.html on disk; .htaccess maps the clean URL and 301s old .html requests.
+function cleanUrl(p) {
+  if (!p || p === "/" || p === "/index.html") return "/";
+  return p.replace(/\.html$/, "").replace(/\/$/, "") + "/";
+}
 const TEL = C.phoneIntl;
 const SMS_BODY = encodeURIComponent("Hi Good Enough Garage Doors — I need help with my garage door. My name is ");
 const PHONE_D = C.phoneDisplay;
@@ -310,8 +316,8 @@ const reviews = [
 ];
 
 /* ---------------- shared layout ---------------- */
-const navServices = services.map((s) => `<a href="/${s.slug}.html">${s.nav}</a>`).join("");
-const navAreas = cities.map((c) => `<a href="/service-areas/${c.slug}.html">${c.name}</a>`).join("");
+const navServices = services.map((s) => `<a href="/${s.slug}/">${s.nav}</a>`).join("");
+const navAreas = cities.map((c) => `<a href="/service-areas/${c.slug}/">${c.name}</a>`).join("");
 
 // Interior page-hero background as <picture> (AVIF→WebP), eager + high priority (it's the LCP).
 function pageheadBg(name) {
@@ -323,7 +329,7 @@ function pageheadBg(name) {
 }
 
 function head(o) {
-  const canon = BASE + o.path;
+  const canon = BASE + cleanUrl(o.path);
   // Real 1200×630 social image cropped from the home hero (van + technician + garage door).
   const ogImg = o.ogImg ? `${BASE}/assets/img/${o.ogImg}.webp` : `${BASE}/og/home.jpg`;
   return `<!doctype html>
@@ -379,13 +385,13 @@ function header() {
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="/">Home</a>
-      <span class="has-drop"><a href="/services.html">Services</a>
+      <span class="has-drop"><a href="/services/">Services</a>
         <span class="drop">${navServices}</span></span>
-      <span class="has-drop"><a href="/service-areas/vancouver.html">Areas</a>
+      <span class="has-drop"><a href="/service-areas/vancouver/">Areas</a>
         <span class="drop">${navAreas}</span></span>
-      <a href="/about.html">About</a>
-      <a href="/faq.html">FAQ</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/about/">About</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/contact/">Contact</a>
       <a class="nav__cta" href="tel:${TEL}">${I.phone} ${PHONE_D}</a>
     </nav>
     <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="siteHeader" aria-label="Open menu">${I.menu}</button>
@@ -420,7 +426,7 @@ function priceReveal() {
       <thead><tr><th>Spring repair</th><th class="num">From</th></tr></thead>
       <tbody>${rows}<tr><td>Service / diagnostic call <small>(waived if work proceeds)</small></td><td class="num">${px(`waived with repair`, `$${C.springPricing.serviceCall}`)}</td></tr></tbody>
     </table>
-    <p style="margin-top:.8rem"><a href="/garage-door-spring-repair.html" style="color:var(--accent);font-weight:700">See full spring &amp; opener pricing →</a></p>
+    <p style="margin-top:.8rem"><a href="/garage-door-spring-repair/" style="color:var(--accent);font-weight:700">See full spring &amp; opener pricing →</a></p>
   </div>
 </div>`;
 }
@@ -441,15 +447,15 @@ ${stickyCta()}
           <a href="mailto:${C.email}">${I.mail} ${C.email}</a>
         </div>
       </div>
-      <div><h4>Services</h4><ul>${services.map((s) => `<li><a href="/${s.slug}.html">${s.short}</a></li>`).join("")}</ul></div>
-      <div><h4>Service Areas</h4><ul>${cities.map((c) => `<li><a href="/service-areas/${c.slug}.html">${c.name}</a></li>`).join("")}<li><a href="/contact.html">All of Metro Vancouver →</a></li></ul></div>
+      <div><h4>Services</h4><ul>${services.map((s) => `<li><a href="/${s.slug}/">${s.short}</a></li>`).join("")}</ul></div>
+      <div><h4>Service Areas</h4><ul>${cities.map((c) => `<li><a href="/service-areas/${c.slug}/">${c.name}</a></li>`).join("")}<li><a href="/contact/">All of Metro Vancouver →</a></li></ul></div>
       <div><h4>Company</h4><ul>
-        <li><a href="/about.html">About us</a></li>
-        <li><a href="/faq.html">FAQ</a></li>
-        <li><a href="/contact.html">Contact &amp; quote</a></li>
-        <li><a href="/become-a-partner.html">Become a partner</a></li>
-        <li><a href="/privacy-policy.html">Privacy policy</a></li>
-        <li><a href="/terms-of-service.html">Terms of service</a></li>
+        <li><a href="/about/">About us</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/contact/">Contact &amp; quote</a></li>
+        <li><a href="/become-a-partner/">Become a partner</a></li>
+        <li><a href="/privacy-policy/">Privacy policy</a></li>
+        <li><a href="/terms-of-service/">Terms of service</a></li>
       </ul></div>
     </div>
     <div class="footer__bottom">
@@ -505,7 +511,7 @@ function reassureStrip() {
 
 function servicesGrid(heading = "What we fix (and fix right)") {
   const cards = services.map((s) => `
-    <a class="card svc-card hover-lift" href="/${s.slug}.html">
+    <a class="card svc-card hover-lift" href="/${s.slug}/">
       <span class="card__icon">${I[s.icon]}</span>
       <h3>${s.short}</h3>
       <p>${s.blurb}</p>
@@ -548,7 +554,7 @@ function priceTransparency() {
           <li><span class="ck">${I.check}</span> <span><strong>Repair before replace.</strong> If a $40 part fixes it, we won't sell you a $700 opener.</span></li>
           <li><span class="ck">${I.check}</span> <span><strong>Written quote before any bigger job.</strong> In plain language, with no pressure.</span></li>
         </ul>
-        <a class="btn btn--plum" href="/garage-door-spring-repair.html" style="margin-top:.5rem">See real spring prices ${I.arrow}</a>
+        <a class="btn btn--plum" href="/garage-door-spring-repair/" style="margin-top:.5rem">See real spring prices ${I.arrow}</a>
       </div>
       <div class="ptrust__card" data-reveal="left">
         <span class="eyebrow">Spring repair from</span>
@@ -584,7 +590,7 @@ function guaranteeBand() {
         <span class="eyebrow">Our promise</span>
         <h2>Fixed right, or we come back free. That part's not a joke.</h2>
         <p>Every repair carries a workmanship warranty, and quality parts carry the manufacturer's. If something we fixed isn't right, we make it right — no second call-out fee, no argument. You get a written quote before any bigger job, and we'd genuinely rather under-promise and over-deliver than the other way round.</p>
-        <div class="btn-row"><a class="btn btn--primary" href="tel:${TEL}">${I.phone} Call ${PHONE_D}</a><a class="btn btn--outline-light" href="/contact.html">Get a free quote</a></div>
+        <div class="btn-row"><a class="btn btn--primary" href="tel:${TEL}">${I.phone} Call ${PHONE_D}</a><a class="btn btn--outline-light" href="/contact/">Get a free quote</a></div>
       </div>
     </div>
   </div></section>`;
@@ -592,7 +598,7 @@ function guaranteeBand() {
 
 function areasSection() {
   const extras = C.allAreasServed.filter((a) => !cities.find((c) => c.name === a));
-  const chips = cities.map((c) => `<a class="area-chip" href="/service-areas/${c.slug}.html">${I.pin} ${c.name}</a>`).join("")
+  const chips = cities.map((c) => `<a class="area-chip" href="/service-areas/${c.slug}/">${I.pin} ${c.name}</a>`).join("")
     + extras.map((a) => `<span class="area-chip is-plain">${I.pin} ${a}</span>`).join("");
   return `<section class="section section--soft" id="areas"><div class="container">
     <div class="center" data-reveal><span class="eyebrow">Where we work</span>
@@ -616,7 +622,7 @@ function partnerCta() {
     <div class="anchor-cta" data-reveal>
       <div><strong>${I.hands} ${esc(C.partnerProgram.headline)}</strong>
         <p style="margin:.3rem 0 0;font-size:.9rem">Are you a vetted garage-door tech or trades company? Apply to receive our overflow leads in your area.</p></div>
-      <a class="btn btn--plum" href="/become-a-partner.html">Become a partner ${I.arrow}</a>
+      <a class="btn btn--plum" href="/become-a-partner/">Become a partner ${I.arrow}</a>
     </div>
   </div></section>`;
 }
@@ -644,11 +650,11 @@ const businessNode = {
   knowsAbout: ["garage door spring repair", "garage door opener installation", "garage door cable repair", "off-track garage door repair", "new garage door installation"],
   hasOfferCatalog: {
     "@type": "OfferCatalog", name: "Garage door services",
-    itemListElement: services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s.title, url: `${BASE}/${s.slug}.html` } })),
+    itemListElement: services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s.title, url: `${BASE}/${s.slug}/` } })),
   },
 };
 function breadcrumb(items) {
-  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it[0], item: BASE + it[1] })) };
+  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it[0], item: BASE + cleanUrl(it[1]) })) };
 }
 function serviceNode(s, areaName) {
   return {
@@ -756,10 +762,10 @@ function page(path, html) { PAGES.push([path, html]); }
 {
   const jsonld = { "@context": "https://schema.org", "@graph": [
     breadcrumb([["Home", "/"], ["Services", "/services.html"]]),
-    { "@type": "ItemList", itemListElement: services.map((s, i) => ({ "@type": "ListItem", position: i + 1, name: s.title, url: `${BASE}/${s.slug}.html` })) },
+    { "@type": "ItemList", itemListElement: services.map((s, i) => ({ "@type": "ListItem", position: i + 1, name: s.title, url: `${BASE}/${s.slug}/` })) },
   ]};
   const cards = services.map((s) => `
-    <a class="card svc-card hover-lift" href="/${s.slug}.html">
+    <a class="card svc-card hover-lift" href="/${s.slug}/">
       <span class="card__icon">${I[s.icon]}</span>
       <h3>${s.short}</h3>
       <p>${s.blurb}</p>
@@ -797,7 +803,7 @@ for (const s of services) {
   const jsonld = { "@context": "https://schema.org", "@graph": [
     breadcrumb([["Home", "/"], ["Services", "/services.html"], [s.title, "/" + s.slug + ".html"]]),
     serviceNode(s),
-    { "@type": "WebPage", "@id": `${BASE}/${s.slug}.html`, url: `${BASE}/${s.slug}.html`, name: s.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
+    { "@type": "WebPage", "@id": `${BASE}/${s.slug}/`, url: `${BASE}/${s.slug}/`, name: s.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
     faqNode(s.faqs),
   ]};
   const sectionsHtml = s.sections.map((sec) => `<h2 data-reveal>${sec.h}</h2><p data-reveal>${sec.p}</p>`).join("");
@@ -880,7 +886,7 @@ for (const s of services) {
   <section class="pagehead pagehead--img">
     ${pageheadBg(s.img)}
     <div class="container">
-      <nav class="crumbs"><a href="/">Home</a><span>/</span><a href="/services.html">Services</a><span>/</span>${s.nav}</nav>
+      <nav class="crumbs"><a href="/">Home</a><span>/</span><a href="/services/">Services</a><span>/</span>${s.nav}</nav>
       <h1>${s.h1}</h1>
       <p class="lede measure">${s.blurb}</p>
       <div class="btn-row" style="margin-top:1.5rem"><a class="btn btn--primary cta-pulse" href="tel:${TEL}">${I.phone} Call ${PHONE_D}</a><a class="btn btn--outline-light" href="sms:${TEL}?&body=${SMS_BODY}">${I.msg} Text us</a></div>
@@ -904,7 +910,7 @@ for (const s of services) {
     <div class="center" data-reveal><span class="eyebrow">Across Greater Vancouver</span><h2>${s.short} in your city</h2>
       <p class="lede measure-c">We bring ${s.kw} to the whole Lower Mainland. Here are our core areas — and we serve everywhere in between.</p></div>
     <div class="areas" data-stagger style="margin-top:2rem">
-      ${cities.map((c) => `<a class="area-chip" href="/service-areas/${c.slug}.html">${I.pin} ${c.name}</a>`).join("")}
+      ${cities.map((c) => `<a class="area-chip" href="/service-areas/${c.slug}/">${I.pin} ${c.name}</a>`).join("")}
       ${C.allAreasServed.filter((a) => !cities.find((c) => c.name === a)).map((a) => `<span class="area-chip is-plain">${I.pin} ${a}</span>`).join("")}
     </div>
   </div></section>
@@ -926,12 +932,12 @@ for (const c of cities) {
   ];
   const jsonld = { "@context": "https://schema.org", "@graph": [
     breadcrumb([["Home", "/"], ["Service Areas", "/service-areas/" + c.slug + ".html"], [c.name, "/service-areas/" + c.slug + ".html"]]),
-    { ...serviceNode({ title: "Garage Door Repair", kw: "garage door repair" }, c.name), "@id": `${BASE}/service-areas/${c.slug}.html#service` },
-    { "@type": "WebPage", "@id": `${BASE}/service-areas/${c.slug}.html`, url: `${BASE}/service-areas/${c.slug}.html`, name: c.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
+    { ...serviceNode({ title: "Garage Door Repair", kw: "garage door repair" }, c.name), "@id": `${BASE}/service-areas/${c.slug}/#service` },
+    { "@type": "WebPage", "@id": `${BASE}/service-areas/${c.slug}/`, url: `${BASE}/service-areas/${c.slug}/`, name: c.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
     faqNode(cityFaqs),
   ]};
-  const svcLinks = services.map((s) => `<a class="card svc-card hover-lift" href="/${s.slug}.html"><span class="card__icon">${I[s.icon]}</span><h3>${s.short}</h3><p>${s.blurb}</p><span class="card__link" style="margin-top:.6rem">Learn more ${I.arrow}</span></a>`).join("");
-  const nearbyHtml = c.nearby.map((n) => `<a class="area-chip" href="/service-areas/${n}.html">${I.pin} ${cityBySlug[n].name}</a>`).join("");
+  const svcLinks = services.map((s) => `<a class="card svc-card hover-lift" href="/${s.slug}/"><span class="card__icon">${I[s.icon]}</span><h3>${s.short}</h3><p>${s.blurb}</p><span class="card__link" style="margin-top:.6rem">Learn more ${I.arrow}</span></a>`).join("");
+  const nearbyHtml = c.nearby.map((n) => `<a class="area-chip" href="/service-areas/${n}/">${I.pin} ${cityBySlug[n].name}</a>`).join("");
   const body = head({
     path: "/service-areas/" + c.slug + ".html", title: c.metaT, desc: c.metaD, ogImg: c.img, jsonld,
     preload: `/assets/img/${c.img}-1200.avif`,
@@ -967,7 +973,7 @@ for (const c of cities) {
 
   <section class="section"><div class="container">
     <div class="center" data-reveal><span class="eyebrow">Nearby</span><h2>We also cover the areas next door</h2></div>
-    <div class="areas" data-stagger style="margin-top:1.5rem;justify-content:center">${nearbyHtml}<a class="area-chip" href="/contact.html">${I.pin} All of Metro Vancouver</a></div>
+    <div class="areas" data-stagger style="margin-top:1.5rem;justify-content:center">${nearbyHtml}<a class="area-chip" href="/contact/">${I.pin} All of Metro Vancouver</a></div>
   </div></section>
 
   ${faqSection(cityFaqs, `Garage door service in ${c.name}: FAQ`)}
@@ -1253,7 +1259,7 @@ legalPage("terms-of-service", "Terms of Service", "Terms of Service | Good Enoug
     <h2>Well, this page isn't even good enough to exist.</h2>
     <p class="lede">The page you're after has moved or never existed. Your garage door, on the other hand, we can definitely help with.</p>
     <div class="btn-row" style="justify-content:center;margin-top:1.5rem"><a class="btn btn--primary btn--lg" href="tel:${TEL}">${I.phone} Call ${PHONE_D}</a><a class="btn btn--ghost btn--lg" href="/">Back to home</a></div>
-    <p style="margin-top:2rem"><a href="/services.html">See our services</a> · <a href="/contact.html">Contact us</a> · <a href="/faq.html">FAQ</a></p>
+    <p style="margin-top:2rem"><a href="/services/">See our services</a> · <a href="/contact/">Contact us</a> · <a href="/faq/">FAQ</a></p>
   </div></section>
 </main>` + footer();
   page("/404.html", body);
@@ -1268,7 +1274,7 @@ for (const [p, html] of PAGES) {
 
 /* ---------------- sitemap ---------------- */
 const today = new Date().toISOString().slice(0, 10);
-const urls = PAGES.map(([p]) => p === "/index.html" ? "/" : p).filter((p) => p !== "/404.html" && p !== "/thank-you.html");
+const urls = PAGES.map(([p]) => p).filter((p) => p !== "/404.html" && p !== "/thank-you.html").map(cleanUrl);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${BASE}${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}
