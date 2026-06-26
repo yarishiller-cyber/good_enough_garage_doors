@@ -4,7 +4,7 @@
  * them to info@goodenoughgaragedoors.ca using the server's local mailer.
  * No credentials live in this file (Hostinger's mail() uses the local MTA),
  * so it is safe to commit to a public repo. Falls back to a clear message if
- * mail can't be sent. Redirects to /thank-you.html on success.
+ * mail can't be sent. Redirects to /thank-you/ on success.
  */
 
 $INBOX = 'info@goodenoughgaragedoors.ca';
@@ -12,13 +12,13 @@ $BRAND = 'Good Enough Garage Doors';
 
 // Only accept POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  header('Location: /contact.html');
+  header('Location: /contact/');
   exit;
 }
 
 // Honeypot — silently accept (and drop) obvious bots
 if (!empty($_POST['company_website'])) {
-  header('Location: /thank-you.html');
+  header('Location: /thank-you/');
   exit;
 }
 
@@ -42,7 +42,7 @@ $message  = clean($_POST['message'] ?? ($_POST['notes'] ?? ''));
 
 // Minimal validation
 if ($name === '' || $phone === '') {
-  header('Location: /contact.html?error=1');
+  header('Location: /contact/?error=1');
   exit;
 }
 
@@ -77,5 +77,5 @@ $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 // Always thank the user (don't leak mail errors); the lead is logged server-side too.
 $logged = @file_put_contents(__DIR__ . '/.leads.log', $body . "\n\n=====\n\n", FILE_APPEND | LOCK_EX);
 
-header('Location: /thank-you.html');
+header('Location: /thank-you/');
 exit;
