@@ -118,11 +118,11 @@ const services = [
     slug: "garage-door-opener-installation", nav: "Opener Installation", short: "New Openers",
     icon: "bolt", img: "opener-install", openers: true,
     title: "Garage Door Opener Installation", kw: "garage door opener installation",
-    h1: "New Garage Door Opener Installation — LiftMaster, Installed Right",
+    h1: "Garage Door Opener Installation — LiftMaster, Installed Right",
     metaT: "Garage Door Opener Installation Vancouver | Good Enough",
     metaD: "New LiftMaster openers supplied & installed across Greater Vancouver — belt, chain & wall-mount, battery backup, myQ. All-in prices. Call (778) 800-0769.",
     blurb: "A new opener should be quiet, secure, and just work. We fit LiftMaster units and tune the whole door while we're there.",
-    lead: "A good opener install isn't just bolting a motor to the ceiling — it's balancing the door, setting the travel and force limits properly, and aligning the safety sensors so it's smooth and safe for years. We supply and install the LiftMaster line-up across Greater Vancouver at honest, all-in prices. Here's the range, so you can pick the one that actually fits your home — not the most expensive one.",
+    lead: `We supply and install LiftMaster garage door openers across Greater Vancouver — the 2220L chain-drive with built-in camera, the whisper-quiet 6580L belt-drive with battery backup, and the 98022L wall-mount that frees your whole ceiling ${px(`— every price is all-in and published; tap "Pricing" in the footer to see them`, `— installed from $${money(C.openerPricing["2220L"])}, all-in`)}. A straightforward swap is usually done in a single visit, often within a day of your call — ring ${PHONE_D} and we'll give you an honest slot. And a good install isn't just bolting a motor to the ceiling: we balance the door, set the travel and force limits properly, and align the safety sensors — so pick the unit that actually fits your home, not the most expensive one, and we'll fit it right.`,
     sections: [
       { h: "Which opener is right for you?", p: "If there's a bedroom over the garage, go belt-drive — it's whisper quiet. A detached garage with high ceilings? A chain-drive is rugged and great value. Tight on overhead space, or want the cleanest look? A wall-mount (jackshaft) opener frees the whole ceiling. We'll help you choose, and we're genuinely fine if you pick the cheapest one that does the job." },
       { h: "Battery backup matters on the coast", p: "Greater Vancouver gets winter windstorms and power cuts. An opener with integrated battery backup keeps you from hand-cranking a heavy door in the dark — and it's now required on new installs in many cases. Most of our recommended units include it." },
@@ -164,10 +164,11 @@ const services = [
     title: "Off-Track & Roller Repair", kw: "garage door off track repair",
     h1: "Off-Track Garage Door & Roller Repair in Greater Vancouver",
     metaT: "Off-Track Garage Door Repair Greater Vancouver | Good Enough",
-    metaD: "Garage door jumped the track or stuck at an angle? Don't force it — we re-track doors & replace rollers, usually same day. Call (778) 800-0769.",
+    metaD: "Garage door off track in Vancouver? Don't force it back — we re-track doors & replace rollers, usually same-day across Metro Van. Call (778) 800-0769.",
     blurb: "Backed into it? Roller popped out? A door off its track looks scary but is usually a same-day fix.",
-    lead: "A garage door comes off its track when a roller pops out, a cable slips, or something bumps the door — and once it's off, it'll bind, lean, and refuse to move. We get doors back on track and replace worn rollers across Greater Vancouver, usually the same day. Don't keep hitting the opener button when it's off-track; that's how a small fix becomes a bent-section fix.",
+    lead: `Garage door off its track in Vancouver? Don't force it back onto the rail, and don't press the opener again — an off-track door is under tension, and running it is how a cheap fix becomes a bent-section fix. We re-track doors and replace the worn rollers that caused the jump everywhere in Greater Vancouver, usually the same day, and when you call ${PHONE_D} we'll give you an honest arrival window for your part of town.`,
     sections: [
+      { h: "Can you fix a garage door that's come off its tracks today?", p: "Most of the time, yes. Off-track calls jump our queue because the door usually can't close, which leaves your garage standing open — call in the morning and we can reach most of Greater Vancouver the same day, with a real arrival window rather than a vague \"sometime today.\" If the track or a section turns out to be badly bent, we'll say so on the spot and tell you exactly what the fix involves before any work starts." },
       { h: "What knocks a door off-track", p: "The usual suspects: a light tap from a car bumper, a roller that's worn out and jumped the rail, a snapped cable that let one side drop, or a track that's come loose from the wall. We find the actual cause — not just shove it back and leave — so it stays on track." },
       { h: "Worn rollers: the cheap upgrade that's worth it", p: "Steel rollers wear out and get noisy and sloppy, which is half the reason doors jump track. Swapping to sealed nylon rollers makes the door dramatically quieter and smoother — it's one of the few genuine 'while we're here' upgrades we actually recommend, because it's cheap and you'll notice it every day." },
       { h: "When a panel is bent", p: "If the door ran while off-track and creased a section, we'll be honest about whether it can be straightened or whether that one panel needs replacing. We won't write off a whole door to sell you a new one if a single section will do." },
@@ -188,7 +189,7 @@ const services = [
     metaT: "New Garage Door Installation Greater Vancouver | Good Enough",
     metaD: "New insulated, modern & carriage-style garage doors supplied and installed across Metro Vancouver. Free measure, written quote. Call (778) 800-0769.",
     blurb: "Replacing a door is the biggest curb-appeal upgrade a dollar can buy — and the one most worth getting right.",
-    lead: "A new garage door is usually the largest moving thing on your house and a third of your street-facing wall, so it's worth doing properly. We supply and install insulated steel, modern aluminium-and-glass, and classic carriage-style doors across Greater Vancouver. We measure for free, give you a clear written quote, and we don't disappear once the deposit's in.",
+    lead: `Shopping for a new garage door in Greater Vancouver? We supply and install insulated steel, modern aluminium-and-glass, and classic carriage-style doors at one honest all-in price ${px(`— tap "Pricing" in the footer for the from-figures`, `— from $3,647 supplied and installed`)}, which covers haul-away of your old door, new tracks and weatherseal, correctly-sized springs, and a full balance and safety check. We measure for free, put the quote in writing, and stock steel doors are typically in within one to two weeks (custom colours, glass and carriage styles take longer to order — we'll give you a real date). It's the largest moving thing on your house and a third of your street-facing wall, so it's worth doing properly — and we don't disappear once the deposit's in.`,
     sections: [
       { h: "Insulation matters more than you'd think here", p: "If your garage is attached, shares a wall with a room, or doubles as a gym or workshop, an insulated door (R-12 to R-18) keeps it usable through a damp Lower Mainland winter and quiets the street noise. We'll talk you through whether it's worth it for your specific garage rather than just selling you the thickest door." },
       { h: "Styles that suit Metro Vancouver homes", p: "Flush modern and full-view glass doors look right on newer Burnaby and Coquitlam builds; raised-panel and carriage styles suit Vancouver character homes and Surrey family houses. We'll bring samples and show you real options in your budget — including the honest 'good enough' choice that looks great without the premium-line price." },
@@ -276,7 +277,7 @@ const cities = [
     slug: "surrey", name: "Surrey",
     metaT: "Garage Door Repair Surrey | Good Enough Garage Doors",
     metaD: "Garage door repair in Surrey — springs, openers & new doors across Guildford, Fleetwood, South Surrey & Cloverdale. Same-day. Call (778) 800-0769.",
-    lead: "Surrey is big and growing fast, with everything from established Cloverdale and South Surrey homes to brand-new subdivisions in Clayton and Grandview Heights — many with double and triple garages that get used hard. We cover all of Surrey for garage door repair and installation, with honest pricing and no pressure.",
+    lead: "Need garage door repair in Surrey? We fix broken springs, openers, cables and off-track doors right across the city — Fleetwood, Guildford, Cloverdale, Newton, South Surrey and everywhere between — usually same-day, with the exact price agreed before we start. From established Cloverdale homes to brand-new subdivisions in Clayton and Grandview Heights with double and triple garages that get used hard, we cover all of it with honest pricing and no pressure.",
     local: "Newer Surrey homes often have two or three doors and high-cycle daily use, so we see a lot of worn springs and openers that have simply done their miles. Larger and heavier double doors are exactly where high-cycle springs pay off, and we'll tell you when that upgrade is genuinely worth it versus when a standard pair is plenty.",
     nbhd: ["Guildford", "Fleetwood", "South Surrey", "Cloverdale", "Newton", "Clayton Heights", "Grandview Heights", "Fraser Heights"],
     nearby: ["richmond", "coquitlam"],
@@ -1037,6 +1038,7 @@ for (const c of cities) {
 {
   const jsonld = { "@context": "https://schema.org", "@graph": [
     breadcrumb([["Home", "/"], ["About", "/about.html"]]), businessNode,
+    { "@type": "WebPage", "@id": `${BASE}/about/`, url: `${BASE}/about/`, name: "About Us — Honest, Local Crew | Good Enough Garage Doors", dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
   ]};
   const body = head({
     path: "/about.html", title: "About Us — Honest, Local Crew | Good Enough Garage Doors",
@@ -1054,11 +1056,14 @@ for (const c of cities) {
   </section>
   <section class="section"><div class="container"><div class="split">
     <div data-reveal>
+      <p class="byline">Updated ${UPDATED}</p>
       <span class="eyebrow">Our story</span>
       <h2>Why we named ourselves "Good Enough"</h2>
       <p>We spent years in the garage-door trade watching customers get burned — $19.99 ads that turned into $600 invoices, springs sold in pairs that only needed one, whole openers replaced when a $40 gear would've done. Every company sounded the same: elite, premier, number-one.</p>
       <p>So we did the opposite. We picked the most humble name we could stand behind and built a company that quietly over-delivers underneath it. <strong>"Good enough" is an understatement</strong> — and we like it that way. Lower the talk, raise the work.</p>
       <p>We're local to the Tri-Cities and we serve all of Greater Vancouver. Real people answer the phone. We quote before we work. And if we get it wrong, we come back free.</p>
+      <h2>Looking for an honest garage door company in Metro Vancouver?</h2>
+      <p>That's the gap we built this company to fill. Our flat rates are published right on this site — tap "Pricing" in the footer to see them — the number we quote is the number you pay, and nobody upsells you on the truck. We're licensed (business licence), insured and WorkSafeBC-covered, every repair carries a workmanship warranty in writing, and if we get something wrong we come back free. The name undersells us on purpose; the honesty is the part we take completely seriously.</p>
     </div>
     <div data-reveal="left"><div class="figframe zoom-frame"><img src="/assets/img/about.webp" loading="lazy" decoding="async" width="1200" height="750" alt="Good Enough Garage Doors crew beside the plum service van in Greater Vancouver"></div></div>
   </div></div></section>
