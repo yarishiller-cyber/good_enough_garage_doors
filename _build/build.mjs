@@ -5,12 +5,12 @@
  * No build step ships to production — this just authors the static HTML once.
  *   node _build/build.mjs
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
 const ASSET_V = "20260626a";
-const UPDATED = "June 2026";          // visible freshness signal (helps AI citation)
-const UPDATED_ISO = "2026-06-21";
+const UPDATED = "July 2026";          // visible freshness signal (helps AI citation)
+const UPDATED_ISO = "2026-07-29";
 const BASE = C.siteUrl;
 // Clean extensionless directory-style URLs: /page.html -> /page/ ; /index.html (or /) -> /
 // Pages stay flat *.html on disk; .htaccess maps the clean URL and 301s old .html requests.
@@ -76,7 +76,7 @@ const services = [
     title: "Garage Door Spring Repair", kw: "garage door spring repair",
     h1: "Broken Garage Door Spring Repair Across Greater Vancouver",
     metaT: "Garage Door Spring Repair Greater Vancouver | Good Enough",
-    metaD: "Snapped torsion spring? We replace garage door springs across Metro Vancouver, usually same day. Upfront tiered pricing, free cables on pairs, free safety inspection.",
+    metaD: "Snapped torsion spring? Same-day spring replacement across Metro Vancouver with flat-rate tiers, free cables on pairs. Call (778) 800-0769.",
     blurb: "A snapped spring is the call we get most — the door's suddenly too heavy to lift and the car's stuck inside.",
     lead: "If your garage door won't open and you heard a loud bang from the garage, you almost certainly have a broken torsion spring. It's the single part doing the heavy lifting, and when it goes the door becomes a 150-plus-pound dead weight. We replace residential torsion springs across Greater Vancouver — usually the same day — with pro-grade springs, upfront tiered pricing, and a free safety inspection on every job.",
     sections: [
@@ -98,7 +98,7 @@ const services = [
     title: "Garage Door Opener Repair", kw: "garage door opener repair",
     h1: "Garage Door Opener Repair in Greater Vancouver",
     metaT: "Garage Door Opener Repair Greater Vancouver | Good Enough",
-    metaD: "Opener won't respond, reverses, or grinds? We repair LiftMaster, Chamberlain, Genie & Liftronic openers across Metro Vancouver. Honest diagnosis, fixed right.",
+    metaD: "Opener won't respond, reverses or grinds? We repair LiftMaster, Chamberlain, Genie & more across Metro Vancouver — honest diagnosis. Call (778) 800-0769.",
     blurb: "Opener humming but not lifting? Light blinking? Door reverses halfway? Often it's a $40 fix, not a new opener.",
     lead: "When an opener acts up, the honest first step is figuring out whether it actually needs replacing — because most of the time it doesn't. We repair LiftMaster, Chamberlain, Genie, Marantec and older Liftronic openers across Greater Vancouver, and we'll tell you plainly when a sensor realignment or a new gear kit will do instead of a whole new unit.",
     sections: [
@@ -119,8 +119,8 @@ const services = [
     icon: "bolt", img: "opener-install", openers: true,
     title: "Garage Door Opener Installation", kw: "garage door opener installation",
     h1: "New Garage Door Opener Installation — LiftMaster, Installed Right",
-    metaT: "Garage Door Opener Installation Greater Vancouver | Good Enough",
-    metaD: "New LiftMaster opener supplied & installed across Greater Vancouver — belt, chain & wall-mount with battery backup and myQ. Honest installed prices, no surprises.",
+    metaT: "Garage Door Opener Installation Vancouver | Good Enough",
+    metaD: "New LiftMaster openers supplied & installed across Greater Vancouver — belt, chain & wall-mount, battery backup, myQ. All-in prices. Call (778) 800-0769.",
     blurb: "A new opener should be quiet, secure, and just work. We fit LiftMaster units and tune the whole door while we're there.",
     lead: "A good opener install isn't just bolting a motor to the ceiling — it's balancing the door, setting the travel and force limits properly, and aligning the safety sensors so it's smooth and safe for years. We supply and install the LiftMaster line-up across Greater Vancouver at honest, all-in prices. Here's the range, so you can pick the one that actually fits your home — not the most expensive one.",
     sections: [
@@ -142,7 +142,7 @@ const services = [
     title: "Garage Door Cable Repair", kw: "garage door cable repair",
     h1: "Garage Door Cable Repair & Replacement in Greater Vancouver",
     metaT: "Garage Door Cable Repair Greater Vancouver | Good Enough",
-    metaD: "Frayed or snapped garage door cable, or door hanging crooked? We replace lift cables safely across Metro Vancouver, usually same day. Honest pricing, free inspection.",
+    metaD: "Frayed or snapped garage door cable? Door hanging crooked? Same-day cable replacement across Metro Vancouver, honest pricing. Call (778) 800-0769.",
     blurb: "Door hanging crooked or a cable dangling loose? Don't run it — a loose cable can jam the door or worse.",
     lead: "Garage door cables are the steel lines that work with the springs to raise and lower the door evenly. When one frays or snaps, the door hangs crooked, binds in the tracks, or drops on one side. We replace lift cables across Greater Vancouver — usually same day — and because cables and springs wear together, we'll always check the springs while we're in there.",
     sections: [
@@ -164,7 +164,7 @@ const services = [
     title: "Off-Track & Roller Repair", kw: "garage door off track repair",
     h1: "Off-Track Garage Door & Roller Repair in Greater Vancouver",
     metaT: "Off-Track Garage Door Repair Greater Vancouver | Good Enough",
-    metaD: "Garage door jumped the track or stuck at an angle? We re-track doors and replace worn rollers across Metro Vancouver. Don't force it — call us, usually same day.",
+    metaD: "Garage door jumped the track or stuck at an angle? Don't force it — we re-track doors & replace rollers, usually same day. Call (778) 800-0769.",
     blurb: "Backed into it? Roller popped out? A door off its track looks scary but is usually a same-day fix.",
     lead: "A garage door comes off its track when a roller pops out, a cable slips, or something bumps the door — and once it's off, it'll bind, lean, and refuse to move. We get doors back on track and replace worn rollers across Greater Vancouver, usually the same day. Don't keep hitting the opener button when it's off-track; that's how a small fix becomes a bent-section fix.",
     sections: [
@@ -186,7 +186,7 @@ const services = [
     title: "New Garage Door Installation", kw: "new garage door installation",
     h1: "New Garage Door Installation in Greater Vancouver",
     metaT: "New Garage Door Installation Greater Vancouver | Good Enough",
-    metaD: "New insulated, modern & carriage-style garage doors supplied and installed across Metro Vancouver. Honest quotes, quality brands, no-pressure measure. Free written quote.",
+    metaD: "New insulated, modern & carriage-style garage doors supplied and installed across Metro Vancouver. Free measure, written quote. Call (778) 800-0769.",
     blurb: "Replacing a door is the biggest curb-appeal upgrade a dollar can buy — and the one most worth getting right.",
     lead: "A new garage door is usually the largest moving thing on your house and a third of your street-facing wall, so it's worth doing properly. We supply and install insulated steel, modern aluminium-and-glass, and classic carriage-style doors across Greater Vancouver. We measure for free, give you a clear written quote, and we don't disappear once the deposit's in.",
     sections: [
@@ -207,8 +207,8 @@ const services = [
     icon: "wrench", img: "maintenance",
     title: "Garage Door Maintenance & Tune-Up", kw: "garage door maintenance",
     h1: "Garage Door Maintenance & Tune-Ups in Greater Vancouver",
-    metaT: "Garage Door Tune-Up & Maintenance Greater Vancouver | Good Enough",
-    metaD: "A yearly garage door tune-up catches worn springs and cables before they snap. Lubrication, balance, safety check & adjustment across Metro Vancouver. Honest flat rate.",
+    metaT: "Garage Door Maintenance & Tune-Up Vancouver | Good Enough",
+    metaD: "Yearly garage door tune-ups across Metro Vancouver — lubrication, balance, safety checks. Catch worn springs before they snap. Call (778) 800-0769.",
     blurb: "The cheapest garage door repair is the one you prevent. A yearly tune-up is genuinely worth it here.",
     lead: "Most garage door breakdowns give months of warning — a groan here, a shudder there — and a yearly maintenance visit catches them while they're still cheap. We tune up residential doors across Greater Vancouver: lubrication, balance, hardware tightening, safety-sensor and reverse testing, and an honest report on what's wearing. No scare tactics, no invented problems.",
     sections: [
@@ -230,7 +230,7 @@ const services = [
     title: "Emergency Garage Door Repair", kw: "emergency garage door repair",
     h1: "Emergency Garage Door Repair in Greater Vancouver",
     metaT: "Emergency Garage Door Repair Greater Vancouver | Good Enough",
-    metaD: "Door stuck open, car trapped, or a security risk after hours? We prioritise urgent garage door repairs across Metro Vancouver. Call now — after hours, we text you back.",
+    metaD: "Car trapped or door stuck open? Urgent repairs jump the queue — same-day priority across Metro Vancouver. Call (778) 800-0769; after hours we text back.",
     blurb: "Car trapped? Door stuck open overnight? These jump the queue — your home's security comes first.",
     lead: "Some garage door problems can't wait until next week: a door stuck wide open leaving your home exposed, a snapped spring trapping your car before work, or a door jammed half-down. We prioritise these urgent calls across Greater Vancouver. Call and you'll reach a real person during the day; after hours, leave a message or text and we'll text you straight back with a plan — we're honest that we're not a 24/7 call centre, but we don't leave you stranded either.",
     sections: [
@@ -255,7 +255,7 @@ const cities = [
   {
     slug: "vancouver", name: "Vancouver",
     metaT: "Garage Door Repair Vancouver | Good Enough Garage Doors",
-    metaD: "Garage door repair in Vancouver — springs, openers, cables & off-track doors fixed across the West Side, East Van, Kitsilano & Downtown. Same-day, honest pricing.",
+    metaD: "Garage door repair in Vancouver — springs, openers, cables & off-track doors across the West Side, East Van & Downtown. Same-day. Call (778) 800-0769.",
     lead: "Vancouver's housing runs from century-old character homes on the West Side to laneway garages in Mount Pleasant and condo loading bays downtown — and the salt air off the water is hard on every one of them. We repair garage doors right across Vancouver, usually the same day, with upfront pricing and no scare tactics.",
     local: "On older homes around Kitsilano, Dunbar and Commercial Drive we see a lot of tired extension springs, rusted cables, and original wooden doors that have swelled in the damp. Newer East Van laneway and infill garages tend to need opener and sensor work. Whatever the vintage, we've usually seen your exact door before.",
     nbhd: ["Kitsilano", "Mount Pleasant", "Dunbar", "Kerrisdale", "East Vancouver", "Point Grey", "Killarney", "Hastings-Sunrise"],
@@ -265,7 +265,7 @@ const cities = [
   {
     slug: "burnaby", name: "Burnaby",
     metaT: "Garage Door Repair Burnaby | Good Enough Garage Doors",
-    metaD: "Garage door repair in Burnaby — springs, openers, cables & new doors across North Burnaby, Metrotown, Brentwood & Deer Lake. Same-day service, honest upfront pricing.",
+    metaD: "Garage door repair in Burnaby — springs, openers, cables & new doors across North Burnaby, Metrotown & Deer Lake. Same-day. Call (778) 800-0769.",
     lead: "Burnaby is a city of hills and a real mix of homes — post-war bungalows in the north, big family houses around Deer Lake, and a wave of newer builds near Brentwood and Metrotown. We repair and install garage doors across all of it, usually same day, with pricing we tell you before we start.",
     local: "Those Burnaby Mountain and Capitol Hill slopes mean a lot of garages sit below the house with steep, frequently-used doors — they cycle hard and wear springs faster. Around Brentwood and Metrotown we do plenty of opener upgrades and new doors on newer homes. We know the hilly streets and we'll give you a realistic arrival window for your side of town.",
     nbhd: ["North Burnaby", "Metrotown", "Brentwood", "Deer Lake", "Capitol Hill", "Edmonds", "Lochdale", "Burnaby Heights"],
@@ -275,7 +275,7 @@ const cities = [
   {
     slug: "surrey", name: "Surrey",
     metaT: "Garage Door Repair Surrey | Good Enough Garage Doors",
-    metaD: "Garage door repair in Surrey — springs, openers, cables & new doors across Guildford, Fleetwood, South Surrey, Cloverdale & Newton. Same-day, honest, upfront pricing.",
+    metaD: "Garage door repair in Surrey — springs, openers & new doors across Guildford, Fleetwood, South Surrey & Cloverdale. Same-day. Call (778) 800-0769.",
     lead: "Surrey is big and growing fast, with everything from established Cloverdale and South Surrey homes to brand-new subdivisions in Clayton and Grandview Heights — many with double and triple garages that get used hard. We cover all of Surrey for garage door repair and installation, with honest pricing and no pressure.",
     local: "Newer Surrey homes often have two or three doors and high-cycle daily use, so we see a lot of worn springs and openers that have simply done their miles. Larger and heavier double doors are exactly where high-cycle springs pay off, and we'll tell you when that upgrade is genuinely worth it versus when a standard pair is plenty.",
     nbhd: ["Guildford", "Fleetwood", "South Surrey", "Cloverdale", "Newton", "Clayton Heights", "Grandview Heights", "Fraser Heights"],
@@ -285,7 +285,7 @@ const cities = [
   {
     slug: "richmond", name: "Richmond",
     metaT: "Garage Door Repair Richmond | Good Enough Garage Doors",
-    metaD: "Garage door repair in Richmond — springs, openers, cables & rust-prone hardware fixed across Steveston, Brighouse, Terra Nova & Hamilton. Same-day, honest pricing.",
+    metaD: "Garage door repair in Richmond — springs, openers & rust-prone cables fixed across Steveston, Brighouse & Terra Nova. Same-day. Call (778) 800-0769.",
     lead: "Richmond sits at sea level on the river delta, and that flat, damp, salty island air is genuinely tough on garage door hardware — springs and cables rust faster here than almost anywhere in Metro Vancouver. We repair and replace garage doors across Richmond, and we know what the climate does to them.",
     local: "Down in Steveston and along the dyke, salt and moisture corrode cables and spring coils early — we replace a lot of rusted hardware and recommend galvanized parts that last. In Brighouse and Terra Nova it's more openers and newer doors. We'll always check the parts you can't see, because on Lulu Island the rust hides at the bottom of the cable.",
     nbhd: ["Steveston", "Brighouse", "Terra Nova", "Hamilton", "Seafair", "Broadmoor", "Thompson", "City Centre"],
@@ -295,7 +295,7 @@ const cities = [
   {
     slug: "coquitlam", name: "Coquitlam",
     metaT: "Garage Door Repair Coquitlam | Good Enough Garage Doors",
-    metaD: "Garage door repair in Coquitlam — springs, openers, cables & new doors across Burke Mountain, Westwood Plateau, Maillardville & Town Centre. Same-day, honest pricing.",
+    metaD: "Garage door repair in Coquitlam — springs, openers & new doors across Burke Mountain, Westwood Plateau & Maillardville. Same-day. Call (778) 800-0769.",
     lead: "Coquitlam climbs from the Fraser up into the forested slopes of Westwood Plateau and Burke Mountain, where newer homes have big double garages and wet, shaded driveways. We cover all of Coquitlam (and we're based right in the Tri-Cities), so arrival windows here are some of our tightest.",
     local: "Up on Burke Mountain and Westwood Plateau the newer homes have heavier insulated doors and openers that work hard on steep, frequently-used garages — springs and battery-backup openers are common jobs. Down in Maillardville and around the Town Centre we see older doors and original openers ready for retirement. Being local, we know the hills and the shortcuts.",
     nbhd: ["Burke Mountain", "Westwood Plateau", "Maillardville", "Coquitlam Town Centre", "Eagle Ridge", "Como Lake", "Ranch Park", "River Springs"],
@@ -316,6 +316,21 @@ const reviews = [
 ];
 
 /* ---------------- shared layout ---------------- */
+// Art-directed home hero — single source of truth for BOTH the <picture> sources and the
+// dual-media preload hints in head(), so the preload always targets the exact asset the
+// picture selects (mobile vs desktop, AVIF) and the two can't drift apart.
+const HERO = {
+  mobile: {
+    media: "(max-width:760px)", sizes: "100vw",
+    avif: "/assets/img/hero-mobile-960.avif 960w, /assets/img/hero-mobile-480.avif 480w",
+    webp: "/assets/img/hero-mobile-960.webp 960w, /assets/img/hero-mobile-480.webp 480w",
+  },
+  desktop: {
+    media: "(min-width:761px)", sizes: "(min-width:761px) 50vw, 100vw",
+    avif: "/assets/img/hero-desktop-1600.avif 1600w, /assets/img/hero-desktop-960.avif 960w",
+    webp: "/assets/img/hero-desktop-1600.webp 1600w, /assets/img/hero-desktop-960.webp 960w",
+  },
+};
 const navServices = services.map((s) => `<a href="/${s.slug}/">${s.nav}</a>`).join("");
 const navAreas = cities.map((c) => `<a href="/service-areas/${c.slug}/">${c.name}</a>`).join("");
 
@@ -330,8 +345,24 @@ function pageheadBg(name) {
 
 function head(o) {
   const canon = BASE + cleanUrl(o.path);
-  // Real 1200×630 social image cropped from the home hero (van + technician + garage door).
-  const ogImg = o.ogImg ? `${BASE}/assets/img/${o.ogImg}.webp` : `${BASE}/og/home.jpg`;
+  // OG images must be REAL 1200×630 JPEGs — chat apps ignore webp/avif. JPG-only guard: a
+  // page only gets its own og:image if og/<name>.jpg actually exists on disk; a page-hero
+  // .webp is never emitted. Everything else falls back to the home OG JPEG (cropped hero).
+  const ogImg = o.ogImg && existsSync(new URL(`../og/${o.ogImg}.jpg`, import.meta.url))
+    ? `${BASE}/og/${o.ogImg}.jpg` : `${BASE}/og/home.jpg`;
+  // One JSON-LD @graph per page. Pages that don't carry the full business node get a lite
+  // business entity so @id references (provider/publisher/about) resolve on-page.
+  const orgLite = { "@type": "HomeAndConstructionBusiness", "@id": `${BASE}/#business`, name: C.brandName, alternateName: C.brandShort, url: `${BASE}/`, telephone: "+1-778-800-0769", email: C.email, image: `${BASE}/og/home.jpg`, logo: { "@type": "ImageObject", url: `${BASE}/assets/img/logo-512.png`, width: 512, height: 512 } };
+  const nodes = (o.jsonld ? (o.jsonld["@graph"] || [o.jsonld]) : []).map(({ "@context": _ctx, ...n }) => n);
+  if (!nodes.some((n) => n["@type"] === "HomeAndConstructionBusiness")) nodes.unshift(orgLite);
+  const jsonld = { "@context": "https://schema.org", "@graph": nodes };
+  // Hero preload must target the exact asset the <picture> selects. Home's art-directed
+  // hero gets DUAL-MEDIA imagesrcset/imagesizes preloads mirroring its sources; interior
+  // pageheads use a single-candidate AVIF that matches their <source> verbatim.
+  const preload = o.preloadHero
+    ? `<link rel="preload" as="image" type="image/avif" media="${HERO.mobile.media}" imagesrcset="${HERO.mobile.avif}" imagesizes="${HERO.mobile.sizes}" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="${HERO.desktop.media}" imagesrcset="${HERO.desktop.avif}" imagesizes="${HERO.desktop.sizes}" fetchpriority="high">`
+    : o.preload ? `<link rel="preload" as="image" type="image/avif" href="${o.preload}" fetchpriority="high">` : "";
   return `<!doctype html>
 <html lang="en-CA">
 <head>
@@ -339,8 +370,8 @@ function head(o) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(o.title)}</title>
 <meta name="description" content="${esc(o.desc)}">
-<link rel="canonical" href="${canon}">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+${o.noindex ? `<meta name="robots" content="noindex, follow">` : `<link rel="canonical" href="${canon}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">`}
 <meta name="theme-color" content="#4f2d7a">
 <meta name="color-scheme" content="light">
 <meta name="author" content="${esc(C.brandName)}">
@@ -351,7 +382,7 @@ function head(o) {
 <meta property="og:description" content="${esc(o.desc)}">
 <meta property="og:url" content="${canon}">
 <meta property="og:image" content="${ogImg}">
-${o.ogImg ? `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="480">` : `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`}
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(o.ogAlt || C.brandName + " — garage door service across Greater Vancouver")}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(o.title)}">
@@ -359,17 +390,18 @@ ${o.ogImg ? `<meta property="og:image:width" content="1200"><meta property="og:i
 <meta name="twitter:image" content="${ogImg}">
 <meta name="twitter:image:alt" content="${esc(o.ogAlt || C.brandName + " — garage door service across Greater Vancouver")}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16">
+<link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+<link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bricolage-grotesque.woff2" crossorigin>
-${o.preload ? `<link rel="preload" as="image" type="image/avif" href="${o.preload}" fetchpriority="high">` : ""}
+${preload}
 <link rel="stylesheet" href="/styles.css?v=${ASSET_V}">
-<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", "@id": `${BASE}/#organization`, name: C.brandName, url: `${BASE}/`, logo: { "@type": "ImageObject", url: `${BASE}/assets/img/logo-512.png`, width: 512, height: 512 }, image: `${BASE}/og/home.jpg` })}</script>
-${o.jsonld ? `<script type="application/ld+json">${JSON.stringify(o.jsonld)}</script>` : ""}
+<script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>
 <body class="layout-b">
 <a href="#main" class="btn" style="position:absolute;left:-999px;top:0;z-index:200" onfocus="this.style.left='1rem';this.style.top='1rem'" onblur="this.style.left='-999px'">Skip to content</a>`;
@@ -472,6 +504,7 @@ else{if(saved[i]!=null)el.innerHTML=saved[i];}});
 document.body.classList.toggle('show-pricing',on);
 btn.innerHTML=on?'Hide pricing':'${I.dollar} Pricing';btn.setAttribute('aria-pressed',on?'true':'false');});})();</script>
 <script src="/script.js?v=${ASSET_V}" defer></script>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/*.php"}},{"not":{"href_matches":"/thank-you*"}},{"not":{"href_matches":"/partner-thank-you*"}}]},"eagerness":"moderate"}]}</script>
 <script type="module">
   import { animate, inView, scroll, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
   window.__motion = { animate, inView, scroll, stagger };
@@ -632,12 +665,13 @@ const businessNode = {
   "@type": "HomeAndConstructionBusiness",
   "@id": `${BASE}/#business`,
   name: C.brandName,
+  alternateName: C.brandShort,
   legalName: C.brandName,
   slogan: C.signatureHook,
   image: [`${BASE}/og/home.jpg`, `${BASE}/assets/img/hero-desktop.webp`, `${BASE}/assets/img/about.webp`, `${BASE}/assets/img/new-door.webp`],
   logo: `${BASE}/assets/img/logo-512.png`,
   url: `${BASE}/`,
-  telephone: TEL,
+  telephone: "+1-778-800-0769",
   email: C.email,
   priceRange: C.priceRange,
   currenciesAccepted: "CAD",
@@ -653,19 +687,33 @@ const businessNode = {
     itemListElement: services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s.title, url: `${BASE}/${s.slug}/` } })),
   },
 };
+// Nodes below are always embedded inside the page's single @graph (head() adds the
+// one @context), so they carry none of their own.
 function breadcrumb(items) {
-  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it[0], item: BASE + cleanUrl(it[1]) })) };
+  return { "@type": "BreadcrumbList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it[0], item: BASE + cleanUrl(it[1]) })) };
+}
+// Published fleet-floor prices → machine-readable Offers, ONLY where the page itself
+// publishes the figure (springs, opener installs, new doors). Repair pages without a
+// published price carry no offers node.
+const openerMan = JSON.parse(readFileSync("/home/user/garagedoors-shared/assets/liftmaster/manifest.json"));
+const openerModels = [...openerMan.primary, ...openerMan.secondary];
+function serviceOffers(s) {
+  if (s.money) return C.springPricing.tiers.map((t) => ({ "@type": "Offer", name: t.label, priceSpecification: { "@type": "PriceSpecification", price: t.price, priceCurrency: "CAD" } }));
+  if (s.openers) return openerModels.map((m) => ({ "@type": "Offer", name: `${m.name} — supplied & installed`, priceSpecification: { "@type": "PriceSpecification", price: C.openerPricing[m.sku], priceCurrency: "CAD" } }));
+  if (s.slug === "new-garage-door-installation") return [{ "@type": "Offer", name: "New garage door — supplied & installed", priceSpecification: { "@type": "PriceSpecification", minPrice: "3647", maxPrice: "7268", priceCurrency: "CAD" } }];
+  return null;
 }
 function serviceNode(s, areaName) {
+  const offers = serviceOffers(s);
   return {
     "@type": "Service", serviceType: s.title, name: `${s.title}${areaName ? " in " + areaName : " in Greater Vancouver"}`,
     provider: { "@id": `${BASE}/#business` },
     areaServed: areaName ? { "@type": "City", name: areaName } : C.coverageTowns.map((n) => ({ "@type": "City", name: n })),
-    ...(s.money ? { offers: C.springPricing.tiers.map((t) => ({ "@type": "Offer", name: t.label, priceSpecification: { "@type": "PriceSpecification", price: t.price, priceCurrency: "CAD" } })) } : {}),
+    ...(offers ? { offers } : {}),
   };
 }
 function faqNode(faqs) {
-  return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: schemaText(a) } })) };
+  return { "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: schemaText(a) } })) };
 }
 
 /* ---------------- page assembly ---------------- */
@@ -684,13 +732,13 @@ function page(path, html) { PAGES.push([path, html]); }
   ];
   const jsonld = { "@context": "https://schema.org", "@graph": [
     businessNode,
-    { "@type": "WebSite", "@id": `${BASE}/#website`, url: `${BASE}/`, name: C.brandName, publisher: { "@id": `${BASE}/#business` } },
+    { "@type": "WebSite", "@id": `${BASE}/#website`, url: `${BASE}/`, name: C.brandName, alternateName: C.brandShort, publisher: { "@id": `${BASE}/#business` } },
     faqNode(homeFaqs),
   ]};
   const body = head({
     path: "/", title: "Good Enough Garage Doors | Honest Repair, Greater Vancouver",
-    desc: "Honest, same-day garage door repair across Greater Vancouver — springs, openers, cables & new doors. Upfront pricing, no surprises. The only bad thing about us is the name.",
-    preload: "/assets/img/hero-desktop-960.avif", jsonld,
+    desc: "Honest, same-day garage door repair across Greater Vancouver — springs, openers, cables & new doors. Upfront pricing, no surprises. Call (778) 800-0769.",
+    preloadHero: true, jsonld,
   }) + header() + `
 <main id="main">
   <section class="hero"><div class="container"><div class="hero__grid">
@@ -711,10 +759,10 @@ function page(path, html) { PAGES.push([path, html]); }
     <div class="hero__media" data-reveal="left" data-reveal-delay="0.1">
       <div class="hero__frame">
         <picture>
-          <source type="image/avif" media="(max-width:760px)" srcset="/assets/img/hero-mobile-960.avif 960w, /assets/img/hero-mobile-480.avif 480w" sizes="100vw">
-          <source type="image/webp" media="(max-width:760px)" srcset="/assets/img/hero-mobile-960.webp 960w, /assets/img/hero-mobile-480.webp 480w" sizes="100vw">
-          <source type="image/avif" media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.avif 1600w, /assets/img/hero-desktop-960.avif 960w" sizes="(min-width:761px) 50vw, 100vw">
-          <source type="image/webp" media="(min-width:761px)" srcset="/assets/img/hero-desktop-1600.webp 1600w, /assets/img/hero-desktop-960.webp 960w" sizes="(min-width:761px) 50vw, 100vw">
+          <source type="image/avif" media="${HERO.mobile.media}" srcset="${HERO.mobile.avif}" sizes="${HERO.mobile.sizes}">
+          <source type="image/webp" media="${HERO.mobile.media}" srcset="${HERO.mobile.webp}" sizes="${HERO.mobile.sizes}">
+          <source type="image/avif" media="${HERO.desktop.media}" srcset="${HERO.desktop.avif}" sizes="${HERO.desktop.sizes}">
+          <source type="image/webp" media="${HERO.desktop.media}" srcset="${HERO.desktop.webp}" sizes="${HERO.desktop.sizes}">
           <img src="/assets/img/hero-desktop-960.webp" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async" data-parallax="0.12">
         </picture>
       </div>
@@ -774,8 +822,8 @@ function page(path, html) { PAGES.push([path, html]); }
     </a>`).join("");
   const body = head({
     path: "/services.html", title: "Garage Door Services in Greater Vancouver | Good Enough",
-    desc: "Garage door services across Greater Vancouver — spring repair, opener repair & install, cable repair, off-track doors, new doors, tune-ups & emergencies. Honest pricing.",
-    ogImg: "spring-repair", jsonld,
+    desc: "Garage door services across Greater Vancouver — springs, openers, cables, off-track, new doors & tune-ups. Honest upfront pricing. Call (778) 800-0769.",
+    ogImg: "spring-repair", jsonld, preload: "/assets/img/spring-repair-1200.avif",
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
@@ -848,7 +896,7 @@ for (const s of services) {
   // openers page picker
   let openersHtml = "";
   if (s.openers) {
-    const man = JSON.parse(readFileSync("/home/user/garagedoors-shared/assets/liftmaster/manifest.json"));
+    const man = openerMan;
     const render = (m) => {
       const price = C.openerPricing[m.sku] || "";
       const sku = m.sku.toLowerCase();
@@ -930,8 +978,10 @@ for (const c of cities) {
     [`Do you cover all of ${c.name}?`, `Yes — every neighbourhood, including ${c.nbhd.slice(0, 3).join(", ")} and beyond. If you're in or near ${c.name}, just call and we'll confirm your window.`],
     [`Are you licensed and insured to work in ${c.name}?`, `${C.trust.licence}. Garage-door work is an unregulated trade in BC, so we describe ourselves precisely and never imply a trade certificate that doesn't exist — that precision is part of how we earn trust.`],
   ];
+  // No /service-areas/ hub page exists, so the breadcrumb is two real levels — a middle
+  // "Service Areas" item would have to point at this page itself (or a 404).
   const jsonld = { "@context": "https://schema.org", "@graph": [
-    breadcrumb([["Home", "/"], ["Service Areas", "/service-areas/" + c.slug + ".html"], [c.name, "/service-areas/" + c.slug + ".html"]]),
+    breadcrumb([["Home", "/"], [c.name, "/service-areas/" + c.slug + ".html"]]),
     { ...serviceNode({ title: "Garage Door Repair", kw: "garage door repair" }, c.name), "@id": `${BASE}/service-areas/${c.slug}/#service` },
     { "@type": "WebPage", "@id": `${BASE}/service-areas/${c.slug}/`, url: `${BASE}/service-areas/${c.slug}/`, name: c.metaT, dateModified: UPDATED_ISO, isPartOf: { "@id": `${BASE}/#website` }, about: { "@id": `${BASE}/#business` } },
     faqNode(cityFaqs),
@@ -989,8 +1039,8 @@ for (const c of cities) {
     breadcrumb([["Home", "/"], ["About", "/about.html"]]), businessNode,
   ]};
   const body = head({
-    path: "/about.html", title: "About Good Enough Garage Doors | Honest, Local, Greater Vancouver",
-    desc: "We're a local, Canadian-owned garage door company with a deliberately humble name and a genuinely high standard. Meet the crew behind Good Enough Garage Doors.",
+    path: "/about.html", title: "About Us — Honest, Local Crew | Good Enough Garage Doors",
+    desc: "A local, Canadian-owned garage door company with a humble name and a high standard. Honest pricing, real warranty, real people. Call (778) 800-0769.",
     ogImg: "about", jsonld, preload: "/assets/img/about-1200.avif",
   }) + header() + `
 <main id="main">
@@ -1053,8 +1103,8 @@ for (const c of cities) {
     breadcrumb([["Home", "/"], ["FAQ", "/faq.html"]]), faqNode(allFaqs),
   ]};
   const body = head({
-    path: "/faq.html", title: "Garage Door FAQ — Costs, Timing, Safety | Good Enough Garage Doors",
-    desc: "Honest answers about garage door repair costs, timing, safety, the funny name, and avoiding scams across Greater Vancouver. From Good Enough Garage Doors.",
+    path: "/faq.html", title: "Garage Door FAQ — Costs, Timing, Safety | Good Enough",
+    desc: "Honest answers about garage door repair costs, timing, safety, the funny name, and avoiding scams across Greater Vancouver. Call (778) 800-0769.",
     ogImg: "faq", jsonld, preload: "/assets/img/faq-1200.avif",
   }) + header() + `
 <main id="main">
@@ -1080,8 +1130,8 @@ for (const c of cities) {
   ]};
   const issues = ["Broken spring", "Opener won't work", "Cable / door crooked", "Door off track", "New door quote", "Tune-up / maintenance", "Emergency", "Something else"];
   const body = head({
-    path: "/contact.html", title: "Contact & Free Quote | Good Enough Garage Doors, Greater Vancouver",
-    desc: "Call, text, or send a quick message for an honest garage door quote across Greater Vancouver. Real people, fast replies, upfront pricing. Good Enough Garage Doors.",
+    path: "/contact.html", title: "Contact & Free Quote | Good Enough Garage Doors",
+    desc: "Call, text or message us for an honest garage door quote anywhere in Greater Vancouver. Real people, fast replies, upfront pricing. (778) 800-0769.",
     ogImg: "contact", jsonld, preload: "/assets/img/contact-1200.avif",
   }) + header() + `
 <main id="main">
@@ -1139,7 +1189,7 @@ for (const c of cities) {
   ]};
   const body = head({
     path: "/become-a-partner.html", title: "Become a Partner — Overflow Garage Door Leads | Good Enough",
-    desc: "We get more garage door calls than we can take across Greater Vancouver. Apply to receive vetted overflow leads in your area. For garage-door techs and trades companies.",
+    desc: "We get more garage door calls than we can take across Greater Vancouver. Apply to receive vetted overflow leads in your area — garage-door techs & trades.",
     ogImg: "partner", jsonld, preload: "/assets/img/partner-1200.avif",
   }) + header() + `
 <main id="main">
@@ -1195,6 +1245,7 @@ for (const c of cities) {
   const body = head({
     path: "/thank-you.html", title: "Thanks — We'll Be in Touch | Good Enough Garage Doors",
     desc: "Thanks for reaching out to Good Enough Garage Doors. We've got your message and we'll reply quickly.",
+    noindex: true, // post-submit page: keep out of the index (also excluded from sitemap)
     jsonld: { "@context": "https://schema.org", "@type": "WebPage", name: "Thank you" },
   }) + header() + `
 <main id="main">
@@ -1210,9 +1261,9 @@ for (const c of cities) {
 }
 
 /* ========== LEGAL ========== */
-function legalPage(slug, title, metaT, intro, blocks) {
+function legalPage(slug, title, metaT, intro, blocks, desc) {
   const jsonld = { "@context": "https://schema.org", "@graph": [breadcrumb([["Home", "/"], [title, "/" + slug + ".html"]])] };
-  const body = head({ path: "/" + slug + ".html", title: metaT, desc: intro.slice(0, 155), jsonld, ogImg: "about", preload: "/assets/img/about-1200.avif" })
+  const body = head({ path: "/" + slug + ".html", title: metaT, desc: desc || intro.slice(0, 155), jsonld, ogImg: "about", preload: "/assets/img/about-1200.avif" })
     + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
@@ -1238,7 +1289,7 @@ legalPage("privacy-policy", "Privacy Policy", "Privacy Policy | Good Enough Gara
     ["Who we share it with", "No one, except as strictly needed to do the job (for example, if we refer an overflow job to a vetted partner, with the context required to serve you). We never sell your information."],
     ["Cookies & analytics", "We use only essential cookies plus basic, privacy-respecting analytics to keep the site working and improve it. You can block cookies in your browser; the site will still function."],
     ["Your choices", "You can ask us what we hold about you, ask us to correct it, or ask us to delete it. Email us and we'll take care of it."],
-  ]);
+  ], "What Good Enough Garage Doors collects when you contact us and how we use it — only to help with your garage door. We never sell your details.");
 legalPage("terms-of-service", "Terms of Service", "Terms of Service | Good Enough Garage Doors",
   "These plain-language terms cover the use of this website and the quotes and services Good Enough Garage Doors provides across Greater Vancouver.",
   [
@@ -1251,7 +1302,7 @@ legalPage("terms-of-service", "Terms of Service", "Terms of Service | Good Enoug
 
 /* ========== 404 ========== */
 {
-  const body = head({ path: "/404.html", title: "Page Not Found | Good Enough Garage Doors", desc: "That page isn't here — but your garage door problem still can be solved." })
+  const body = head({ path: "/404.html", title: "Page Not Found | Good Enough Garage Doors", desc: "That page isn't here — but your garage door problem still can be solved.", noindex: true })
     + header() + `
 <main id="main">
   <section class="section" style="padding-block:6rem"><div class="container center" style="max-width:640px">
