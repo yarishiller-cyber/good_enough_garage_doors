@@ -1,10 +1,15 @@
 # Good Enough Garage Doors — robots.txt
-# Lead-gen marketing site: allow everyone, including AI search/answer engines.
+# Lead-gen marketing site: allow everyone, including AI search/answer engines
+# AND AI training crawlers (owner wants maximum AI visibility).
 
 # AI search / answer engines (drive citations) — explicitly welcome
 User-agent: OAI-SearchBot
 Allow: /
 User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
 Allow: /
 User-agent: PerplexityBot
 Allow: /
@@ -14,9 +19,23 @@ User-agent: Applebot
 Allow: /
 User-agent: Bingbot
 Allow: /
-User-agent: Claude-SearchBot
+User-agent: DuckAssistBot
+Allow: /
+User-agent: Meta-ExternalAgent
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: YouBot
+Allow: /
+
+# AI training crawlers — also welcome
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
 Allow: /
 User-agent: Google-Extended
+Allow: /
+User-agent: CCBot
 Allow: /
 
 User-agent: *
