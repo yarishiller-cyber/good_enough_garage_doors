@@ -40,6 +40,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /form-handler.php
 Disallow: /.leads.log
 Disallow: /_build/
 
