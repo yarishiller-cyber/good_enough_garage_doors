@@ -5,8 +5,10 @@
    Built on the fleet design-system tokens + animations layer.
    ========================================================================= */
 
-/* self-hosted variable fonts (latin) — no third-party CDN, no render-blocking font CSS */
-@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/nunito-sans.woff2') format('woff2');}
+/* self-hosted fonts (latin) — Bricolage Grotesque (woff2) + Nunito Sans (ttf).
+   No third-party CDN, no render-blocking font CSS. */
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/nunito-sans-400.ttf') format('truetype');}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/nunito-sans-600.ttf') format('truetype');}
 @font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600 800;font-display:swap;src:url('/assets/fonts/bricolage-grotesque.woff2') format('woff2');}
 
 :root {
