@@ -1,29 +1,29 @@
 /* ============================================================================
    Good Enough Garage Doors — styles.css
-   Palette: plum #6b3fa0 + warm sand #e0a82e. Layout variant: B (split hero,
+   Palette: plum #5B2A56 + warm sand #e0a82e. Layout variant: B (split hero,
    soft cards, slab section dividers). Voice: humble over-deliverer.
    Built on the fleet design-system tokens + animations layer.
    ========================================================================= */
 
 /* self-hosted variable fonts (latin) — no third-party CDN, no render-blocking font CSS */
-@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/inter.woff2') format('woff2');}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/nunito-sans.woff2') format('woff2');}
 @font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600 800;font-display:swap;src:url('/assets/fonts/bricolage-grotesque.woff2') format('woff2');}
 
 :root {
   color-scheme: light;
   /* ---- per-site brand ---- */
-  --brand:        #6b3fa0;
+  --brand:        #5B2A56;
   --brand-dark:   #4f2d7a;
   --brand-darker: #34204f;
   --brand-light:  #f1ebf8;
-  --brand-rgb:    107,63,160;
+  --brand-rgb:    91,42,86;
   --accent:       #e0a82e;
   --accent-dark:  #8a6012;   /* AA-safe for text on white (~5:1); sand bg keeps dark text */
   --accent-soft:  #fbf2dd;
   --accent-rgb:   224,168,46;
 
   --font-head: "Bricolage Grotesque", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* ---- shared scale ---- */
   --ink:      #221a2e;

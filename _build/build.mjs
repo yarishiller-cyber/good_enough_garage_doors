@@ -8,9 +8,9 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260626a";
-const UPDATED = "July 2026";          // visible freshness signal (helps AI citation)
-const UPDATED_ISO = "2026-07-29";
+const ASSET_V = "20260903a";
+const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
+const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
 // Clean extensionless directory-style URLs: /page.html -> /page/ ; /index.html (or /) -> /
 // Pages stay flat *.html on disk; .htaccess maps the clean URL and 301s old .html requests.
@@ -398,7 +398,7 @@ ${o.noindex ? `<meta name="robots" content="noindex, follow">` : `<link rel="can
 <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter.woff2" crossorigin>
+<link rel="preload" as="font" type="font/truetype" href="/assets/fonts/nunito-sans-400.ttf" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bricolage-grotesque.woff2" crossorigin>
 ${preload}
 <link rel="stylesheet" href="/styles.css?v=${ASSET_V}">
