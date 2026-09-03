@@ -1,4 +1,5 @@
-/* self-hosted variable fonts (latin subset) from Google Fonts — see _build/fonts.mjs.
-   Two files instead of seven (identical variable woff2 were served per weight). */
-@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/inter.woff2') format('woff2');}
+/* self-hosted fonts (latin) — Bricolage Grotesque (woff2) + Nunito Sans (ttf).
+   Good Enough brand fonts for visual differentiation from sibling sites. */
 @font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600 800;font-display:swap;src:url('/assets/fonts/bricolage-grotesque.woff2') format('woff2');}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/nunito-sans-400.ttf') format('truetype');}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/nunito-sans-600.ttf') format('truetype');}
