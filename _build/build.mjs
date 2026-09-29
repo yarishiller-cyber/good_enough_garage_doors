@@ -768,7 +768,6 @@ function page(path, html) { PAGES.push([path, html]); }
         </picture>
       </div>
       <div class="hero__stars"><span class="s">${stars(5)}</span> Reviewed on Google</div>
-      <div class="hero__badge"><span class="b-ic">${I.shield}</span><span><strong>Fixed right — free re-visit</strong><small>or we come back. Not a joke.</small></span></div>
     </div>
   </div></div></section>
 
