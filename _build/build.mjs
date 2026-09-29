@@ -328,8 +328,8 @@ const HERO = {
   },
   desktop: {
     media: "(min-width:761px)", sizes: "(min-width:761px) 50vw, 100vw",
-    avif: "/assets/img/hero-desktop-1600.avif?v=20260929d 1600w, /assets/img/hero-desktop-960.avif?v=20260929d 960w",
-    webp: "/assets/img/hero-desktop-1600.webp?v=20260929d 1600w, /assets/img/hero-desktop-960.webp?v=20260929d 960w",
+    avif: "/assets/img/hero-desktop-1600.avif?v=20260929f 1600w, /assets/img/hero-desktop-960.avif?v=20260929f 960w",
+    webp: "/assets/img/hero-desktop-1600.webp?v=20260929f 1600w, /assets/img/hero-desktop-960.webp?v=20260929f 960w",
   },
 };
 const navServices = services.map((s) => `<a href="/${s.slug}/">${s.nav}</a>`).join("");
@@ -749,7 +749,7 @@ function page(path, html) { PAGES.push([path, html]); }
         <source type="image/webp" media="${HERO.mobile.media}" srcset="${HERO.mobile.webp}" sizes="${HERO.mobile.sizes}">
         <source type="image/avif" media="${HERO.desktop.media}" srcset="${HERO.desktop.avif}" sizes="${HERO.desktop.sizes}">
         <source type="image/webp" media="${HERO.desktop.media}" srcset="${HERO.desktop.webp}" sizes="${HERO.desktop.sizes}">
-        <img src="/assets/img/hero-desktop-960.webp?v=20260929d" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
+        <img src="/assets/img/hero-desktop-960.webp?v=20260929f" width="1600" height="1363" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
       </picture>
     </div>
     <span class="hero__arch" aria-hidden="true"></span><span class="hero__arc" aria-hidden="true"></span><span class="hero__dots" aria-hidden="true"></span>
