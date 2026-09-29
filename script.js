@@ -34,6 +34,17 @@
     }, { rootMargin: "0px 0px -40% 0px" }).observe(foot);
   }
 
+
+  // ---- mark the current page in the primary nav (gold underline) ----
+  (function () {
+    var p = location.pathname.replace(/index\.html$/, "");
+    if (p.length > 1) p = p.replace(/\/$/, "") + "/";
+    document.querySelectorAll(".nav__links > a, .nav__links > .has-drop > a").forEach(function (a) {
+      var h = a.getAttribute("href");
+      if (h === p) a.setAttribute("aria-current", "page");
+    });
+  })();
+
   // ---- light client-side form guard (honeypot + required) ----
   document.querySelectorAll("form[action='/form-handler.php']").forEach(function (form) {
     form.addEventListener("submit", function (e) {
