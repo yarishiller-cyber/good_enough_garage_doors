@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260929c";
+const ASSET_V = "20260929e";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -752,7 +752,7 @@ function page(path, html) { PAGES.push([path, html]); }
         <img src="/assets/img/hero-desktop-960.webp?v=20260929d" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
       </picture>
     </div>
-    <span class="hero__dots" aria-hidden="true"></span>
+    <span class="hero__arch" aria-hidden="true"></span><span class="hero__arc" aria-hidden="true"></span><span class="hero__dots" aria-hidden="true"></span>
     <div class="container hero__inner">
       <div class="hero__copy">
         <span class="eyebrow" data-reveal data-reveal-delay="0">Greater Vancouver garage doors</span>
