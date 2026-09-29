@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260929e";
+const ASSET_V = "20260929g";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -756,7 +756,7 @@ function page(path, html) { PAGES.push([path, html]); }
     <div class="container hero__inner">
       <div class="hero__copy">
         <span class="eyebrow" data-reveal data-reveal-delay="0">Greater Vancouver garage doors</span>
-        <h1 data-reveal data-reveal-delay="0.05"><span class="strike">"Good enough"</span> is an understatement.</h1>
+        <h1 data-reveal data-reveal-delay="0.05"><span class="strike">"Good enough"</span> <br class="hbr">is an understatement.</h1>
         <p class="hero__sub" data-reveal data-reveal-delay="0.12">Honest, same-day garage door repair across the Lower Mainland — springs, openers, cables, off-track doors and new installs. Upfront pricing, real workmanship warranty, and a name we're happy to undersell ourselves with.</p>
         <div class="btn-row" data-reveal data-reveal-delay="0.18">
           <a class="btn btn--primary btn--lg cta-pulse" href="tel:${TEL}">${I.phone} Call ${PHONE_D}</a>

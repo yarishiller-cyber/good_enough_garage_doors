@@ -139,6 +139,11 @@ strong { color:var(--ink); }
 .nav__links a { color:var(--ink); font-weight:600; font-size:.95rem; }
 .nav__links a:hover { color:var(--brand); text-decoration:none; }
 .nav__cta { display:inline-flex; align-items:center; gap:.4rem; background:var(--accent); color:var(--brand-darker)!important; padding:.6rem 1.1rem; border-radius:var(--r-pill); font-weight:700; font-family:var(--font-head); }
+.nav { position:relative; }
+.nav__links { flex:1; justify-content:center; }
+.nav__links a[aria-current="page"] { position:relative; }
+.nav__links a[aria-current="page"]::after { content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--accent); border-radius:2px; }
+@media (min-width:901px){ .nav__links .nav__cta { position:absolute; right:5vw; top:50%; transform:translateY(-50%); } .brand { flex:0 0 auto; } }
 .nav__cta:hover { background:#eab73f; text-decoration:none; }
 .nav__toggle { display:none; background:none; border:1px solid var(--line); border-radius:10px; padding:.45rem; color:var(--ink); cursor:pointer; }
 .nav__toggle svg { width:1.5rem; height:1.5rem; }
@@ -171,26 +176,29 @@ strong { color:var(--ink); }
 .hero__stars .s { color:var(--accent); letter-spacing:-1px; }
 
 /* ---- hero v2: full-bleed photo fading into the page, gold arc + dots, icon trust row, rating card ---- */
-.hero--v2 { background:#f8f5f3; min-height:clamp(560px,46vw,680px); display:flex; align-items:center; }
+.hero--v2 { background:#f8f5f3; min-height:clamp(520px,41.5vw,660px); display:flex; align-items:center; }
 .hero--v2::before { display:none; }
-.hero--v2 .hero__bg { position:absolute; inset:0 0 0 auto; width:50%; z-index:1; overflow:hidden; border-radius:22% 0 0 22% / 50% 0 0 50%; }
+.hero--v2 .hero__bg { position:absolute; inset:0 0 0 auto; width:48%; z-index:1; overflow:hidden; border-radius:30% 0 0 30% / 62% 0 0 38%; }
 .hero--v2 .hero__bg picture, .hero--v2 .hero__bg img { display:block; width:100%; height:100%; }
 .hero--v2 .hero__bg img { object-fit:cover; object-position:50% 50%; }
-.hero--v2 .hero__arch, .hero--v2 .hero__arc { position:absolute; inset:0 0 0 auto; border-radius:22% 0 0 22% / 50% 0 0 50%; pointer-events:none; }
-.hero--v2 .hero__arch { width:54%; z-index:0; background:linear-gradient(90deg,rgba(var(--brand-rgb),.14),rgba(var(--brand-rgb),.05)); transform:translateY(3%); }
-.hero--v2 .hero__arc { width:52%; z-index:1; top:-3%; bottom:-3%; border:1.5px solid rgba(var(--accent-rgb),.8); border-right:0; }
-.hero--v2 .hero__dots { position:absolute; z-index:2; left:47%; top:16%; width:130px; height:130px; background-image:radial-gradient(rgba(var(--brand-rgb),.28) 1.6px,transparent 1.8px); background-size:16px 16px; pointer-events:none; }
+.hero--v2 .hero__arch, .hero--v2 .hero__arc { position:absolute; inset:0 0 0 auto; border-radius:30% 0 0 30% / 62% 0 0 38%; pointer-events:none; }
+.hero--v2 .hero__arch { width:52%; z-index:0; background:linear-gradient(90deg,rgba(var(--brand-rgb),.10),rgba(var(--brand-rgb),.04)); transform:translateY(3%); }
+.hero--v2 .hero__arc { width:50%; z-index:1; top:-4%; bottom:-4%; border:1.5px solid rgba(var(--accent-rgb),.85); border-right:0; -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 40%,transparent 62%); mask-image:linear-gradient(to bottom,#000 0,#000 40%,transparent 62%); }
+.hero--v2 .hero__dots { position:absolute; z-index:2; left:49%; top:14%; width:96px; height:96px; background-image:radial-gradient(rgba(var(--brand-rgb),.28) 1.6px,transparent 1.8px); background-size:16px 16px; pointer-events:none; }
 .hero--v2 .hero__inner { position:relative; z-index:2; align-self:stretch; display:flex; align-items:center; padding-block:var(--s-8); }
-.hero--v2 .hero__copy { max-width:46rem; }
+.hero--v2 .hero__copy { max-width:52rem; }
+.hero--v2 .container, .site-header .container { width:100%; max-width:none; padding-inline:5vw; }
+.hero--v2 .eyebrow { display:flex; align-items:center; gap:.8rem; font-weight:600; letter-spacing:.14em; font-size:.85rem; color:var(--ink-soft); }
+.hero--v2 .eyebrow::before { content:""; width:26px; height:2px; background:var(--accent); flex:none; }
 .hero--v2 h1 { font-size:clamp(2.4rem,1.2rem + 4.2vw,4.4rem); line-height:1.02; letter-spacing:-.03em; }
 .hero--v2 .hero__sub { max-width:34rem; }
 .hero__trust { list-style:none; margin:var(--s-6) 0 0; padding:0; display:flex; flex-wrap:wrap; gap:var(--s-4) var(--s-4); max-width:42rem; }
 .hero__trust li { display:flex; align-items:center; gap:.55rem; }
 .hero__trust .ic { color:var(--brand); flex:none; }
-.hero__trust .ic svg { width:1.6rem; height:1.6rem; }
+.hero__trust .ic svg { width:2.1rem; height:2.1rem; }
 .hero__trust strong { display:block; font-family:var(--font-head); font-size:.95rem; line-height:1.2; }
 .hero__trust small { display:block; color:var(--ink-soft); font-size:.75rem; line-height:1.3; max-width:9.25rem; }
-.hero__rating { position:absolute; right:var(--s-5); bottom:var(--s-6); z-index:3; display:flex; align-items:center; gap:var(--s-3); background:#fff; border-radius:var(--r-md); box-shadow:var(--shadow-md); padding:.5rem .7rem .5rem .85rem; color:var(--ink); max-width:14rem; }
+.hero__rating { position:absolute; right:5vw; bottom:var(--s-6); z-index:3; display:flex; align-items:center; gap:var(--s-3); background:#fff; border-radius:var(--r-md); box-shadow:var(--shadow-md); padding:.5rem .7rem .5rem .85rem; color:var(--ink); max-width:14rem; }
 .hero__rating:hover { text-decoration:none; transform:translateY(-2px); }
 .hero__rating .s { display:block; color:var(--accent); letter-spacing:1px; font-size:.8rem; line-height:1; margin-bottom:.15rem; }
 .hero__rating strong { display:block; font-family:var(--font-head); font-size:.85rem; }
@@ -201,6 +209,9 @@ strong { color:var(--ink); }
   .hero--v2 { display:block; min-height:0; }
   .hero--v2 .hero__bg { position:relative; inset:auto; width:100%; height:min(88vw,460px); border-radius:0; -webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%); mask-image:linear-gradient(to bottom,#000 70%,transparent 100%); }
   .hero--v2 .hero__arch, .hero--v2 .hero__arc, .hero--v2 .hero__dots { display:none; }
+  .hero--v2 .hbr { display:none; }
+  .hero--v2 .container { padding-inline:1rem; }
+  .hero__rating { right:var(--s-4); }
   .hero--v2 .hero__inner { display:block; position:static; padding-block:0 var(--s-7); margin-top:calc(var(--s-6) * -1); }
   .hero--v2 .hero__copy { position:relative; }
   .hero__rating { top:calc(min(88vw,460px) - 5.5rem); bottom:auto; right:var(--s-4); left:auto; max-width:17rem; padding:.6rem .8rem; }
