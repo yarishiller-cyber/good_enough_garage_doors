@@ -72,7 +72,7 @@ const I = {
 const services = [
   {
     slug: "garage-door-spring-repair", nav: "Spring Repair", short: "Broken Spring Repair",
-    icon: "coil", img: "spring-repair", money: true,
+    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", money: true,
     title: "Garage Door Spring Repair", kw: "garage door spring repair",
     h1: "Broken Garage Door Spring Repair Across Greater Vancouver",
     metaT: "Garage Door Spring Repair Greater Vancouver | Good Enough",
@@ -932,11 +932,11 @@ for (const s of services) {
 
   const body = head({
     path: "/" + s.slug + ".html", title: s.metaT, desc: s.metaD, ogImg: s.img, jsonld,
-    preload: `/assets/img/${s.img}-1200.avif`,
+    preload: `/assets/img/${s.heroImg || s.img}-1200.avif`,
   }) + header() + `
 <main id="main">
   <section class="pagehead pagehead--img">
-    ${pageheadBg(s.img)}
+    ${pageheadBg(s.heroImg || s.img)}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span><a href="/services/">Services</a><span>/</span>${s.nav}</nav>
       <h1>${s.h1}</h1>
