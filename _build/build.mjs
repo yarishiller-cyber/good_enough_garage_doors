@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260929h";
+const ASSET_V = "20260929i";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -328,8 +328,8 @@ const HERO = {
   },
   desktop: {
     media: "(min-width:761px)", sizes: "(min-width:761px) 50vw, 100vw",
-    avif: "/assets/img/hero-desktop-1600.avif?v=20260929f 1600w, /assets/img/hero-desktop-960.avif?v=20260929f 960w",
-    webp: "/assets/img/hero-desktop-1600.webp?v=20260929f 1600w, /assets/img/hero-desktop-960.webp?v=20260929f 960w",
+    avif: "/assets/img/hero-desktop-1600.avif?v=20260929d 1600w, /assets/img/hero-desktop-960.avif?v=20260929d 960w",
+    webp: "/assets/img/hero-desktop-1600.webp?v=20260929d 1600w, /assets/img/hero-desktop-960.webp?v=20260929d 960w",
   },
 };
 const navServices = services.map((s) => `<a href="/${s.slug}/">${s.nav}</a>`).join("");
@@ -749,14 +749,14 @@ function page(path, html) { PAGES.push([path, html]); }
         <source type="image/webp" media="${HERO.mobile.media}" srcset="${HERO.mobile.webp}" sizes="${HERO.mobile.sizes}">
         <source type="image/avif" media="${HERO.desktop.media}" srcset="${HERO.desktop.avif}" sizes="${HERO.desktop.sizes}">
         <source type="image/webp" media="${HERO.desktop.media}" srcset="${HERO.desktop.webp}" sizes="${HERO.desktop.sizes}">
-        <img src="/assets/img/hero-desktop-960.webp?v=20260929f" width="1600" height="1363" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
+        <img src="/assets/img/hero-desktop-960.webp?v=20260929d" width="1600" height="1600" alt="Good Enough Garage Doors technician beside the plum service van at a Greater Vancouver home with an open garage door" fetchpriority="high" decoding="async">
       </picture>
     </div>
-    <span class="hero__arch" aria-hidden="true"></span><span class="hero__arc" aria-hidden="true"></span><span class="hero__dots" aria-hidden="true"></span>
+    <span class="hero__dots" aria-hidden="true"></span>
     <div class="container hero__inner">
       <div class="hero__copy">
         <span class="eyebrow" data-reveal data-reveal-delay="0">Greater Vancouver garage doors</span>
-        <h1 data-reveal data-reveal-delay="0.05"><span class="strike">"Good enough"</span> <br class="hbr">is an understatement.</h1>
+        <h1 data-reveal data-reveal-delay="0.05"><span class="strike">"Good enough"</span> is an understatement.</h1>
         <p class="hero__sub" data-reveal data-reveal-delay="0.12">Honest, same-day garage door repair across the Lower Mainland — springs, openers, cables, off-track doors and new installs. Upfront pricing, real workmanship warranty, and a name we're happy to undersell ourselves with.</p>
         <div class="btn-row" data-reveal data-reveal-delay="0.18">
           <a class="btn btn--primary btn--lg cta-pulse" href="tel:${TEL}">${I.phone} Call ${PHONE_D}</a>
