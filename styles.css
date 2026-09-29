@@ -187,13 +187,13 @@ strong { color:var(--ink); }
 .hero__trust .ic svg { width:1.6rem; height:1.6rem; }
 .hero__trust strong { display:block; font-family:var(--font-head); font-size:.95rem; line-height:1.2; }
 .hero__trust small { display:block; color:var(--ink-soft); font-size:.75rem; line-height:1.3; max-width:9.25rem; }
-.hero__rating { position:absolute; right:var(--s-5); bottom:var(--s-6); z-index:3; display:flex; align-items:center; gap:var(--s-4); background:#fff; border-radius:var(--r-md); box-shadow:var(--shadow-lg); padding:.85rem 1rem .85rem 1.1rem; color:var(--ink); max-width:22rem; }
+.hero__rating { position:absolute; right:var(--s-5); bottom:var(--s-6); z-index:3; display:flex; align-items:center; gap:var(--s-3); background:#fff; border-radius:var(--r-md); box-shadow:var(--shadow-md); padding:.5rem .7rem .5rem .85rem; color:var(--ink); max-width:14rem; }
 .hero__rating:hover { text-decoration:none; transform:translateY(-2px); }
-.hero__rating .s { display:block; color:var(--accent); letter-spacing:1px; font-size:1rem; line-height:1; margin-bottom:.2rem; }
-.hero__rating strong { display:block; font-family:var(--font-head); font-size:1rem; }
-.hero__rating small { display:block; color:var(--ink-soft); font-size:.78rem; }
-.hero__rating .go { width:34px; height:34px; border-radius:50%; background:var(--bg-soft); display:grid; place-items:center; flex:none; color:var(--brand); }
-.hero__rating .go svg { width:1rem; height:1rem; }
+.hero__rating .s { display:block; color:var(--accent); letter-spacing:1px; font-size:.8rem; line-height:1; margin-bottom:.15rem; }
+.hero__rating strong { display:block; font-family:var(--font-head); font-size:.85rem; }
+.hero__rating small { display:none; }
+.hero__rating .go { width:26px; height:26px; border-radius:50%; background:var(--bg-soft); display:grid; place-items:center; flex:none; color:var(--brand); }
+.hero__rating .go svg { width:.8rem; height:.8rem; }
 @media (max-width:900px){
   .hero--v2 { display:block; min-height:0; }
   .hero--v2 .hero__bg { position:relative; inset:auto; width:100%; height:min(88vw,460px); -webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%); mask-image:linear-gradient(to bottom,#000 70%,transparent 100%); }
