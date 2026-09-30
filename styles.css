@@ -549,3 +549,5 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
   *,*::before,*::after { animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; scroll-behavior:auto!important; }
   .css-reveal { opacity:1!important; transform:none!important; }
 }
+
+.section--photo .sect__bg img[src*="areas-offtrack"] { object-position:50% 100%; }
