@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001l";
+const ASSET_V = "20261001m";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -138,7 +138,7 @@ const services = [
   },
   {
     slug: "garage-door-cable-repair", nav: "Cable Repair", short: "Cable Repair",
-    icon: "cable", img: "cable-repair", heroImg: "cable-repair-hero", areasBg: "spring",
+    icon: "cable", img: "cable-repair", heroImg: "cable-repair-hero", areasBg: "cable",
     title: "Garage Door Cable Repair", kw: "garage door cable repair",
     h1: "Garage Door Cable Repair & Replacement in Greater Vancouver",
     metaT: "Garage Door Cable Repair Greater Vancouver | Good Enough",
@@ -338,6 +338,7 @@ const PHOTOS = {
   "price": ["price-bg-1600", 1600, "price-bg-960", 960, 590],
   "spring": ["areas-spring-bg-1600", 1600, "areas-spring-bg-960", 960, 635],
   "opener3": ["areas-opener3-bg-1600", 1600, "areas-opener3-bg-960", 960, 589],
+  "cable": ["areas-cable-bg-1600", 1600, "areas-cable-bg-960", 960, 589],
   "install": ["areas-install-bg-1600", 1600, "areas-install-bg-960", 960, 790],
   "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
 };
