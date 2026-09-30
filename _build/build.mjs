@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001e";
+const ASSET_V = "20261001f";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -72,7 +72,7 @@ const I = {
 const services = [
   {
     slug: "garage-door-spring-repair", nav: "Spring Repair", short: "Broken Spring Repair",
-    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", areasBg: "areas-spring-bg", areasBgW: [1600, 960], areasBgH: 635, money: true,
+    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", areasBg: "spring", money: true,
     title: "Garage Door Spring Repair", kw: "garage door spring repair",
     h1: "Broken Garage Door Spring Repair Across Greater Vancouver",
     metaT: "Garage Door Spring Repair Greater Vancouver | Good Enough",
@@ -94,7 +94,7 @@ const services = [
   },
   {
     slug: "garage-door-opener-repair", nav: "Opener Repair", short: "Opener Repair",
-    icon: "gear", img: "opener-repair", heroImg: "opener-repair-hero", areasBg: "areas-opener3-bg", areasBgW: [1600, 960], areasBgH: 589,
+    icon: "gear", img: "opener-repair", heroImg: "opener-repair-hero", areasBg: "opener3",
     title: "Garage Door Opener Repair", kw: "garage door opener repair",
     h1: "Garage Door Opener Repair in Greater Vancouver",
     metaT: "Garage Door Opener Repair Greater Vancouver | Good Enough",
@@ -116,7 +116,7 @@ const services = [
   },
   {
     slug: "garage-door-opener-installation", nav: "Opener Installation", short: "New Openers",
-    icon: "bolt", img: "opener-install", heroImg: "opener-install-hero", openers: true,
+    icon: "bolt", img: "opener-install", areasBg: "opener-install", heroImg: "opener-install-hero", openers: true,
     title: "Garage Door Opener Installation", kw: "garage door opener installation",
     h1: "Garage Door Opener Installation — LiftMaster, Installed Right",
     metaT: "Garage Door Opener Installation Vancouver | Good Enough",
@@ -138,7 +138,7 @@ const services = [
   },
   {
     slug: "garage-door-cable-repair", nav: "Cable Repair", short: "Cable Repair",
-    icon: "cable", img: "cable-repair",
+    icon: "cable", img: "cable-repair", areasBg: "spring",
     title: "Garage Door Cable Repair", kw: "garage door cable repair",
     h1: "Garage Door Cable Repair & Replacement in Greater Vancouver",
     metaT: "Garage Door Cable Repair Greater Vancouver | Good Enough",
@@ -160,7 +160,7 @@ const services = [
   },
   {
     slug: "garage-door-off-track-repair", nav: "Off-Track & Rollers", short: "Off-Track & Rollers",
-    icon: "track", img: "off-track",
+    icon: "track", img: "off-track", areasBg: "crew",
     title: "Off-Track & Roller Repair", kw: "garage door off track repair",
     h1: "Off-Track Garage Door & Roller Repair in Greater Vancouver",
     metaT: "Off-Track Garage Door Repair Greater Vancouver | Good Enough",
@@ -183,7 +183,7 @@ const services = [
   },
   {
     slug: "new-garage-door-installation", nav: "New Doors", short: "New Garage Doors",
-    icon: "door", img: "new-door",
+    icon: "door", img: "new-door", areasBg: "price",
     title: "New Garage Door Installation", kw: "new garage door installation",
     h1: "New Garage Door Installation in Greater Vancouver",
     metaT: "New Garage Door Installation Greater Vancouver | Good Enough",
@@ -205,7 +205,7 @@ const services = [
   },
   {
     slug: "garage-door-maintenance", nav: "Maintenance", short: "Tune-Ups",
-    icon: "wrench", img: "maintenance",
+    icon: "wrench", img: "maintenance", areasBg: "opener3",
     title: "Garage Door Maintenance & Tune-Up", kw: "garage door maintenance",
     h1: "Garage Door Maintenance & Tune-Ups in Greater Vancouver",
     metaT: "Garage Door Maintenance & Tune-Up Vancouver | Good Enough",
@@ -227,7 +227,7 @@ const services = [
   },
   {
     slug: "emergency-garage-door-repair", nav: "Emergency Repair", short: "Emergency Repair",
-    icon: "clock", img: "emergency",
+    icon: "clock", img: "emergency", areasBg: "drill",
     title: "Emergency Garage Door Repair", kw: "emergency garage door repair",
     h1: "Emergency Garage Door Repair in Greater Vancouver",
     metaT: "Emergency Garage Door Repair Greater Vancouver | Good Enough",
@@ -332,6 +332,20 @@ const HERO = {
     webp: "/assets/img/hero-drill-1600.webp?v=20260930d 1600w, /assets/img/hero-drill-960.webp?v=20260930d 960w",
   },
 };
+const PHOTOS = {
+  "opener-install": ["opener-install-hero-1200", 1600, "opener-install-hero-960", 960, 589],
+  "crew": ["crew-1200", 1200, "crew-600", 600, 749],
+  "price": ["price-bg-1600", 1600, "price-bg-960", 960, 590],
+  "spring": ["areas-spring-bg-1600", 1600, "areas-spring-bg-960", 960, 635],
+  "opener3": ["areas-opener3-bg-1600", 1600, "areas-opener3-bg-960", 960, 589],
+  "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
+};
+// Photo background <picture> for .section--photo (translucent plum overlay is CSS). key -> PHOTOS entry.
+function photoBg(key) {
+  const [a, aw, b, bw, h] = PHOTOS[key];
+  return `<picture class="sect__bg"><source type="image/avif" srcset="/assets/img/${a}.avif ${aw}w, /assets/img/${b}.avif ${bw}w" sizes="100vw"><source type="image/webp" srcset="/assets/img/${a}.webp ${aw}w, /assets/img/${b}.webp ${bw}w" sizes="100vw"><img src="/assets/img/${b}.webp" loading="lazy" decoding="async" width="${aw}" height="${h}" alt="" aria-hidden="true"></picture>`;
+}
+const CITY_BG = { vancouver: "drill", burnaby: "spring", surrey: "price", richmond: "opener3", coquitlam: "opener-install" };
 const navServices = services.map((s) => `<a href="/${s.slug}/">${s.nav}</a>`).join("");
 const navAreas = cities.map((c) => `<a href="/service-areas/${c.slug}/">${c.name}</a>`).join("");
 
@@ -634,7 +648,7 @@ function areasSection() {
   const extras = C.allAreasServed.filter((a) => !cities.find((c) => c.name === a));
   const chips = cities.map((c) => `<a class="area-chip" href="/service-areas/${c.slug}/">${I.pin} ${c.name}</a>`).join("")
     + extras.map((a) => `<span class="area-chip is-plain">${I.pin} ${a}</span>`).join("");
-  return `<section class="section section--soft" id="areas"><div class="container">
+  return `<section class="section section--photo" id="areas">${photoBg("crew")}<div class="container">
     <div class="center" data-reveal><span class="eyebrow">Where we work</span>
       <h2>Garage door service across Greater Vancouver</h2>
       <p class="lede measure-c">We cover the whole Lower Mainland. Our deep-dive city pages are below; we serve the rest of Metro Vancouver too — if you're nearby, just call.</p></div>
@@ -959,7 +973,7 @@ for (const s of services) {
   ${openersHtml}
   ${reviewSnippet}
 
-  <section class="section ${s.areasBg ? "section--photo" : "section--soft"}">${s.areasBg ? `<picture class="sect__bg"><source type="image/avif" srcset="/assets/img/${s.areasBg}-${s.areasBgW[0]}.avif ${s.areasBgW[0]}w, /assets/img/${s.areasBg}-${s.areasBgW[1]}.avif ${s.areasBgW[1]}w" sizes="100vw"><source type="image/webp" srcset="/assets/img/${s.areasBg}-${s.areasBgW[0]}.webp ${s.areasBgW[0]}w, /assets/img/${s.areasBg}-${s.areasBgW[1]}.webp ${s.areasBgW[1]}w" sizes="100vw"><img src="/assets/img/${s.areasBg}-${s.areasBgW[1]}.webp" loading="lazy" decoding="async" width="${s.areasBgW[0]}" height="${s.areasBgH}" alt="" aria-hidden="true"></picture>` : ""}<div class="container">
+  <section class="section ${s.areasBg ? "section--photo" : "section--soft"}">${s.areasBg ? photoBg(s.areasBg) : ""}<div class="container">
     <div class="center" data-reveal><span class="eyebrow">Across Greater Vancouver</span><h2>${s.short} in your city</h2>
       <p class="lede measure-c">We bring ${s.kw} to the whole Lower Mainland. Here are our core areas — and we serve everywhere in between.</p></div>
     <div class="areas" data-stagger style="margin-top:2rem">
@@ -1026,7 +1040,7 @@ for (const c of cities) {
 
   ${priceTransparency()}
 
-  <section class="section"><div class="container">
+  <section class="section section--photo">${photoBg(CITY_BG[c.slug])}<div class="container">
     <div class="center" data-reveal><span class="eyebrow">Nearby</span><h2>We also cover the areas next door</h2></div>
     <div class="areas" data-stagger style="margin-top:1.5rem;justify-content:center">${nearbyHtml}<a class="area-chip" href="/contact/">${I.pin} All of Metro Vancouver</a></div>
   </div></section>
