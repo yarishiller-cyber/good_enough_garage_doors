@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001g";
+const ASSET_V = "20261001i";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -801,17 +801,17 @@ function page(path, html) { PAGES.push([path, html]); }
         <h2>A genuinely good company with a genuinely humble name.</h2>
         <p>Every garage-door company calls itself elite, premier, pro, number-one. So we went the other way. <strong style="color:#fff">"Good Enough"</strong> is a quiet promise: we'd rather under-promise and over-deliver than oversell and disappoint. The name's the only modest thing about us.</p>
         <p>We're a local, Canadian-owned crew. Real people answer the phone. We fix what's broken, tell you when something isn't, and price it the same whether you've ever called us before or not. That's it — that's the whole pitch.</p>
-        <div class="stats" style="margin-top:2rem">
-          <div class="stat"><span class="n">7am–9pm</span><span class="l">Real people, 7 days</span></div>
-          <div class="stat"><span class="n">15+</span><span class="l">Metro Van cities served</span></div>
-          <div class="stat"><span class="n">$0</span><span class="l">Surprise fees, ever</span></div>
-          <div class="stat"><span class="n">100%</span><span class="l">Written quotes first</span></div>
-        </div>
       </div>
       <div data-reveal="left">
-        <div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:901px) 45vw, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:901px) 45vw, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div>
+        <div class="stats stats--side">
+            <div class="stat"><span class="n">7am–9pm</span><span class="l">Real people, 7 days</span></div>
+            <div class="stat"><span class="n">15+</span><span class="l">Metro Van cities served</span></div>
+            <div class="stat"><span class="n">$0</span><span class="l">Surprise fees, ever</span></div>
+            <div class="stat"><span class="n">100%</span><span class="l">Written quotes first</span></div>
+          </div>
       </div>
     </div>
+    <div class="team-photo" data-reveal><div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:1200px) 1160px, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:1200px) 1160px, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div></div>
   </div></section>
 
   ${reviewsSection()}
