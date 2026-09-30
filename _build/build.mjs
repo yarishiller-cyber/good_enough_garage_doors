@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001f";
+const ASSET_V = "20261001g";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -809,7 +809,7 @@ function page(path, html) { PAGES.push([path, html]); }
         </div>
       </div>
       <div data-reveal="left">
-        <div class="figframe zoom-frame"><picture><source type="image/avif" srcset="/assets/img/crew-1200.avif 1200w, /assets/img/crew-600.avif 600w" sizes="(min-width:901px) 45vw, 100vw"><source type="image/webp" srcset="/assets/img/crew-1200.webp 1200w, /assets/img/crew-600.webp 600w" sizes="(min-width:901px) 45vw, 100vw"><img src="/assets/img/crew-1200.webp" loading="lazy" decoding="async" width="1200" height="749" alt="Two Good Enough Garage Doors technicians in plum uniforms measuring a garage door opening"></picture></div>
+        <div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:901px) 45vw, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:901px) 45vw, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div>
       </div>
     </div>
   </div></section>
