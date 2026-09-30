@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260930a";
+const ASSET_V = "20260930b";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -72,7 +72,7 @@ const I = {
 const services = [
   {
     slug: "garage-door-spring-repair", nav: "Spring Repair", short: "Broken Spring Repair",
-    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", money: true,
+    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", areasBg: "areas-spring-bg", money: true,
     title: "Garage Door Spring Repair", kw: "garage door spring repair",
     h1: "Broken Garage Door Spring Repair Across Greater Vancouver",
     metaT: "Garage Door Spring Repair Greater Vancouver | Good Enough",
@@ -959,7 +959,7 @@ for (const s of services) {
   ${openersHtml}
   ${reviewSnippet}
 
-  <section class="section section--soft"><div class="container">
+  <section class="section ${s.areasBg ? "section--photo" : "section--soft"}">${s.areasBg ? `<picture class="sect__bg"><source type="image/avif" srcset="/assets/img/areas-spring-bg-1600.avif 1600w, /assets/img/areas-spring-bg-960.avif 960w" sizes="100vw"><source type="image/webp" srcset="/assets/img/areas-spring-bg-1600.webp 1600w, /assets/img/areas-spring-bg-960.webp 960w" sizes="100vw"><img src="/assets/img/areas-spring-bg-960.webp" loading="lazy" decoding="async" width="1600" height="635" alt="" aria-hidden="true"></picture>` : ""}<div class="container">
     <div class="center" data-reveal><span class="eyebrow">Across Greater Vancouver</span><h2>${s.short} in your city</h2>
       <p class="lede measure-c">We bring ${s.kw} to the whole Lower Mainland. Here are our core areas — and we serve everywhere in between.</p></div>
     <div class="areas" data-stagger style="margin-top:2rem">

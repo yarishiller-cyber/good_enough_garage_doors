@@ -91,6 +91,12 @@ strong { color:var(--ink); }
   letter-spacing:.1em; font-size:var(--t-sm); margin-bottom:var(--s-3);
 }
 .section--plum .eyebrow { color:var(--accent); }
+.section--photo { position:relative; overflow:hidden; background:var(--brand-darker); color:#fff; }
+.section--photo .sect__bg, .section--photo .sect__bg img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; display:block; }
+.section--photo::after { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(34,26,46,.70),rgba(52,32,79,.58)); }
+.section--photo .container { position:relative; z-index:2; }
+.section--photo h2, .section--photo p { color:#fff; }
+.section--photo .eyebrow { color:var(--accent); }
 .lede { font-size:var(--t-lg); color:var(--ink-soft); }
 .strike { text-decoration:line-through; text-decoration-color:rgba(var(--accent-rgb),.85); text-decoration-thickness:.12em; opacity:.7; }
 .hl { color:var(--accent-dark); }
