@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001q";
+const ASSET_V = "20261001r";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -183,7 +183,7 @@ const services = [
   },
   {
     slug: "new-garage-door-installation", nav: "New Doors", short: "New Garage Doors",
-    icon: "door", img: "new-door", heroImg: "new-door-hero", areasBg: "price",
+    icon: "door", img: "new-door", heroImg: "new-door-hero2", areasBg: "price",
     title: "New Garage Door Installation", kw: "new garage door installation",
     h1: "New Garage Door Installation in Greater Vancouver",
     metaT: "New Garage Door Installation Greater Vancouver | Good Enough",
