@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001u";
+const ASSET_V = "20261001v";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -205,7 +205,7 @@ const services = [
   },
   {
     slug: "garage-door-maintenance", nav: "Maintenance", short: "Tune-Ups",
-    icon: "wrench", img: "maintenance", areasBg: "opener3",
+    icon: "wrench", img: "maintenance", heroImg: "maintenance-hero", areasBg: "opener3",
     title: "Garage Door Maintenance & Tune-Up", kw: "garage door maintenance",
     h1: "Garage Door Maintenance & Tune-Ups in Greater Vancouver",
     metaT: "Garage Door Maintenance & Tune-Up Vancouver | Good Enough",
