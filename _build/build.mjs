@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260930h";
+const ASSET_V = "20260930j";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -575,8 +575,8 @@ function howItWorks() {
   </div></section>`;
 }
 
-function priceTransparency() {
-  return `<section class="section"><div class="container">
+function priceTransparency(photo = false) {
+  return `<section class="section${photo ? " section--photo section--photo-left" : ""}">${photo ? `<picture class="sect__bg"><source type="image/avif" srcset="/assets/img/price-bg-1600.avif 1600w, /assets/img/price-bg-960.avif 960w" sizes="100vw"><source type="image/webp" srcset="/assets/img/price-bg-1600.webp 1600w, /assets/img/price-bg-960.webp 960w" sizes="100vw"><img src="/assets/img/price-bg-960.webp" loading="lazy" decoding="async" width="1600" height="590" alt="" aria-hidden="true"></picture>` : ""}<div class="container">
     <div class="ptrust" data-reveal>
       <div>
         <span class="eyebrow">No games</span>
@@ -777,7 +777,7 @@ function page(path, html) { PAGES.push([path, html]); }
 
   ${reassureStrip()}
   ${servicesGrid()}
-  ${priceTransparency()}
+  ${priceTransparency(true)}
   ${howItWorks()}
 
   <section class="section section--plum"><div class="container">
