@@ -72,7 +72,7 @@ const I = {
 const services = [
   {
     slug: "garage-door-spring-repair", nav: "Spring Repair", short: "Broken Spring Repair",
-    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", areasBg: "areas-spring-bg", money: true,
+    icon: "coil", img: "spring-repair", heroImg: "spring-repair-hero", areasBg: "areas-spring-bg", areasBgW: [1600, 960], areasBgH: 635, money: true,
     title: "Garage Door Spring Repair", kw: "garage door spring repair",
     h1: "Broken Garage Door Spring Repair Across Greater Vancouver",
     metaT: "Garage Door Spring Repair Greater Vancouver | Good Enough",
@@ -94,7 +94,7 @@ const services = [
   },
   {
     slug: "garage-door-opener-repair", nav: "Opener Repair", short: "Opener Repair",
-    icon: "gear", img: "opener-repair",
+    icon: "gear", img: "opener-repair", areasBg: "areas-opener-bg", areasBgW: [1536, 960], areasBgH: 1024,
     title: "Garage Door Opener Repair", kw: "garage door opener repair",
     h1: "Garage Door Opener Repair in Greater Vancouver",
     metaT: "Garage Door Opener Repair Greater Vancouver | Good Enough",
@@ -959,7 +959,7 @@ for (const s of services) {
   ${openersHtml}
   ${reviewSnippet}
 
-  <section class="section ${s.areasBg ? "section--photo" : "section--soft"}">${s.areasBg ? `<picture class="sect__bg"><source type="image/avif" srcset="/assets/img/areas-spring-bg-1600.avif 1600w, /assets/img/areas-spring-bg-960.avif 960w" sizes="100vw"><source type="image/webp" srcset="/assets/img/areas-spring-bg-1600.webp 1600w, /assets/img/areas-spring-bg-960.webp 960w" sizes="100vw"><img src="/assets/img/areas-spring-bg-960.webp" loading="lazy" decoding="async" width="1600" height="635" alt="" aria-hidden="true"></picture>` : ""}<div class="container">
+  <section class="section ${s.areasBg ? "section--photo" : "section--soft"}">${s.areasBg ? `<picture class="sect__bg"><source type="image/avif" srcset="/assets/img/${s.areasBg}-${s.areasBgW[0]}.avif ${s.areasBgW[0]}w, /assets/img/${s.areasBg}-${s.areasBgW[1]}.avif ${s.areasBgW[1]}w" sizes="100vw"><source type="image/webp" srcset="/assets/img/${s.areasBg}-${s.areasBgW[0]}.webp ${s.areasBgW[0]}w, /assets/img/${s.areasBg}-${s.areasBgW[1]}.webp ${s.areasBgW[1]}w" sizes="100vw"><img src="/assets/img/${s.areasBg}-${s.areasBgW[1]}.webp" loading="lazy" decoding="async" width="${s.areasBgW[0]}" height="${s.areasBgH}" alt="" aria-hidden="true"></picture>` : ""}<div class="container">
     <div class="center" data-reveal><span class="eyebrow">Across Greater Vancouver</span><h2>${s.short} in your city</h2>
       <p class="lede measure-c">We bring ${s.kw} to the whole Lower Mainland. Here are our core areas — and we serve everywhere in between.</p></div>
     <div class="areas" data-stagger style="margin-top:2rem">

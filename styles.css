@@ -96,6 +96,7 @@ strong { color:var(--ink); }
 .section--photo::after { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(34,26,46,.70),rgba(52,32,79,.58)); }
 .section--photo .container { position:relative; z-index:2; }
 .section--photo h2, .section--photo p { color:#fff; }
+.section--photo .sect__bg img[src*="opener"] { object-position:50% 30%; }
 .section--photo .eyebrow { color:var(--accent); }
 .section--photo .ptrust__list li { color:#fff; }
 .section--photo .ptrust__list strong { color:#fff; }
