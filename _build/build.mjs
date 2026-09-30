@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20260929i";
+const ASSET_V = "20260930a";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -872,10 +872,11 @@ for (const s of services) {
   // money page tiers
   let tiersHtml = "";
   if (s.money) {
-    const t = C.springPricing.tiers.map((tier) => `
+    const TIER_ALT = ["Good Enough Garage Doors technician holding a single torsion spring", "Good Enough Garage Doors technician holding a matched pair of torsion springs", "Good Enough Garage Doors technician holding two high-cycle torsion springs"];
+    const t = C.springPricing.tiers.map((tier, i) => `
       <div class="tier ${tier.featured ? "tier--feat" : ""}">
         ${tier.featured ? `<span class="tier__flag">Most popular — best value</span>` : ""}
-        <div class="tier__media"><picture><source type="image/avif" srcset="/assets/img/spring-repair-480.avif"><source type="image/webp" srcset="/assets/img/spring-repair-480.webp"><img src="/assets/img/spring-repair-480.webp" loading="lazy" decoding="async" width="480" height="192" alt="Garage door torsion spring replacement by Good Enough Garage Doors"></picture></div>
+        <div class="tier__media"><picture><source type="image/avif" srcset="/assets/img/spring-tier-${i + 1}-600.avif"><source type="image/webp" srcset="/assets/img/spring-tier-${i + 1}-600.webp"><img src="/assets/img/spring-tier-${i + 1}-600.webp" loading="lazy" decoding="async" width="600" height="480" alt="${TIER_ALT[i]}"></picture></div>
         <h3>${tier.label}</h3>
         <div class="tier__price">${px(`Flat rate`, `$${money(tier.price)}`)}<small> +tax</small></div>
         <p class="tier__sub">${tier.sub}</p>
