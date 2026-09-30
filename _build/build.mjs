@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001m";
+const ASSET_V = "20261001n";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -160,7 +160,7 @@ const services = [
   },
   {
     slug: "garage-door-off-track-repair", nav: "Off-Track & Rollers", short: "Off-Track & Rollers",
-    icon: "track", img: "off-track", areasBg: "crew",
+    icon: "track", img: "off-track", heroImg: "off-track-hero", areasBg: "crew",
     title: "Off-Track & Roller Repair", kw: "garage door off track repair",
     h1: "Off-Track Garage Door & Roller Repair in Greater Vancouver",
     metaT: "Off-Track Garage Door Repair Greater Vancouver | Good Enough",
