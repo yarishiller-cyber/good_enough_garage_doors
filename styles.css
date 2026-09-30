@@ -240,6 +240,8 @@ strong { color:var(--ink); }
 .reassure__item .ic svg { width:20px; height:20px; }
 .reassure__item strong { display:block; font-family:var(--font-head); font-size:1rem; margin-bottom:.15rem; white-space:nowrap; }
 .reassure__item small { color:var(--ink-soft); font-size:.84rem; line-height:1.45; display:block; }
+/* strip sits on the same lilac as the next section so there is no white band between hero and services */
+.hero--v2 + .section--tight { background:var(--bg-soft); padding-block:var(--s-6) 0; }
 @media (min-width:1101px){ .hero--v2 + .section--tight { padding-top:0; } .hero--v2 + .section--tight .reassure { margin-top:-.5rem; } .hero__rating { bottom:2rem; } }
 
 /* ---- how-it-works steps ---- */
