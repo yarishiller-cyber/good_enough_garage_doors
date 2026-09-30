@@ -216,7 +216,7 @@ strong { color:var(--ink); }
   .hero--v2 .hero__dots { display:none; }
   .hero--v2 .hero__inner { display:block; position:static; padding-block:0 var(--s-7); margin-top:calc(var(--s-6) * -1); }
   .hero--v2 .hero__copy { position:relative; }
-  .hero__rating { top:calc(min(62vw,460px) - 5.5rem); bottom:auto; right:var(--s-4); left:auto; max-width:17rem; padding:.6rem .8rem; }
+  .hero__rating { top:.75rem; bottom:auto; right:.75rem; left:auto; max-width:17rem; padding:.45rem .65rem .45rem .75rem; }
   .hero__rating small { display:none; }
   .hero__trust { flex-wrap:wrap; }
 }
