@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001a";
+const ASSET_V = "20261001b";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -94,7 +94,7 @@ const services = [
   },
   {
     slug: "garage-door-opener-repair", nav: "Opener Repair", short: "Opener Repair",
-    icon: "gear", img: "opener-repair", areasBg: "areas-opener2-bg", areasBgW: [1600, 960], areasBgH: 589,
+    icon: "gear", img: "opener-repair", heroImg: "opener-repair-hero", areasBg: "areas-opener2-bg", areasBgW: [1600, 960], areasBgH: 589,
     title: "Garage Door Opener Repair", kw: "garage door opener repair",
     h1: "Garage Door Opener Repair in Greater Vancouver",
     metaT: "Garage Door Opener Repair Greater Vancouver | Good Enough",
