@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001k";
+const ASSET_V = "20261001l";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -138,7 +138,7 @@ const services = [
   },
   {
     slug: "garage-door-cable-repair", nav: "Cable Repair", short: "Cable Repair",
-    icon: "cable", img: "cable-repair", areasBg: "spring",
+    icon: "cable", img: "cable-repair", heroImg: "cable-repair-hero", areasBg: "spring",
     title: "Garage Door Cable Repair", kw: "garage door cable repair",
     h1: "Garage Door Cable Repair & Replacement in Greater Vancouver",
     metaT: "Garage Door Cable Repair Greater Vancouver | Good Enough",

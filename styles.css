@@ -244,6 +244,7 @@ strong { color:var(--ink); }
 .pagehead::after { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(115deg,rgba(52,32,79,.95),rgba(79,45,122,.78) 55%,rgba(34,26,46,.55)); }
 .pagehead__bg[src*="opener-install-hero"], .pagehead__bg[src*="opener-repair-hero"] { left:auto; right:0; width:60%; top:0; height:100%; transform:none !important; object-position:78% 0%; -webkit-mask-image:linear-gradient(to right,transparent 0,#000 22%); mask-image:linear-gradient(to right,transparent 0,#000 22%); }
 .pagehead__bg[src*="opener-repair-hero"] { object-position:62% 0%; }
+.pagehead__bg[src*="cable-repair-hero"] { object-position:32% 50%; }
 @media (max-width:900px){ .pagehead__bg[src*="opener-install-hero"], .pagehead__bg[src*="opener-repair-hero"] { width:100%; object-position:57% 0%; -webkit-mask-image:none; mask-image:none; } }
 .pagehead--light::after { background:linear-gradient(180deg,rgba(34,26,46,.70),rgba(52,32,79,.58)); }
 .crumbs { font-size:var(--t-sm); margin-bottom:var(--s-4); color:rgba(255,255,255,.8); }
