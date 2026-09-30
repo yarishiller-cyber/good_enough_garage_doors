@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001j";
+const ASSET_V = "20261001k";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -116,7 +116,7 @@ const services = [
   },
   {
     slug: "garage-door-opener-installation", nav: "Opener Installation", short: "New Openers",
-    icon: "bolt", img: "opener-install", areasBg: "opener3", heroImg: "opener-install-hero", openers: true,
+    icon: "bolt", img: "opener-install", areasBg: "install", heroImg: "opener-install-hero", openers: true,
     title: "Garage Door Opener Installation", kw: "garage door opener installation",
     h1: "Garage Door Opener Installation — LiftMaster, Installed Right",
     metaT: "Garage Door Opener Installation Vancouver | Good Enough",
@@ -338,6 +338,7 @@ const PHOTOS = {
   "price": ["price-bg-1600", 1600, "price-bg-960", 960, 590],
   "spring": ["areas-spring-bg-1600", 1600, "areas-spring-bg-960", 960, 635],
   "opener3": ["areas-opener3-bg-1600", 1600, "areas-opener3-bg-960", 960, 589],
+  "install": ["areas-install-bg-1600", 1600, "areas-install-bg-960", 960, 790],
   "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
 };
 // Photo background <picture> for .section--photo (translucent plum overlay is CSS). key -> PHOTOS entry.
