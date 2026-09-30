@@ -96,7 +96,13 @@ strong { color:var(--ink); }
 .section--photo::after { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(34,26,46,.70),rgba(52,32,79,.58)); }
 .section--photo .container { position:relative; z-index:2; }
 .section--photo h2, .section--photo p { color:#fff; }
-.section--photo .sect__bg img[src*="opener"] { object-position:50% 0%; }
+.section--photo .sect__bg img[src*="opener"] { object-position:50% 50%; }
+@media (max-width:900px){
+  .section--photo:not(.section--photo-left) { padding-top:calc(min(46vw,320px) + 1.25rem); }
+  .section--photo:not(.section--photo-left) .sect__bg, .section--photo:not(.section--photo-left) .sect__bg img { inset:0 0 auto 0; height:min(46vw,320px); }
+  .section--photo:not(.section--photo-left) .sect__bg img { object-position:50% 40%; }
+  .section--photo:not(.section--photo-left)::after { background:linear-gradient(180deg,rgba(52,32,79,.10) 0,rgba(52,32,79,.18) calc(min(46vw,320px) * .5),rgba(52,32,79,.78) calc(min(46vw,320px) * .86),var(--brand-darker) min(46vw,320px),var(--brand-darker) 100%); }
+}
 .section--photo .eyebrow { color:var(--accent); }
 .section--photo .ptrust__list li { color:#fff; }
 .section--photo .ptrust__list strong { color:#fff; }

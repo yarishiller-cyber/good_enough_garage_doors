@@ -94,7 +94,7 @@ const services = [
   },
   {
     slug: "garage-door-opener-repair", nav: "Opener Repair", short: "Opener Repair",
-    icon: "gear", img: "opener-repair", areasBg: "areas-opener-bg", areasBgW: [1536, 960], areasBgH: 1024,
+    icon: "gear", img: "opener-repair", areasBg: "areas-opener2-bg", areasBgW: [1600, 960], areasBgH: 589,
     title: "Garage Door Opener Repair", kw: "garage door opener repair",
     h1: "Garage Door Opener Repair in Greater Vancouver",
     metaT: "Garage Door Opener Repair Greater Vancouver | Good Enough",
