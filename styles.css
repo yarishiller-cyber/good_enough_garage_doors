@@ -97,6 +97,7 @@ strong { color:var(--ink); }
 .section--photo .container { position:relative; z-index:2; }
 .section--photo h2, .section--photo p { color:#fff; }
 .section--photo .sect__bg img[src*="opener"] { object-position:50% 50%; }
+.section--photo .sect__bg img[src*="areas-install"] { object-position:30% 45%; }
 @media (max-width:900px){
   .section--photo:not(.section--photo-left) { padding-top:calc(min(46vw,320px) + 1.25rem); }
   .section--photo:not(.section--photo-left) .sect__bg, .section--photo:not(.section--photo-left) .sect__bg img { inset:0 0 auto 0; height:min(46vw,320px); }
