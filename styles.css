@@ -588,3 +588,6 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 @media (max-width:900px){ .pagehead--team .pagehead__bg[src*="services-new-hero"] { width:100%; left:0; right:auto; height:clamp(150px,46vw,260px); top:0; bottom:auto; -webkit-mask-image:none; mask-image:none; object-position:62% 40%; } }
 
 .section--photo .sect__bg img[src*="areas-van"] { object-position:40% 55%; }
+
+.pagehead__bg[src*="faq-hero"] { object-position:50% 60%; }
+@media (max-width:900px){ .pagehead--team .pagehead__bg[src*="faq-hero"] { object-position:50% 62%; } }
