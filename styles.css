@@ -565,3 +565,6 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 .page-emergency .btn--primary[href^="tel:"] svg { color:#fff; }
 @keyframes emerg-blink { 0%{ background:#d62828; box-shadow:0 0 0 0 rgba(255,60,60,.75), 0 0 0 0 rgba(255,60,60,.45); } 70%{ background:#ee3d3d; box-shadow:0 0 0 22px rgba(255,60,60,0), 0 0 0 10px rgba(255,60,60,.18); } 100%{ background:#d62828; box-shadow:0 0 0 38px rgba(255,60,60,0), 0 0 0 22px rgba(255,60,60,0); } }
 @media (prefers-reduced-motion:reduce){ .page-emergency .btn--primary[href^="tel:"] { animation:none; } }
+
+.section--photo .sect__bg img[src*="areas-emerg"] { object-position:60% 40%; }
+@media (max-width:900px){ .section--photo:not(.section--photo-left) .sect__bg img[src*="areas-emerg"] { object-position:78% 40%; } }
