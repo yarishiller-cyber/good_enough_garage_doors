@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001v";
+const ASSET_V = "20261001w";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -205,7 +205,7 @@ const services = [
   },
   {
     slug: "garage-door-maintenance", nav: "Maintenance", short: "Tune-Ups",
-    icon: "wrench", img: "maintenance", heroImg: "maintenance-hero", areasBg: "opener3",
+    icon: "wrench", img: "maintenance", heroImg: "maintenance-hero", areasBg: "maint",
     title: "Garage Door Maintenance & Tune-Up", kw: "garage door maintenance",
     h1: "Garage Door Maintenance & Tune-Ups in Greater Vancouver",
     metaT: "Garage Door Maintenance & Tune-Up Vancouver | Good Enough",
@@ -340,6 +340,7 @@ const PHOTOS = {
   "opener3": ["areas-opener3-bg-1600", 1600, "areas-opener3-bg-960", 960, 589],
   "cable": ["areas-cable-bg-1600", 1600, "areas-cable-bg-960", 960, 589],
   "offtrack": ["areas-offtrack-bg-1600", 1600, "areas-offtrack-bg-960", 960, 858],
+  "maint": ["areas-maint-bg-1600", 1600, "areas-maint-bg-960", 960, 386],
   "install": ["areas-install-bg-1600", 1600, "areas-install-bg-960", 960, 790],
   "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
 };
