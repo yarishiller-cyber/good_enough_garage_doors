@@ -583,3 +583,6 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 
 .section--photo .sect__bg img[src*="areas-purple"] { object-position:60% 50%; }
 @media (max-width:900px){ .section--photo:not(.section--photo-left) .sect__bg img[src*="areas-purple"] { object-position:45% 50%; } }
+
+.pagehead__bg[src*="services-new-hero"] { left:auto; right:0; width:62%; top:0; height:100%; transform:none !important; object-position:70% 50%; -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%); mask-image:linear-gradient(to right,transparent 0,#000 16%); }
+@media (max-width:900px){ .pagehead--team .pagehead__bg[src*="services-new-hero"] { width:100%; left:0; right:auto; height:clamp(150px,46vw,260px); top:0; bottom:auto; -webkit-mask-image:none; mask-image:none; object-position:62% 40%; } }
