@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002a";
+const ASSET_V = "20261002b";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -227,7 +227,7 @@ const services = [
   },
   {
     slug: "emergency-garage-door-repair", nav: "Emergency Repair", short: "Emergency Repair",
-    icon: "clock", img: "emergency", heroImg: "emergency-hero", areasBg: "drill",
+    icon: "clock", img: "emergency", heroImg: "emergency-hero", areasBg: "emerg",
     title: "Emergency Garage Door Repair", kw: "emergency garage door repair",
     h1: "Emergency Garage Door Repair in Greater Vancouver",
     metaT: "Emergency Garage Door Repair Greater Vancouver | Good Enough",
@@ -341,6 +341,7 @@ const PHOTOS = {
   "cable": ["areas-cable-bg-1600", 1600, "areas-cable-bg-960", 960, 589],
   "offtrack": ["areas-offtrack-bg-1600", 1600, "areas-offtrack-bg-960", 960, 858],
   "maint": ["areas-maint-bg-1600", 1600, "areas-maint-bg-960", 960, 386],
+  "emerg": ["areas-emerg-bg-1600", 1600, "areas-emerg-bg-960", 960, 698],
   "install": ["areas-install-bg-1600", 1600, "areas-install-bg-960", 960, 790],
   "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
 };
