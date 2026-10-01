@@ -580,3 +580,6 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 
 .pagehead__bg[src*="services-hero"] { object-position:100% 50%; }
 @media (max-width:900px){ .pagehead--team .pagehead__bg[src*="services-hero"] { width:100%; left:0; right:auto; -webkit-mask-image:none; mask-image:none; object-position:60% 40%; } }
+
+.section--photo .sect__bg img[src*="areas-purple"] { object-position:60% 50%; }
+@media (max-width:900px){ .section--photo:not(.section--photo-left) .sect__bg img[src*="areas-purple"] { object-position:45% 50%; } }

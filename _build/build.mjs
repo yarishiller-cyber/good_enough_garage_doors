@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002f";
+const ASSET_V = "20261002g";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -183,7 +183,7 @@ const services = [
   },
   {
     slug: "new-garage-door-installation", nav: "New Doors", short: "New Garage Doors",
-    icon: "door", img: "new-door", heroImg: "new-door-hero4", areasBg: "price",
+    icon: "door", img: "new-door", heroImg: "new-door-hero4", areasBg: "purple",
     title: "New Garage Door Installation", kw: "new garage door installation",
     h1: "New Garage Door Installation in Greater Vancouver",
     metaT: "New Garage Door Installation Greater Vancouver | Good Enough",
@@ -342,6 +342,7 @@ const PHOTOS = {
   "offtrack": ["areas-offtrack-bg-1600", 1600, "areas-offtrack-bg-960", 960, 858],
   "maint": ["areas-maint-bg-1600", 1600, "areas-maint-bg-960", 960, 386],
   "emerg": ["areas-emerg-bg-1600", 1600, "areas-emerg-bg-960", 960, 698],
+  "purple": ["areas-purple-bg-1600", 1600, "areas-purple-bg-960", 960, 686],
   "install": ["areas-install-bg-1600", 1600, "areas-install-bg-960", 960, 790],
   "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
 };
@@ -846,11 +847,11 @@ function page(path, html) { PAGES.push([path, html]); }
   const body = head({
     path: "/services.html", title: "Garage Door Services in Greater Vancouver | Good Enough",
     desc: "Garage door services across Greater Vancouver — springs, openers, cables, off-track, new doors & tune-ups. Honest upfront pricing. Call (778) 800-0769.",
-    ogImg: "spring-repair", jsonld, preload: "/assets/img/services-hero-1200.avif",
+    ogImg: "spring-repair", jsonld, preload: "/assets/img/spring-repair-1200.avif",
   }) + header() + `
 <main id="main">
-  <section class="pagehead pagehead--img pagehead--light pagehead--team">
-    ${pageheadBg("services-hero")}
+  <section class="pagehead pagehead--img">
+    ${pageheadBg("spring-repair")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Services</nav>
       <h1>Everything we fix — across Greater Vancouver</h1>
