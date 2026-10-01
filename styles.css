@@ -560,8 +560,8 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 .pagehead__bg[src*="emergency-hero"] { object-position:22% 50%; }
 
 /* Emergency page: call buttons are urgent red with a soft attention pulse (not a hard blink) */
-.page-emergency .btn--primary[href^="tel:"] { background:#d62828; color:#fff; box-shadow:0 8px 18px rgba(214,40,40,.4); animation:emerg-blink 1.6s ease-in-out infinite; }
+.page-emergency .btn--primary[href^="tel:"] { background:#d62828; color:#fff; box-shadow:0 8px 18px rgba(214,40,40,.4); animation:emerg-blink 1.5s ease-out infinite; }
 .page-emergency .btn--primary[href^="tel:"]:hover { background:#e63232; animation:none; box-shadow:0 12px 26px rgba(214,40,40,.55); }
 .page-emergency .btn--primary[href^="tel:"] svg { color:#fff; }
-@keyframes emerg-blink { 0%,100%{ background:#d62828; box-shadow:0 0 0 0 rgba(214,40,40,.55); } 50%{ background:#ee3d3d; box-shadow:0 0 0 10px rgba(214,40,40,0); } }
+@keyframes emerg-blink { 0%{ background:#d62828; box-shadow:0 0 0 0 rgba(255,60,60,.75), 0 0 0 0 rgba(255,60,60,.45); } 70%{ background:#ee3d3d; box-shadow:0 0 0 22px rgba(255,60,60,0), 0 0 0 10px rgba(255,60,60,.18); } 100%{ background:#d62828; box-shadow:0 0 0 38px rgba(255,60,60,0), 0 0 0 22px rgba(255,60,60,0); } }
 @media (prefers-reduced-motion:reduce){ .page-emergency .btn--primary[href^="tel:"] { animation:none; } }
