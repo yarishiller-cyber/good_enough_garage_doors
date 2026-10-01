@@ -557,3 +557,4 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 
 .section--photo .sect__bg img[src*="areas-maint"] { object-position:100% 50%; }
 @media (max-width:900px){ .section--photo:not(.section--photo-left) .sect__bg img[src*="areas-maint"] { object-position:92% 50%; } }
+.pagehead__bg[src*="emergency-hero"] { object-position:22% 50%; }
