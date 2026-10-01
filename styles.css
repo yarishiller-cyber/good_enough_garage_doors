@@ -569,3 +569,11 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 .section--photo .sect__bg img[src*="areas-emerg"] { object-position:60% 40%; }
 @media (max-width:900px){ .section--photo:not(.section--photo-left) .sect__bg img[src*="areas-emerg"] { object-position:78% 40%; } }
 .pagehead__bg[src*="contact-hero"] { object-position:50% 40%; }
+
+/* Contact header on phones: team strip on top, headline below on solid plum */
+@media (max-width:900px){
+  .pagehead--team { padding-top:clamp(150px,46vw,260px); }
+  .pagehead--team .pagehead__bg { height:clamp(150px,46vw,260px); top:0; bottom:auto; transform:none !important; object-position:50% 45%; }
+  .pagehead--team::after { background:linear-gradient(180deg,rgba(52,32,79,.05) 0,rgba(52,32,79,.12) 55%,var(--brand-darker) clamp(150px,46vw,260px),var(--brand-darker) 100%); }
+  .pagehead--team .container { padding-top:var(--s-5); }
+}

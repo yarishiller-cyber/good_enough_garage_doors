@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002c";
+const ASSET_V = "20261002d";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1163,7 +1163,7 @@ for (const c of cities) {
     ogImg: "contact", jsonld, preload: "/assets/img/contact-hero-1200.avif",
   }) + header() + `
 <main id="main">
-  <section class="pagehead pagehead--img pagehead--light">
+  <section class="pagehead pagehead--img pagehead--light pagehead--team">
     ${pageheadBg("contact-hero")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Contact</nav>
