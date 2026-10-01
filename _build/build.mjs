@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261001y";
+const ASSET_V = "20261001z";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -422,7 +422,7 @@ ${preload}
 <link rel="stylesheet" href="/styles.css?v=${ASSET_V}">
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>
-<body class="layout-b">
+<body class="layout-b${o.bodyClass ? " " + o.bodyClass : ""}">
 <a href="#main" class="btn" style="position:absolute;left:-999px;top:0;z-index:200" onfocus="this.style.left='1rem';this.style.top='1rem'" onblur="this.style.left='-999px'">Skip to content</a>`;
 }
 
@@ -950,7 +950,7 @@ for (const s of services) {
   }
 
   const body = head({
-    path: "/" + s.slug + ".html", title: s.metaT, desc: s.metaD, ogImg: s.img, jsonld,
+    path: "/" + s.slug + ".html", title: s.metaT, desc: s.metaD, ogImg: s.img, jsonld, bodyClass: s.slug === "emergency-garage-door-repair" ? "page-emergency" : "",
     preload: `/assets/img/${s.heroImg || s.img}-1200.avif`,
   }) + header() + `
 <main id="main">
