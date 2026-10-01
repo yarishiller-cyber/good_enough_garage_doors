@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002j";
+const ASSET_V = "20261002k";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1135,11 +1135,11 @@ for (const c of cities) {
   const body = head({
     path: "/faq.html", title: "Garage Door FAQ — Costs, Timing, Safety | Good Enough",
     desc: "Honest answers about garage door repair costs, timing, safety, the funny name, and avoiding scams across Greater Vancouver. Call (778) 800-0769.",
-    ogImg: "faq", jsonld, preload: "/assets/img/faq-1200.avif",
+    ogImg: "faq", jsonld, preload: "/assets/img/faq-hero-1200.avif",
   }) + header() + `
 <main id="main">
-  <section class="pagehead pagehead--img">
-    ${pageheadBg("faq")}
+  <section class="pagehead pagehead--img pagehead--light pagehead--team">
+    ${pageheadBg("faq-hero")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>FAQ</nav>
       <h1>Fair questions, straight answers</h1>
