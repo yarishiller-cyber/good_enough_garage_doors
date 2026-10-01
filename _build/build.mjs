@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002i";
+const ASSET_V = "20261002j";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -343,6 +343,7 @@ const PHOTOS = {
   "maint": ["areas-maint-bg-1600", 1600, "areas-maint-bg-960", 960, 386],
   "emerg": ["areas-emerg-bg-1600", 1600, "areas-emerg-bg-960", 960, 698],
   "purple": ["areas-purple-bg-1600", 1600, "areas-purple-bg-960", 960, 686],
+  "van": ["areas-van-bg-1600", 1600, "areas-van-bg-960", 960, 686],
   "install": ["areas-install-bg-1600", 1600, "areas-install-bg-960", 960, 790],
   "drill": ["hero-drill-1600", 1600, "hero-drill-960", 960, 1061],
 };
@@ -650,11 +651,11 @@ function guaranteeBand() {
   </div></section>`;
 }
 
-function areasSection() {
+function areasSection(photo = "crew") {
   const extras = C.allAreasServed.filter((a) => !cities.find((c) => c.name === a));
   const chips = cities.map((c) => `<a class="area-chip" href="/service-areas/${c.slug}/">${I.pin} ${c.name}</a>`).join("")
     + extras.map((a) => `<span class="area-chip is-plain">${I.pin} ${a}</span>`).join("");
-  return `<section class="section section--photo" id="areas">${photoBg("crew")}<div class="container">
+  return `<section class="section section--photo" id="areas">${photoBg(photo)}<div class="container">
     <div class="center" data-reveal><span class="eyebrow">Where we work</span>
       <h2>Garage door service across Greater Vancouver</h2>
       <p class="lede measure-c">We cover the whole Lower Mainland. Our deep-dive city pages are below; we serve the rest of Metro Vancouver too — if you're nearby, just call.</p></div>
@@ -863,7 +864,7 @@ function page(path, html) { PAGES.push([path, html]); }
     <div class="grid grid--3" data-stagger>${cards}</div>
   </div></section>
   ${priceTransparency()}
-  ${areasSection()}
+  ${areasSection("van")}
   ${ctaBand("Not sure which one you need?", "Describe the problem and we'll tell you honestly what it is — and roughly what it costs — before anyone comes out.")}
   ${partnerCta()}
 </main>` + footer();
