@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002l";
+const ASSET_V = "20261002m";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1013,7 +1013,8 @@ for (const c of cities) {
     faqNode(cityFaqs),
   ]};
   const svcLinks = services.map((s) => `<a class="card svc-card hover-lift" href="/${s.slug}/"><span class="card__icon">${I[s.icon]}</span><h3>${s.short}</h3><p>${s.blurb}</p><span class="card__link" style="margin-top:.6rem">Learn more ${I.arrow}</span></a>`).join("");
-  const nearbyHtml = c.nearby.map((n) => `<a class="area-chip" href="/service-areas/${n}/">${I.pin} ${cityBySlug[n].name}</a>`).join("");
+  const allAreasHtml = cities.map((x) => x.slug === c.slug ? `<span class="area-chip is-plain">${I.pin} ${x.name}</span>` : `<a class="area-chip" href="/service-areas/${x.slug}/">${I.pin} ${x.name}</a>`).join("")
+    + C.allAreasServed.filter((a) => !cities.find((x) => x.name === a)).map((a) => `<span class="area-chip is-plain">${I.pin} ${a}</span>`).join("");
   const body = head({
     path: "/service-areas/" + c.slug + ".html", title: c.metaT, desc: c.metaD, ogImg: c.img, jsonld,
     preload: `/assets/img/${c.heroImg || c.img}-1200.avif`,
@@ -1048,8 +1049,8 @@ for (const c of cities) {
   ${priceTransparency()}
 
   <section class="section section--photo">${photoBg(CITY_BG[c.slug])}<div class="container">
-    <div class="center" data-reveal><span class="eyebrow">Nearby</span><h2>We also cover the areas next door</h2></div>
-    <div class="areas" data-stagger style="margin-top:1.5rem;justify-content:center">${nearbyHtml}<a class="area-chip" href="/contact/">${I.pin} All of Metro Vancouver</a></div>
+    <div class="center" data-reveal><span class="eyebrow">Across Greater Vancouver</span><h2>All the areas we cover</h2></div>
+    <div class="areas" data-stagger style="margin-top:1.5rem">${allAreasHtml}</div>
   </div></section>
 
   ${faqSection(cityFaqs, `Garage door service in ${c.name}: FAQ`)}
