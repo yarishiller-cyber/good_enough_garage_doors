@@ -584,8 +584,8 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 .section--photo .sect__bg img[src*="areas-purple"] { object-position:60% 50%; }
 @media (max-width:900px){ .section--photo:not(.section--photo-left) .sect__bg img[src*="areas-purple"] { object-position:45% 50%; } }
 
-.pagehead__bg[src*="about-hero"], .pagehead__bg[src*="partner-1200"], .pagehead__bg[src*="legal-hero"], .pagehead__bg[src*="services-new-hero"] { left:auto; right:0; width:62%; top:0; height:100%; transform:none !important; object-position:70% 50%; -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%); mask-image:linear-gradient(to right,transparent 0,#000 16%); }
-@media (max-width:900px){ .pagehead--team .pagehead__bg[src*="about-hero"], .pagehead--team .pagehead__bg[src*="partner-1200"], .pagehead--team .pagehead__bg[src*="legal-hero"], .pagehead--team .pagehead__bg[src*="services-new-hero"] { width:100%; left:0; right:auto; height:clamp(150px,46vw,260px); top:0; bottom:auto; -webkit-mask-image:none; mask-image:none; object-position:62% 40%; } }
+.pagehead__bg[src*="about-hero"], .pagehead__bg[src*="faq-hero2"], .pagehead__bg[src*="partner-1200"], .pagehead__bg[src*="legal-hero"], .pagehead__bg[src*="services-new-hero"] { left:auto; right:0; width:62%; top:0; height:100%; transform:none !important; object-position:70% 50%; -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%); mask-image:linear-gradient(to right,transparent 0,#000 16%); }
+@media (max-width:900px){ .pagehead--team .pagehead__bg[src*="about-hero"], .pagehead--team .pagehead__bg[src*="faq-hero2"], .pagehead--team .pagehead__bg[src*="partner-1200"], .pagehead--team .pagehead__bg[src*="legal-hero"], .pagehead--team .pagehead__bg[src*="services-new-hero"] { width:100%; left:0; right:auto; height:clamp(150px,46vw,260px); top:0; bottom:auto; -webkit-mask-image:none; mask-image:none; object-position:62% 40%; } }
 
 .section--photo .sect__bg img[src*="areas-van"] { object-position:40% 55%; }
 
@@ -599,3 +599,5 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 @media (min-width:901px){ .pagehead--tall .container { padding-block:7rem; } .pagehead--tall .pagehead__bg[src*="legal-hero2"] { width:68%; object-position:60% 30%; } .pagehead--tall .pagehead__bg[src*="terms-hero"] { left:auto; right:0; width:68%; top:0; height:100%; transform:none !important; object-position:35% 0%; -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%); mask-image:linear-gradient(to right,transparent 0,#000 16%); } }
 @media (max-width:900px){ .pagehead--tall { padding-top:clamp(220px,70vw,380px); } .pagehead--team.pagehead--tall .pagehead__bg { height:clamp(220px,70vw,380px); } .pagehead--team.pagehead--tall::after { background:linear-gradient(180deg,rgba(34,26,46,.15),rgba(34,26,46,.1) clamp(150px,50vw,300px),var(--brand-darker) clamp(220px,70vw,380px)); } .pagehead--team .pagehead__bg[src*="legal-hero2"] { object-position:35% 25%; } }
 @media (max-width:900px){ .pagehead--team.pagehead--tall .pagehead__bg[src*="terms-hero"] { width:100%; left:0; right:auto; -webkit-mask-image:none; mask-image:none; object-position:38% 20%; } }
+.pagehead__bg[src*="faq-hero2"] { object-position:30% 50%; }
+@media (max-width:900px){ .pagehead--team .pagehead__bg[src*="faq-hero2"] { object-position:30% 50%; } }
