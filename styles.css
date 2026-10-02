@@ -593,3 +593,5 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 @media (max-width:900px){ .pagehead--team .pagehead__bg[src*="faq-hero"] { object-position:50% 62%; } }
 
 .pagehead__bg[src*="area-vancouver-hero"] { object-position:50% 45%; }
+.section--plum .card h3 { color:var(--ink); }
+.section--plum .card p { color:var(--ink-soft); }
