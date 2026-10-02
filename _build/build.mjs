@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002k";
+const ASSET_V = "20261002l";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -254,7 +254,7 @@ const serviceBySlug = Object.fromEntries(services.map((s) => [s.slug, s]));
 /* ---------------- cities (unique local copy each) ---------------- */
 const cities = [
   {
-    slug: "vancouver", name: "Vancouver",
+    slug: "vancouver", name: "Vancouver", heroImg: "area-vancouver-hero",
     metaT: "Garage Door Repair Vancouver | Good Enough Garage Doors",
     metaD: "Garage door repair in Vancouver — springs, openers, cables & off-track doors across the West Side, East Van & Downtown. Same-day. Call (778) 800-0769.",
     lead: "Vancouver's housing runs from century-old character homes on the West Side to laneway garages in Mount Pleasant and condo loading bays downtown — and the salt air off the water is hard on every one of them. We repair garage doors right across Vancouver, usually the same day, with upfront pricing and no scare tactics.",
@@ -1016,11 +1016,11 @@ for (const c of cities) {
   const nearbyHtml = c.nearby.map((n) => `<a class="area-chip" href="/service-areas/${n}/">${I.pin} ${cityBySlug[n].name}</a>`).join("");
   const body = head({
     path: "/service-areas/" + c.slug + ".html", title: c.metaT, desc: c.metaD, ogImg: c.img, jsonld,
-    preload: `/assets/img/${c.img}-1200.avif`,
+    preload: `/assets/img/${c.heroImg || c.img}-1200.avif`,
   }) + header() + `
 <main id="main">
-  <section class="pagehead pagehead--img">
-    ${pageheadBg(c.img)}
+  <section class="pagehead pagehead--img${c.heroImg ? " pagehead--light pagehead--team" : ""}">
+    ${pageheadBg(c.heroImg || c.img)}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>Service Areas<span>/</span>${c.name}</nav>
       <h1>Garage Door Repair in ${c.name}</h1>
