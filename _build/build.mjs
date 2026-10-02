@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002t";
+const ASSET_V = "20261002u";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1081,8 +1081,7 @@ for (const c of cities) {
     </div>
   </section>
   <section class="section"><div class="container">
-    <div class="team-photo" style="margin-top:0" data-reveal><div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:1200px) 1160px, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:1200px) 1160px, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div></div>
-    <div class="measure" style="margin-inline:auto;margin-top:var(--s-7)" data-reveal>
+    <div class="measure" style="margin-inline:auto" data-reveal>
       <p class="byline">Updated ${UPDATED}</p>
       <span class="eyebrow">Our story</span>
       <h2>Why we named ourselves "Good Enough"</h2>
@@ -1092,6 +1091,7 @@ for (const c of cities) {
       <h2>Looking for an honest garage door company in Metro Vancouver?</h2>
       <p>That's the gap we built this company to fill. Our flat rates are published right on this site — tap "Pricing" in the footer to see them — the number we quote is the number you pay, and nobody upsells you on the truck. We're licensed (business licence), insured and WorkSafeBC-covered, every repair carries a workmanship warranty in writing, and if we get something wrong we come back free. The name undersells us on purpose; the honesty is the part we take completely seriously.</p>
     </div>
+    <div class="team-photo"  data-reveal><div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:1200px) 1160px, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:1200px) 1160px, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div></div>
   </div></section>
 
   <section class="section section--plum"><div class="container">
