@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002u";
+const ASSET_V = "20261002w";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1294,11 +1294,11 @@ for (const c of cities) {
 /* ========== LEGAL ========== */
 function legalPage(slug, title, metaT, intro, blocks, desc) {
   const jsonld = { "@context": "https://schema.org", "@graph": [breadcrumb([["Home", "/"], [title, "/" + slug + ".html"]])] };
-  const body = head({ path: "/" + slug + ".html", title: metaT, desc: desc || intro.slice(0, 155), jsonld, ogImg: "about", preload: "/assets/img/about-1200.avif" })
+  const body = head({ path: "/" + slug + ".html", title: metaT, desc: desc || intro.slice(0, 155), jsonld, ogImg: "about", preload: "/assets/img/legal-hero-1200.avif" })
     + header() + `
 <main id="main">
-  <section class="pagehead pagehead--img">
-    ${pageheadBg("about")}
+  <section class="pagehead pagehead--img pagehead--light pagehead--team">
+    ${pageheadBg("legal-hero")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>${title}</nav>
       <h1>${title}</h1>
