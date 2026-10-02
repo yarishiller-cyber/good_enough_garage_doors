@@ -596,3 +596,5 @@ details.more-openers > summary::-webkit-details-marker { display:none; }
 .section--plum .card h3 { color:var(--ink); }
 .section--plum .card p { color:var(--ink-soft); }
 @media (max-width:900px){ .pagehead--team .pagehead__bg[src*="legal-hero"] { object-position:40% 35%; } }
+@media (min-width:901px){ .pagehead--tall .container { padding-block:7rem; } .pagehead--tall .pagehead__bg[src*="legal-hero2"] { width:68%; object-position:60% 30%; } }
+@media (max-width:900px){ .pagehead--tall { padding-top:clamp(220px,70vw,380px); } .pagehead--team.pagehead--tall .pagehead__bg { height:clamp(220px,70vw,380px); } .pagehead--team.pagehead--tall::after { background:linear-gradient(180deg,rgba(34,26,46,.15),rgba(34,26,46,.1) clamp(150px,50vw,300px),var(--brand-darker) clamp(220px,70vw,380px)); } .pagehead--team .pagehead__bg[src*="legal-hero2"] { object-position:35% 25%; } }
