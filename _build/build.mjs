@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002n";
+const ASSET_V = "20261002o";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1091,7 +1091,7 @@ for (const c of cities) {
       <h2>Looking for an honest garage door company in Metro Vancouver?</h2>
       <p>That's the gap we built this company to fill. Our flat rates are published right on this site — tap "Pricing" in the footer to see them — the number we quote is the number you pay, and nobody upsells you on the truck. We're licensed (business licence), insured and WorkSafeBC-covered, every repair carries a workmanship warranty in writing, and if we get something wrong we come back free. The name undersells us on purpose; the honesty is the part we take completely seriously.</p>
     </div>
-    <div data-reveal="left"><div class="figframe zoom-frame"><img src="/assets/img/about.webp" loading="lazy" decoding="async" width="1200" height="750" alt="Good Enough Garage Doors crew beside the plum service van in Greater Vancouver"></div></div>
+    <div data-reveal="left"><div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:1200px) 560px, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:1200px) 560px, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div></div>
   </div></div></section>
 
   <section class="section section--plum"><div class="container">
