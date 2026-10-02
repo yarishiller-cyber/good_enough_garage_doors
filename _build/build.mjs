@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002p";
+const ASSET_V = "20261002r";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1080,21 +1080,32 @@ for (const c of cities) {
       <p class="lede measure">A local, Canadian-owned garage-door crew that decided honesty was a better marketing strategy than another set of superlatives.</p>
     </div>
   </section>
-  <section class="section"><div class="container">
-    <div class="team-photo" style="margin-top:0" data-reveal><div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:1200px) 1160px, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:1200px) 1160px, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div></div>
-    <div class="measure" style="margin-inline:auto;margin-top:var(--s-7)" data-reveal>
+  <section class="section section--plum"><div class="container">
+    <div class="split">
+      <div data-reveal>
       <p class="byline">Updated ${UPDATED}</p>
+      <p class="byline">Updated September 2026</p>
       <span class="eyebrow">Our story</span>
       <h2>Why we named ourselves "Good Enough"</h2>
       <p>We spent years in the garage-door trade watching customers get burned — $19.99 ads that turned into $600 invoices, springs sold in pairs that only needed one, whole openers replaced when a $40 gear would've done. Every company sounded the same: elite, premier, number-one.</p>
       <p>So we did the opposite. We picked the most humble name we could stand behind and built a company that quietly over-delivers underneath it. <strong>"Good enough" is an understatement</strong> — and we like it that way. Lower the talk, raise the work.</p>
       <p>We're local to the Tri-Cities and we serve all of Greater Vancouver. Real people answer the phone. We quote before we work. And if we get it wrong, we come back free.</p>
-      <h2>Looking for an honest garage door company in Metro Vancouver?</h2>
+      <h2 style="margin-top:var(--s-6)">Looking for an honest garage door company in Metro Vancouver?</h2>
       <p>That's the gap we built this company to fill. Our flat rates are published right on this site — tap "Pricing" in the footer to see them — the number we quote is the number you pay, and nobody upsells you on the truck. We're licensed (business licence), insured and WorkSafeBC-covered, every repair carries a workmanship warranty in writing, and if we get something wrong we come back free. The name undersells us on purpose; the honesty is the part we take completely seriously.</p>
+      </div>
+      <div data-reveal="left">
+        <div class="stats stats--side">
+            <div class="stat"><span class="n">7am–9pm</span><span class="l">Real people, 7 days</span></div>
+            <div class="stat"><span class="n">15+</span><span class="l">Metro Van cities served</span></div>
+            <div class="stat"><span class="n">$0</span><span class="l">Surprise fees, ever</span></div>
+            <div class="stat"><span class="n">100%</span><span class="l">Written quotes first</span></div>
+          </div>
+      </div>
     </div>
+    <div class="team-photo" data-reveal><div class="figframe figframe--pano zoom-frame"><picture><source type="image/avif" srcset="/assets/img/group-1200.avif 1200w, /assets/img/group-600.avif 600w" sizes="(min-width:1200px) 1160px, 100vw"><source type="image/webp" srcset="/assets/img/group-1200.webp 1200w, /assets/img/group-600.webp 600w" sizes="(min-width:1200px) 1160px, 100vw"><img src="/assets/img/group-1200.webp" loading="lazy" decoding="async" width="1200" height="442" alt="The Good Enough Garage Doors team of nine standing together in front of a glass garage door"></picture></div></div>
   </div></section>
 
-  <section class="section section--plum"><div class="container">
+  <section class="section section--soft"><div class="container">
     <div class="center" data-reveal><span class="eyebrow">What we actually stand for</span><h2>Boring values. Done properly.</h2></div>
     <div class="grid grid--3" data-stagger style="margin-top:2.5rem">
       <div class="card"><span class="card__icon">${I.dollar}</span><h3>Honest pricing</h3><p>A real number before we start, every time. No bait ads, no mystery fees, no "while we're in here" surprises.</p></div>
