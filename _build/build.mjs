@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 
 const C = JSON.parse(readFileSync(new URL("../site-config.json", import.meta.url)));
-const ASSET_V = "20261002m";
+const ASSET_V = "20261002n";
 const UPDATED = "September 2026";          // visible freshness signal (helps AI citation)
 const UPDATED_ISO = "2026-09-03";
 const BASE = C.siteUrl;
@@ -1069,11 +1069,11 @@ for (const c of cities) {
   const body = head({
     path: "/about.html", title: "About Us — Honest, Local Crew | Good Enough Garage Doors",
     desc: "A local, Canadian-owned garage door company with a humble name and a high standard. Honest pricing, real warranty, real people. Call (778) 800-0769.",
-    ogImg: "about", jsonld, preload: "/assets/img/about-1200.avif",
+    ogImg: "about", jsonld, preload: "/assets/img/about-hero-1200.avif",
   }) + header() + `
 <main id="main">
-  <section class="pagehead pagehead--img">
-    ${pageheadBg("about")}
+  <section class="pagehead pagehead--img pagehead--light pagehead--team">
+    ${pageheadBg("about-hero")}
     <div class="container">
       <nav class="crumbs"><a href="/">Home</a><span>/</span>About</nav>
       <h1>The only bad thing about us is the name.</h1>
