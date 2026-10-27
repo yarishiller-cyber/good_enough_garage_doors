@@ -17,6 +17,9 @@ DirectoryIndex index.html
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
+  # ---- search-engine verification files: serve as-is (no redirect) ----
+  RewriteRule ^google[0-9a-f]+\.html$ - [L]
+
   # ---- strip index.html (root or subdir) -> directory ----
   RewriteCond %{THE_REQUEST} \s/+(([^?\s]*/)?)index\.html[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L]
